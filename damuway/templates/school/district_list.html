@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Районы Алматы{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h1 class="mb-4">Школы Алматы по районам</h1>
+        <div class="list-group">
+            {% for district in districts %}
+            <a href="{% url 'school_list' district.id %}" class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ district.name }} район</h5>
+                    <small>{{ district.school_set.count }} школ</small>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Карта районов</h5>
+                <div id="districts-map" class="map-container"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function initMap() {
+        // Координаты центра Алматы
+        const almaty = { lat: 43.2389, lng: 76.9454 };
+        const map = new google.maps.Map(document.getElementById("districts-map"), {
+            zoom: 11,
+            center: almaty,
+        });
+        
+        // Добавляем маркеры для каждого района (можно добавить реальные координаты)
+        {% for district in districts %}
+        new google.maps.Marker({
+            position: { lat: almaty.lat + Math.random() * 0.1 - 0.05, 
+                       lng: almaty.lng + Math.random() * 0.1 - 0.05 },
+            map: map,
+            title: "{{ district.name }} район",
+        });
+        {% endfor %}
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&callback=initMap" async defer></script>
+{% endblock %}

@@ -1,19 +1,31 @@
 from django import forms
-from .models import Review, School
+from .models import Review, School, District
 
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
-        fields = ['text', 'rating']
+        fields = ['rating', 'text']
         widgets = {
-            'rating': forms.Select(choices=[(i, i) for i in range(1, 6)]),
+            'text': forms.Textarea(attrs={'rows': 5}),
         }
 
-class SchoolForm(forms.ModelForm):
-    class Meta:
-        model = School
-        fields = '__all__'
-        widgets = {
-            'latitude': forms.NumberInput(attrs={'step': "0.000001"}),
-            'longitude': forms.NumberInput(attrs={'step': "0.000001"}),
-        }
+class SchoolSearchForm(forms.Form):
+    district = forms.ModelChoiceField(
+        queryset=District.objects.all(),
+        required=False,
+        label="Район",
+        widget=forms.Select(attrs={'class': 'form-select'})
+    )
+    school_type = forms.ChoiceField(
+        choices=School.SCHOOL_TYPES,
+        required=False,
+        label="Тип школы",
+        widget=forms.Select(attrs={'class': 'form-select'})
+    )
+    min_rating = forms.IntegerField(
+        required=False,
+        label="Минимальный рейтинг",
+        min_value=1,
+        max_value=5,
+        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '1-5'})
+    )

@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}Поиск школ{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Фильтры поиска</h5>
+                <form method="get">
+                    <div class="mb-3">
+                        <label for="{{ form.district.id_for_label }}" class="form-label">Район</label>
+                        {{ form.district }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ form.school_type.id_for_label }}" class="form-label">Тип школы</label>
+                        {{ form.school_type }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ form.min_rating.id_for_label }}" class="form-label">Минимальный рейтинг</label>
+                        {{ form.min_rating }}
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Применить фильтры</button>
+                    <a href="{% url 'search_schools' %}" class="btn btn-outline-secondary w-100 mt-2">Сбросить</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <h1 class="mb-4">Результаты поиска</h1>
+        
+        {% if schools %}
+        <div class="list-group">
+            {% for school in schools %}
+            <a href="{% url 'school_detail' school.id %}" class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ school.name }}</h5>
+                    <small class="text-{% if school.school_type == 'state' %}primary{% elif school.school_type == 'private' %}success{% else %}warning{% endif %}">
+                        {{ school.get_school_type_display }}
+                    </small>
+                </div>
+                <p class="mb-1">{{ school.district.name }} район</p>
+                <div class="d-flex justify-content-between">
+                    <small class="text-muted">{{ school.address }}</small>
+                    <div class="rating-stars">
+                        {% for i in "12345" %}
+                            {% if forloop.counter <= school.rating|add:0.5 %}
+                                <i class="fas fa-star"></i>
+                            {% else %}
+                                <i class="far fa-star"></i>
+                            {% endif %}
+                        {% endfor %}
+                        <small>({{ school.reviews.count }})</small>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="alert alert-info">
+            По вашему запросу ничего не найдено. Попробуйте изменить критерии поиска.
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

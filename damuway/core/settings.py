@@ -143,3 +143,7 @@ DEFAULT_FROM_EMAIL = 'kairatbekmuratovvv@gmail.com'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
+
+GOOGLE_MAPS_API_KEY = 'AIzaSyCSGkHrOCjab82WAhhlPayKqkzJ5MV0qlI'
+FILE_UPLOAD_MAX_MEMORY_SIZE = 26214400  # 25MB
+DATA_UPLOAD_MAX_MEMORY_SIZE = 26214400  # 25MB

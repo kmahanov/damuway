@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}Школы {{ district.name }} района{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Школы {{ district.name }} района</h1>
+    <a href="{% url 'search_schools' %}" class="btn btn-primary">
+        <i class="fas fa-search"></i> Поиск школ
+    </a>
+</div>
+
+<div class="row">
+    {% for school in page_obj %}
+    <div class="col-md-6 mb-4">
+        <div class="card school-card h-100">
+            <img src="{{ school.main_image.url }}" class="card-img-top" alt="{{ school.name }}" style="height: 200px; object-fit: cover;">
+            <div class="card-body">
+                <h5 class="card-title">{{ school.name }}</h5>
+                <div class="mb-2">
+                    <span class="badge bg-{% if school.school_type == 'state' %}primary{% elif school.school_type == 'private' %}success{% else %}warning{% endif %}">
+                        {{ school.get_school_type_display }}
+                    </span>
+                    <span class="ms-2 rating-stars">
+                        {% for i in "12345" %}
+                            {% if forloop.counter <= school.rating|add:0.5 %}
+                                <i class="fas fa-star"></i>
+                            {% else %}
+                                <i class="far fa-star"></i>
+                            {% endif %}
+                        {% endfor %}
+                        <small>({{ school.reviews.count }})</small>
+                    </span>
+                </div>
+                <p class="card-text text-muted">
+                    <i class="fas fa-map-marker-alt"></i> {{ school.address }}
+                </p>
+                <p class="card-text">
+                    <i class="fas fa-tenge-sign"></i> {{ school.price|floatformat:"0" }} тг/мес
+                </p>
+                <a href="{% url 'school_detail' school.id %}" class="btn btn-outline-primary">Подробнее</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% include 'includes/pagination.html' with page_obj=page_obj %}
+
+<div class="mt-5">
+    <h4 class="mb-3">Все школы на карте</h4>
+    <div id="schools-map" class="map-container"></div>
+</div>
+
+<script>
+    function initMap() {
+        const districtCenter = { lat: {{ page_obj.0.latitude|default:"43.2389" }}, 
+                               lng: {{ page_obj.0.longitude|default:"76.9454" }} };
+        const map = new google.maps.Map(document.getElementById("schools-map"), {
+            zoom: 13,
+            center: districtCenter,
+        });
+
+        // Добавляем маркеры для каждой школы
+        {% for school in page_obj %}
+        {% if school.latitude and school.longitude %}
+        new google.maps.Marker({
+            position: { lat: {{ school.latitude }}, lng: {{ school.longitude }} },
+            map: map, title: "{{ school.name }}", label: "{{ forloop.counter }}",});
+        {% endif %}
+        {% endfor %}
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&callback=initMap" async defer></script>
+{% endblock %}
