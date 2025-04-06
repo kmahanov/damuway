@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'apps.event',
     'apps.about_us',
     'apps.activity',
+    'apps.main'
 
 ]
 
