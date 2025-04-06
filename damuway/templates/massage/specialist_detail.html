@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <h1>{{ specialist.name }}</h1>
+  <p><strong>Опыт:</strong> {{ specialist.experience }} лет</p>
+  <p><strong>Специализация:</strong> {{ specialist.specialization.name }}</p>
+
+  <a href="{% url 'book_appointment' specialist.id %}">Записаться на сеанс</a>
+</body>
+</html>

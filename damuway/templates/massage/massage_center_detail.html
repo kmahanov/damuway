@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ center.name }}</h1>
+  <p>{{ center.description }}</p>
+  <p><strong>Рейтинг:</strong> {{ center.rating }}</p>
+  <p><strong>Локация:</strong> {{ center.location }}</p>
+
+  <h2>Отзывы</h2>
+  {% for review in review_page_obj %}
+    <div>
+      <strong>{{ review.author }}</strong> ({{ review.rating }}⭐)
+      <p>{{ review.comment }}</p>
+    </div>
+  {% endfor %}
+
+  {% if review_page_obj.has_next %}
+    <a href="?review_page={{ review_page_obj.next_page_number }}">Следующая страница</a>
+  {% endif %}
+
+  <h2>Специалисты</h2>
+  <ul>
+    {% for specialist in specialists %}
+      <li><a href="{% url 'specialist_detail' specialist.id %}">{{ specialist.name }}</a></li>
+    {% endfor %}
+  </ul>
+
+  <a href="{% url 'add_review' center.id %}">Добавить отзыв</a>
+{% endblock %}
+
+</body>
+</html>
