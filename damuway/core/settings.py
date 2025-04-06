@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'apps.massage',
     'apps.logoped',
     'apps.event',
+    'apps.about_us',
 
 ]
 

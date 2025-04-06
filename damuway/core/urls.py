@@ -28,6 +28,7 @@ urlpatterns = [
     path('massage/', include('apps.massage.urls')),
     path('logoped/', include('apps.logoped.urls')),
     path('event/', include('apps.event.urls')),
+    path('about/', include('apps.about_us.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
