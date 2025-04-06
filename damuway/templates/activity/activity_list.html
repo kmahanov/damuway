@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% for activity in activities %}
+    <div>
+        <h2><a href="{% url 'activity_detail' activity.pk %}">{{ activity.title }}</a></h2>
+        <p>Возраст: {{ activity.get_age_group_display }}</p>
+        <img src="{{ activity.image_url }}" alt="{{ activity.title }}" style="max-width: 200px;">
+        <p>Рейтинг: {{ activity.average_rating }} ⭐</p>
+    </div>
+{% endfor %}
+{% endblock %}

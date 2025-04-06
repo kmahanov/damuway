@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ activity.title }}</h1>
+<p>{{ activity.description }}</p>
+
+
+{% if activity.image_url %}
+    <img src="{{ activity.image_url }}" alt="{{ activity.title }}" style="max-width: 300px;">
+{% endif %}
+
+
+{% if activity.video_url %}
+    <h3>Видео:</h3>
+    <iframe width="560" height="315" src="{{ activity.video_url }}" frameborder="0" allowfullscreen></iframe>
+{% endif %}
+
+<p>Материалы: {{ activity.materials }}</p>
+<p>Рейтинг: {{ activity.average_rating }} ⭐</p>
+
+
+<h3>Добавить оценку:</h3>
+<form action="{% url 'add_rating' activity.pk %}" method="post">
+    {% csrf_token %}
+    <select name="value">
+        {% for i in "12345" %}
+            <option value="{{ i }}">{{ i }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Оценить</button>
+</form>
+
+{% endblock %}

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'apps.logoped',
     'apps.event',
     'apps.about_us',
+    'apps.activity',
 
 ]
 

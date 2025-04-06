@@ -1,6 +1,5 @@
 from django.conf import settings
 from django.contrib.sites import requests
-# Исправленный импорт
 from django.db import models
 from math import radians, sin, cos, sqrt, atan2
 
