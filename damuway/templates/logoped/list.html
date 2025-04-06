@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Логопеды</h1>
+
+<div class="filters">
+    <h3>Фильтровать по специализации:</h3>
+    <a href="?">Все</a>
+    {% for spec in SPECIALIZATIONS %}
+        <a href="?specialization={{ spec.0 }}">{{ spec.1 }}</a>
+    {% endfor %}
+</div>
+
+<div class="logoped-list">
+    {% for logoped in logopeds %}
+        <div class="logoped-card">
+            {% if logoped.photo %}
+                <img src="{{ logoped.photo.url }}" alt="{{ logoped.name }}" width="100">
+            {% endif %}
+            <h2><a href="{% url 'logoped:detail' logoped.pk %}">{{ logoped.name }}</a></h2>
+            <p>Специализация: {{ logoped.get_specialization_display }}</p>
+            <p>Опыт: {{ logoped.experience }} лет</p>
+            <p>Цена за час: {{ logoped.price_per_hour }} ₸</p>
+            <a href="{% url 'logoped:detail' logoped.pk %}" class="btn">Подробнее</a>
+        </div>
+    {% empty %}
+        <p>Логопеды не найдены.</p>
+    {% endfor %}
+</div>
+</body>
+</html>

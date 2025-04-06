@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="logoped-detail">
+    {% if logoped.photo %}
+        <img src="{{ logoped.photo.url }}" alt="{{ logoped.name }}" width="200">
+    {% endif %}
+    <h1>{{ logoped.name }}</h1>
+    <p><strong>Специализация:</strong> {{ logoped.get_specialization_display }}</p>
+    <p><strong>Опыт:</strong> {{ logoped.experience }} лет</p>
+    <p><strong>Цена за час:</strong> {{ logoped.price_per_hour }} ₸</p>
+    <p><strong>Местоположение:</strong> {{ logoped.location|default:"Не указано" }}</p>
+    <p><strong>Телефон:</strong> {{ logoped.phone|default:"Не указан" }}</p>
+    <p><strong>Email:</strong> {{ logoped.email|default:"Не указан" }}</p>
+    <p><strong>Описание:</strong> {{ logoped.description|default:"Нет описания" }}</p>
+
+    <h2>Расписание</h2>
+    <ul>
+        {% for schedule in schedules %}
+            <li>{{ schedule.day_of_week }}: {{ schedule.time_slot }}</li>
+        {% empty %}
+            <li>Расписание не указано</li>
+        {% endfor %}
+    </ul>
+
+    <div class="actions">
+        <a href="{% url 'logoped:create_appointment' logoped.pk %}" class="btn">Записаться на прием</a>
+        <a href="{% url 'logoped:create_booking' logoped.pk %}" class="btn">Забронировать время</a>
+    </div>
+
+    <h2>Отзывы</h2>
+    {% if reviews %}
+        {% for review in reviews %}
+            <div class="review">
+                <p><strong>{{ review.user.username }}</strong> ({{ review.rating }}⭐)</p>
+                <p>{{ review.text }}</p>
+                <p class="date">{{ review.created_at }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Пока нет отзывов.</p>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        <h3>Оставить отзыв</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ review_form.as_p }}
+            <button type="submit">Отправить отзыв</button>
+        </form>
+    {% else %}
+        <p><a href="{% url 'login' %}">Войдите</a>, чтобы оставить отзыв.</p>
+    {% endif %}
+</div>
+</body>
+</html>

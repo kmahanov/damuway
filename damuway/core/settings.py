@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'apps.book',
     'apps.school',
     'apps.massage',
+    'apps.logoped'
 
 ]
 

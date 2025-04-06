@@ -11,5 +11,40 @@
     {% csrf_token %}
     <button type="submit">Logout</button>
 </form>
+
+<h1>Мои записи</h1>
+
+{% if bookings.logoped %}
+    <ul>
+        {% for booking in bookings %}
+            <li>
+                <p><strong>{{ booking.logoped.name }}</strong></p>
+                <p>Дата и время: {{ booking.date_time }}</p>
+                <p>Статус: {{ booking.get_status_display }}</p>
+                {% if booking.status == 'confirmed' %}
+                    <a href="{% url 'logoped:cancel_booking' booking.pk %}">Отменить запись</a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>У вас пока нет записей.</p>
+{% endif %}
+
+<h1>Мои отзывы</h1>
+
+{% if reviews %}
+    <ul>
+        {% for review in reviews %}
+            <li>
+                <p><strong>{{ review.logoped.name }}</strong> ({{ review.rating }}⭐)</p>
+                <p>{{ review.text }}</p>
+                <p class="date">{{ review.created_at }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Вы еще не оставляли отзывов.</p>
+{% endif %}
 </body>
 </html>
