@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Цитаты из книги: {{ book.title }}</h2>
+{% for quote in quotes %}
+    <p>{{ quote.text }}</p>
+    <p>👍 {{ quote.likes }} 👎 {{ quote.dislikes }}</p>
+{% endfor %}
+</body>
+</html>

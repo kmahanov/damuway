@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Книги</h1>
+<form method="GET">
+    <input type="text" name="q" placeholder="Поиск по названию или автору...">
+    <button type="submit">Поиск</button>
+</form>
+
+<h2>Новинки</h2>
+{% for book in new_books %}
+    <a href="{% url 'book_detail' book.pk %}">{{ book.title }}</a><br>
+{% empty %}
+    <p>Нет новых книг</p>
+{% endfor %}
+
+<h2>Популярные</h2>
+{% for book in popular_books %}
+    <a href="{% url 'book_detail' book.pk %}">{{ book.title }}</a><br>
+{% endfor %}
+
+</body>
+</html>
