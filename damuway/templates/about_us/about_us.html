@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="about-container">
+    <h1>{{ about.title }}</h1>
+    <p>{{ about.description }}</p>
+
+    {% if about.image %}
+        <img src="{{ about.image.url }}" alt="О нас" class="about-img">
+    {% endif %}
+
+    <h2>Наша миссия</h2>
+    <p>{{ about.mission }}</p>
+
+    <h2>Наша команда</h2>
+    <div class="team-container">
+        {% for member in team %}
+            <div class="team-card">
+                {% if member.photo %}
+                    <img src="{{ member.photo.url }}" alt="{{ member.name }}" class="team-photo">
+                {% endif %}
+                <h3>{{ member.name }}</h3>
+                <p class="team-role">{{ member.role }}</p>
+                <p>{{ member.bio }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>

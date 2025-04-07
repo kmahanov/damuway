@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<div class="event-container">
+    <h1 class="page-title">🎉 События для детей</h1>
+
+    <div class="event-filters">
+        <form method="GET">
+            <label for="city">🏙 Город:</label>
+            <select name="city" id="city" onchange="this.form.submit()">
+                <option value="">Все города</option>
+                {% for city in cities %}
+                <option value="{{ city }}" {% if request.GET.city == city %}selected{% endif %}>{{ city }}</option>
+                {% endfor %}
+            </select>
+        </form>
+    </div>
+
+    <div class="event-grid">
+        {% for event in events %}
+        <div class="event-card">
+            {% if event.image %}
+            <img src="{{ event.image.url }}" alt="{{ event.title }}" class="event-img">
+            {% endif %}
+
+            <div class="event-info">
+                <h2 class="event-title">
+                    <a href="{% url 'event_detail' event.id %}">{{ event.title }}</a>
+                </h2>
+                <p class="event-location">📍 {{ event.location }}</p>
+                <p class="event-date">🗓 {{ event.date|date:"d M Y H:i" }}</p>
+                <p class="event-age">👶 Возраст: {{ event.age_limit }}</p>
+                <p class="event-price">💰 Цена: {{ event.price }}</p>
+                <a href="{% url 'event_detail' event.id %}" class="btn">Подробнее</a>
+            </div>
+        </div>
+        {% empty %}
+        <p class="no-events">😔 Пока нет запланированных событий.</p>
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>
