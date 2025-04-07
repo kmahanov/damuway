@@ -1,0 +1,301 @@
+/* Основной стиль для страницы */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+/* Контейнер для всех секций */
+.container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+/* Основная секция приветствия */
+.welcome-section {
+    text-align: center;
+    padding: 50px 0;
+    background-color: #714eff;
+    color: white;
+}
+
+.welcome-section h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.welcome-section p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.cta-btn {
+    background-color: #ff7f50;
+    padding: 10px 20px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.cta-btn:hover {
+    background-color: #ff5733;
+}
+
+/* Секция популярных услуг */
+.services-section {
+    background-color: #fff;
+    padding: 60px 0;
+}
+
+.services-section h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.services-list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.service-item {
+    width: 30%;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.service-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.service-item h3 {
+    font-size: 1.5rem;
+    margin-top: 15px;
+}
+
+.service-item p {
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+/* Секция ресурсов */
+.resources-section {
+    background-color: #f4f4f4;
+    padding: 60px 0;
+}
+
+.resources-section h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.resources-list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.resource-item {
+    width: 30%;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.resource-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.resource-item h3 {
+    font-size: 1.5rem;
+    margin-top: 15px;
+}
+
+.resource-item p {
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+.resource-item a {
+    background-color: #714eff;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 15px;
+    display: inline-block;
+}
+
+.resource-item a:hover {
+    background-color: #5a2ce7;
+}
+
+/* Секция блога */
+.blog-section {
+    padding: 60px 0;
+}
+
+.blog-section h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.blog-posts {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.blog-post {
+    width: 48%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.blog-post h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.blog-post p {
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+.blog-post a {
+    background-color: #714eff;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.blog-post a:hover {
+    background-color: #5a2ce7;
+}
+
+/* Секция отзывов */
+.testimonials-section {
+    background-color: #f4f4f4;
+    padding: 60px 0;
+}
+
+.testimonials-section h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.testimonials-list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.testimonial-item {
+    width: 48%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial-item p {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+.testimonial-item h4 {
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: right;
+}
+
+/* Секция новостей */
+.news-section {
+    padding: 60px 0;
+}
+
+.news-section h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.news-posts {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.news-item {
+    width: 48%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.news-item h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.news-item p {
+    font-size: 1rem;
+}
+
+/* Секция контактов */
+.contact-section {
+    background-color: #714eff;
+    color: white;
+    padding: 60px 0;
+    text-align: center;
+}
+
+.contact-section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.contact-section p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+/* Адаптивность для мобильных устройств */
+@media screen and (max-width: 768px) {
+    .services-list, .resources-list, .blog-posts, .testimonials-list, .news-posts {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .service-item, .resource-item, .blog-post, .testimonial-item, .news-item {
+        width: 90%;
+        margin-bottom: 20px;
+    }
+
+    .cta-btn {
+        padding: 12px 25px;
+        font-size: 1.2rem;
+    }
+
+    .resource-item a, .blog-post a {
+        padding: 8px 18px;
+    }
+}
