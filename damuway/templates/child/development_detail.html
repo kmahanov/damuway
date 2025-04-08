@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>{{ stage }}</h2>
+<p>{{ stage.recommendations }}</p>
+
+<h3>Комментарии</h3>
+<ul>
+  {% for comment in comments %}
+    <li><strong>{{ comment.user.username }}:</strong> {{ comment.text }} ({{ comment.created_at|date:"d.m.Y" }})</li>
+  {% empty %}
+    <li>Пока нет комментариев.</li>
+  {% endfor %}
+</ul>
+
+{% if user.is_authenticated %}
+  <a href="{% url 'add_comment' stage.pk %}">Добавить комментарий</a>
+{% else %}
+  <p><a href="{% url 'login' %}">Войдите</a>, чтобы оставить комментарий.</p>
+{% endif %}
+</body>
+</html>

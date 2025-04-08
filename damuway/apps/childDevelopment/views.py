@@ -1,27 +1,31 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import ChildDevelopment, DevelopmentComment
-from .forms import CommentForm
+from django.contrib.auth.decorators import login_required
+from .forms import DevelopmentCommentForm
 
 def development_list(request):
-    developments = ChildDevelopment.objects.all()
-    return render(request, "development/list.html", {"developments": developments})
+    stages = ChildDevelopment.objects.all()
+    return render(request, 'child/development_list.html', {'stages': stages})
 
-def development_detail(request, age):
-    development = get_object_or_404(ChildDevelopment, age=age)
-    comments = development.comments.all()
+def development_detail(request, pk):
+    stage = get_object_or_404(ChildDevelopment, pk=pk)
+    comments = stage.comments.all()
+    return render(request, 'child/development_detail.html', {
+        'stage': stage,
+        'comments': comments
+    })
 
-    if request.method == "POST":
-        form = CommentForm(request.POST)
+@login_required
+def add_comment(request, pk):
+    stage = get_object_or_404(ChildDevelopment, pk=pk)
+    if request.method == 'POST':
+        form = DevelopmentCommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
-            comment.development = development
+            comment.user = request.user
+            comment.development = stage
             comment.save()
-            return redirect("development_detail", age=age)
+            return redirect('development_detail', pk=stage.pk)
     else:
-        form = CommentForm()
-
-    return render(request, "development/development_detail.html", {
-        "development": development,
-        "comments": comments,
-        "form": form
-    })
+        form = DevelopmentCommentForm()
+    return render(request, 'child/add_comment.html', {'form': form})
