@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Опрос</title>
+</head>
+<body>
+    <div id="quiz-container">
+        <h3>{{ question.text }}</h3>
+        <p>Вопрос {{ progress }}</p>
+
+        <div id="answers">
+            {% for answer in question.answeroption_set.all %}
+                <button onclick="submitAnswer({{ answer.id }})">{{ answer.text }}</button>
+            {% endfor %}
+        </div>
+
+        <div id="feedback" style="display:none; margin-top: 20px;"></div>
+        <button id="next-btn" style="display:none; margin-top: 10px;" onclick="goToNext()">Следующий вопрос</button>
+    </div>
+
+    <script>
+        let nextQuestionId = "{{ next_question_id }}";
+
+        function submitAnswer(answerId) {
+            fetch("", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token }}",
+                    "X-Requested-With": "XMLHttpRequest",
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: `answer_id=${answerId}`
+            })
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('feedback').innerText = data.feedback;
+                document.getElementById('feedback').style.display = 'block';
+                document.getElementById('next-btn').style.display = 'inline-block';
+                nextQuestionId = data.next_question_id;
+                if (data.finished) {
+                    nextQuestionId = "complete";
+                }
+            });
+        }
+
+        function goToNext() {
+            if (nextQuestionId === "complete") {
+                window.location.href = "/survey/complete/";
+            } else {
+                window.location.href = `/survey/${nextQuestionId}/`;
+            }
+        }
+    </script>
+</body>
+</html>

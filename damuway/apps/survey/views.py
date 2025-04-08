@@ -1,42 +1,43 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
-from .models import Question, AnswerOption, UserResponse
 from django.http import JsonResponse
+from .models import Question, AnswerOption
 
 
 class SurveyView(View):
-    def get(self, request):
-        questions = Question.objects.order_by('order')
-        return render(request, 'survey/survey.html', {'questions': questions})
+    def get(self, request, question_id=None):
+        if not question_id:
+            first_question = Question.objects.order_by('order').first()
+            if first_question:
+                return redirect('survey:question', question_id=first_question.id)
+            return render(request, 'survey/complete.html')
 
-    def post(self, request):
-        session_key = request.session.session_key
-        if not session_key:
-            request.session.save()
-            session_key = request.session.session_key
+        question = get_object_or_404(Question, id=question_id)
+        next_question = Question.objects.filter(order__gt=question.order).order_by('order').first()
 
-        selected_answer_id = None
-        for key, value in request.POST.items():
-            if key.startswith('question_'):
-                selected_answer_id = value
-                question_id = key.split('_')[1]
-                UserResponse.objects.create(
-                    question_id=question_id,
-                    answer_id=selected_answer_id,
-                    session_key=session_key
-                )
+        return render(request, 'survey/question.html', {
+            'question': question,
+            'next_question_id': next_question.id if next_question else None,
+            'progress': f"{question.order}/{Question.objects.count()}"
+        })
 
-        if selected_answer_id:
-            answer = AnswerOption.objects.get(id=selected_answer_id)
-            feedback = answer.feedback
-        else:
-            feedback = "Спасибо за участие!"
+    def post(self, request, question_id):
+        answer_id = request.POST.get('answer_id')
+        answer = get_object_or_404(AnswerOption, id=answer_id)
+        next_question = Question.objects.filter(order__gt=answer.question.order).order_by('order').first()
 
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            return JsonResponse({'feedback': feedback})
+            return JsonResponse({
+                'feedback': answer.feedback,
+                'next_question_id': next_question.id if next_question else None,
+                'finished': not bool(next_question)
+            })
 
-        return render(request, 'survey/feedback.html', {'feedback': feedback})
+        if next_question:
+            return redirect('survey:question', question_id=next_question.id)
+        return redirect('survey:complete')
 
 
-def survey_thanks(request):
-    return render(request, 'survey/thanks.html')
+class CompleteView(View):
+    def get(self, request):
+        return render(request, 'survey/complete.html')

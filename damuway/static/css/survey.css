@@ -1,0 +1,81 @@
+.survey-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.progress-bar {
+    text-align: right;
+    color: #6c757d;
+    margin-bottom: 1rem;
+}
+
+.question-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+}
+
+.options {
+    margin: 1.5rem 0;
+}
+
+.option {
+    display: block;
+    padding: 0.8rem;
+    margin: 0.5rem 0;
+    background: #f1f3f5;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.option:hover {
+    background: #e9ecef;
+}
+
+.option input {
+    margin-right: 0.8rem;
+}
+
+.submit-btn, .next-btn, .retry-btn {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    background: #4263eb;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.submit-btn:hover, .next-btn:hover, .retry-btn:hover {
+    background: #364fc7;
+}
+
+.feedback-container {
+    margin-top: 1.5rem;
+    animation: fadeIn 0.3s;
+}
+
+.feedback-card {
+    padding: 1rem;
+    background: #e6fcf5;
+    border-left: 4px solid #20c997;
+    margin-bottom: 1rem;
+}
+
+.survey-complete {
+    text-align: center;
+    max-width: 500px;
+    margin: 3rem auto;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
