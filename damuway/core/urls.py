@@ -33,6 +33,7 @@ urlpatterns = [
     path('activity/', include('apps.activity.urls')),
     path('advice/', include('apps.advice.urls')),
     path('article/', include('apps.article.urls')),
+    path('development/', include('apps.childDevelopment.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
