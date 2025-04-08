@@ -3,4 +3,4 @@ from .models import Category
 
 def web(request):
     categories = Category.objects.all()
-    return render(request, "catagol/index.html", {"categories": categories})
+    return render(request, "catalog/index.html", {"categories": categories})
