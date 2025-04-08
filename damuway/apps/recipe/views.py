@@ -16,7 +16,7 @@ def recipe_list(request):
         'recipes': recipes,
         'age_groups': Recipe.AGE_GROUPS,
     }
-    return render(request, 'recipes/recipe_list.html', context)
+    return render(request, 'recipe/recipe_list.html', context)
 
 
 def recipe_detail(request, pk):
@@ -63,4 +63,4 @@ def recipe_detail(request, pk):
         'rating_form': rating_form,
         'user_rating': user_rating,
     }
-    return render(request, 'recipes/recipe_detail.html', context)
+    return render(request, 'recipe/recipe_detail.html', context)

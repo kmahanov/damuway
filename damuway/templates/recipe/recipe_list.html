@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Рецепты для детей</h1>
+
+<div class="mb-4">
+    <form method="get" class="form-inline">
+        <label for="age_group" class="mr-2">Фильтр по возрасту:</label>
+        <select name="age_group" id="age_group" class="form-control mr-2">
+            <option value="">Все возрасты</option>
+            {% for value, label in age_groups %}
+                <option value="{{ value }}" {% if request.GET.age_group == value %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="btn btn-primary">Применить</button>
+    </form>
+</div>
+
+<div class="row">
+    {% for recipe in recipes %}
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <img src="{{ recipe.get_image }}" class="card-img-top" alt="{{ recipe.title }}" style="height: 200px; object-fit: cover;">
+            <div class="card-body">
+                <h5 class="card-title">{{ recipe.title }}</h5>
+                <p class="card-text">
+                    <span class="badge bg-secondary">{{ recipe.get_age_group_display }}</span>
+                    <span class="ms-2">★ {{ recipe.average_rating|default:"0" }}</span>
+                </p>
+                <a href="{% url 'recipe_detail' recipe.pk %}" class="btn btn-primary">Подробнее</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
