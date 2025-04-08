@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'apps.activity',
     'apps.main',
     'apps.advice',
+    'apps.article',
 
 ]
 
