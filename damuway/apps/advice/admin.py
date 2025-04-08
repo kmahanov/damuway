@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import *
 
-# Register your models here.
+admin.site.register(AgeCategory)
+admin.site.register(HealthAdvice)
+admin.site.register(ParentReview)

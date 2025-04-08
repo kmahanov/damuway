@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>{{ advice.title }}</h1>
+<p>{{ advice.content }}</p>
+<p>Категория возраста: {{ advice.age_category }}</p>
+
+<h2>Отзывы</h2>
+<ul>
+    {% for review in reviews %}
+        <li>
+            <strong>{{ review.user.username }}</strong>: {{ review.rating }}★<br>
+            {{ review.comment }}<br>
+            <small>{{ review.created_at|date:"d.m.Y H:i" }}</small>
+        </li>
+    {% empty %}
+        <li>Пока нет отзывов</li>
+    {% endfor %}
+</ul>
+
+{% if user.is_authenticated %}
+    <h3>Оставить отзыв</h3>
+    <form method="post" action="{% url 'add_review' advice.pk %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Отправить</button>
+    </form>
+{% else %}
+    <p><a href="{% url 'login' %}">Войдите</a>, чтобы оставить отзыв.</p>
+{% endif %}
+</body>
+</html>
