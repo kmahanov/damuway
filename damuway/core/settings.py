@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'apps.advice',
     'apps.article',
     'apps.childDevelopment',
-    'apps.recipe'
+    'apps.recipe',
+    'apps.survey'
 
 ]
 
