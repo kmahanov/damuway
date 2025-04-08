@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'apps.main',
     'apps.advice',
     'apps.article',
+    'apps.childDevelopment',
 
 ]
 
