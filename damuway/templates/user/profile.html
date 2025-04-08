@@ -1,50 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h2>Your Profile</h2>
-<p>Welcome, {{ user.username }}!</p>
-<form action="{% url 'logout' %}" method="post">
-    {% csrf_token %}
-    <button type="submit">Logout</button>
-</form>
+{% extends 'base.html' %}
+{% load static %}
 
-<h1>Мои записи</h1>
+{% block title %}Damuway - Профиль{% endblock %}
 
-{% if bookings.logoped %}
-    <ul>
-        {% for booking in bookings %}
-            <li>
-                <p><strong>{{ booking.logoped.name }}</strong></p>
-                <p>Дата и время: {{ booking.date_time }}</p>
-                <p>Статус: {{ booking.get_status_display }}</p>
-                {% if booking.status == 'confirmed' %}
-                    <a href="{% url 'logoped:cancel_booking' booking.pk %}">Отменить запись</a>
-                {% endif %}
-            </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>У вас пока нет записей.</p>
-{% endif %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/user/profile.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div class="profile-container">
+    <div class="profile-card">
+        <!-- Аватар и основная информация -->
+        <div class="profile-header">
+            <div class="avatar-circle">
+                {{ user.first_name.0|default:user.username.0 }}
+            </div>
+            <h1>{{ user.first_name|default:user.username }}</h1>
+            <p class="user-email">{{ user.email }}</p>
+            <p class="member-since">Участник с {{ user.date_joined|date:"d.m.Y" }}</p>
+        </div>
 
-<h1>Мои отзывы</h1>
+        <!-- Основные данные -->
+        <div class="profile-details">
+            <div class="detail-item">
+                <span class="detail-label">Имя пользователя:</span>
+                <span class="detail-value">{{ user.username }}</span>
+            </div>
+            
+            <div class="detail-item">
+                <span class="detail-label">Дата регистрации:</span>
+                <span class="detail-value">{{ user.date_joined|date:"d.m.Y" }}</span>
+            </div>
+            
+            <div class="detail-item">
+                <span class="detail-label">Последний вход:</span>
+                <span class="detail-value">
+                    {% if user.last_login %}
+                        {{ user.last_login|date:"d.m.Y H:i" }}
+                    {% else %}
+                        Ещё не входил
+                    {% endif %}
+                </span>
+            </div>
+        </div>
 
-{% if reviews %}
-    <ul>
-        {% for review in reviews %}
-            <li>
-                <p><strong>{{ review.logoped.name }}</strong> ({{ review.rating }}⭐)</p>
-                <p>{{ review.text }}</p>
-                <p class="date">{{ review.created_at }}</p>
-            </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>Вы еще не оставляли отзывов.</p>
-{% endif %}
-</body>
-</html>
+        <!-- Действия -->
+        <div class="profile-actions">
+            <a href="#" class="action-btn edit-btn">Изменить имя</a>
+            <a href="{% url 'password_reset' %}" class="action-btn change-btn">Сменить пароль</a>
+            <a href="{% url 'logout' %}" class="action-btn logout-btn">Выйти из аккаунта</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
