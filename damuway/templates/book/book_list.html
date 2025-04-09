@@ -1,27 +1,123 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Книги</h1>
-<form method="GET">
-    <input type="text" name="q" placeholder="Поиск по названию или автору...">
-    <button type="submit">Поиск</button>
-</form>
+{% extends 'base.html' %}
+{% load static %}
 
-<h2>Новинки</h2>
-{% for book in new_books %}
-    <a href="{% url 'book_detail' book.pk %}">{{ book.title }}</a><br>
-{% empty %}
-    <p>Нет новых книг</p>
-{% endfor %}
+{% block title %}Damuway - Книги для родителей{% endblock %}
 
-<h2>Популярные</h2>
-{% for book in popular_books %}
-    <a href="{% url 'book_detail' book.pk %}">{{ book.title }}</a><br>
-{% endfor %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/book/book_list.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+{% endblock %}
 
-</body>
-</html>
+{% block content %}
+<div class="book-list-container">
+    <div class="book-list-header">
+        <h1>Книги для родителей</h1>
+        <div class="search-filter">
+            <form method="get" class="search-form">
+                <input type="text" name="q" placeholder="Поиск по книгам..." value="{{ request.GET.q }}">
+                <button type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#714EFF" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+            </form>
+            <div class="genre-filter">
+                <span>Жанры:</span>
+                <select onchange="location = this.value;">
+                    <option value="?">Все жанры</option>
+                    {% for genre in genres %}
+                    <option value="?genre={{ genre.id }}" {% if request.GET.genre == genre.id|stringformat:"s" %}selected{% endif %}>
+                        {{ genre.name }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+
+    {% if new_books %}
+    <section class="book-section">
+        <h2>Новинки</h2>
+        <div class="books-grid">
+            {% for book in new_books %}
+            <div class="book-card">
+                <a href="{% url 'book_detail' book.pk %}">
+                    <div class="book-cover">
+                        {% if book.cover %}
+                        <img src="{{ book.cover.url }}" alt="{{ book.title }}">
+                        {% else %}
+                        <div class="cover-placeholder">{{ book.title|slice:":1" }}</div>
+                        {% endif %}
+                        {% if book.is_new %}
+                        <span class="badge new">NEW</span>
+                        {% endif %}
+                    </div>
+                    <div class="book-info">
+                        <h3>{{ book.title }}</h3>
+                        <p class="author">{{ book.author.name }}</p>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    {% if popular_books %}
+    <section class="book-section">
+        <h2>Популярные</h2>
+        <div class="books-grid">
+            {% for book in popular_books %}
+            <div class="book-card">
+                <a href="{% url 'book_detail' book.pk %}">
+                    <div class="book-cover">
+                        {% if book.cover %}
+                        <img src="{{ book.cover.url }}" alt="{{ book.title }}">
+                        {% else %}
+                        <div class="cover-placeholder">{{ book.title|slice:":1" }}</div>
+                        {% endif %}
+                        {% if book.is_popular %}
+                        <span class="badge popular">TOP</span>
+                        {% endif %}
+                    </div>
+                    <div class="book-info">
+                        <h3>{{ book.title }}</h3>
+                        <p class="author">{{ book.author.name }}</p>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    {% if recommended_books %}
+    <section class="book-section">
+        <h2>Рекомендуем</h2>
+        <div class="books-grid">
+            {% for book in recommended_books %}
+            <div class="book-card">
+                <a href="{% url 'book_detail' book.pk %}">
+                    <div class="book-cover">
+                        {% if book.cover %}
+                        <img src="{{ book.cover.url }}" alt="{{ book.title }}">
+                        {% else %}
+                        <div class="cover-placeholder">{{ book.title|slice:":1" }}</div>
+                        {% endif %}
+                        {% if book.is_recommended %}
+                        <span class="badge recommended">★</span>
+                        {% endif %}
+                    </div>
+                    <div class="book-info">
+                        <h3>{{ book.title }}</h3>
+                        <p class="author">{{ book.author.name }}</p>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+</div>
+{% endblock %}

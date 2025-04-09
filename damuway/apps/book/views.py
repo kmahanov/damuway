@@ -7,12 +7,17 @@ from django.shortcuts import redirect
 
 def book_list(request):
     query = request.GET.get('q')
+    genre_id = request.GET.get('genre')
     books = Book.objects.all()
 
     if query:
         books = books.filter(
-            Q(title__icontains=query) | Q(author__name__icontains=query)
+            Q(title__icontains=query) | 
+            Q(author__name__icontains=query)
         )
+
+    if genre_id:
+        books = books.filter(genre__id=genre_id)
 
     context = {
         'new_books': books.filter(is_new=True),
