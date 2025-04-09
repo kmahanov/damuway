@@ -1,27 +1,69 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}Районы Алматы{% endblock %}
+{% block title %}Районы Алматы - Каталог школ{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/school/district_list.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-md-8">
-        <h1 class="mb-4">Школы Алматы по районам</h1>
-        <div class="list-group">
-            {% for district in districts %}
-            <a href="{% url 'school_list' district.id %}" class="list-group-item list-group-item-action">
-                <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">{{ district.name }} район</h5>
-                    <small>{{ district.school_set.count }} школ</small>
+<div class="districts-page">
+    <div class="hero-banner">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Найдите лучшие школы в Алматы</h1>
+                <p class="hero-subtitle">Выберите район для просмотра списка школ</p>
+                <div class="search-box">
+                    <input type="text" id="district-search" placeholder="Поиск по районам..." class="search-input">
+                    <button class="search-button">
+                        <i class="fas fa-search"></i>
+                    </button>
                 </div>
-            </a>
-            {% endfor %}
+            </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Карта районов</h5>
-                <div id="districts-map" class="map-container"></div>
+
+    <div class="container main-container">
+        <div class="content-wrapper">
+            <div class="districts-section">
+                <h2 class="section-title">
+                    <i class="fas fa-map-marker-alt"></i> Все районы Алматы
+                </h2>
+                <div class="district-grid">
+                    {% for district in districts %}
+                    <a href="{% url 'school_list' district.id %}" class="district-card" data-name="{{ district.name|lower }}">
+                        <div class="card-header">
+                            <span class="district-number">0{{ forloop.counter }}</span>
+                            <span class="school-count">
+                                <i class="fas fa-school"></i> {{ district.school_set.count }}
+                            </span>
+                        </div>
+                        <h3 class="district-name">{{ district.name }} район</h3>
+                        <div class="explore-link">
+                            Смотреть школы <i class="fas fa-arrow-right"></i>
+                        </div>
+                        <div class="hover-effect"></div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="map-section">
+                <div class="map-card">
+                    <div class="map-header">
+                        <h3>
+                            <i class="fas fa-map"></i> Расположение районов
+                        </h3>
+                        <div class="map-legend">
+                            <span class="legend-dot" style="background: #4E60FF;"></span>
+                            <span>Районы с школами</span>
+                        </div>
+                    </div>
+                    <div id="districts-map" class="map"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -29,23 +71,74 @@
 
 <script>
     function initMap() {
-        // Координаты центра Алматы
-        const almaty = { lat: 43.2389, lng: 76.9454 };
+        const almaty = { lat: 43.2567, lng: 76.9286 };
         const map = new google.maps.Map(document.getElementById("districts-map"), {
             zoom: 11,
             center: almaty,
+            styles: [
+                {
+                    "featureType": "administrative",
+                    "elementType": "labels.text.fill",
+                    "stylers": [{"color": "#444444"}]
+                },
+                {
+                    "featureType": "landscape",
+                    "elementType": "all",
+                    "stylers": [{"color": "#f5f5f5"}]
+                },
+                {
+                    "featureType": "poi",
+                    "elementType": "all",
+                    "stylers": [{"visibility": "off"}]
+                },
+                {
+                    "featureType": "road",
+                    "elementType": "all",
+                    "stylers": [{"saturation": -100}, {"lightness": 45}]
+                },
+                {
+                    "featureType": "water",
+                    "elementType": "all",
+                    "stylers": [{"color": "#d4e6f5"}, {"visibility": "on"}]
+                }
+            ]
         });
-        
-        // Добавляем маркеры для каждого района (можно добавить реальные координаты)
+
+        // Маркеры с кастомными иконками
         {% for district in districts %}
         new google.maps.Marker({
-            position: { lat: almaty.lat + Math.random() * 0.1 - 0.05, 
-                       lng: almaty.lng + Math.random() * 0.1 - 0.05 },
+            position: { 
+                lat: almaty.lat + (Math.random() * 0.1 - 0.05), 
+                lng: almaty.lng + (Math.random() * 0.1 - 0.05) 
+            },
             map: map,
-            title: "{{ district.name }} район",
+            title: "{{ district.name }}",
+            icon: {
+                url: "{% static 'images/marker-icon.svg' %}",
+                scaledSize: new google.maps.Size(32, 32)
+            }
         });
         {% endfor %}
     }
+
+    // Поиск по районам
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('district-search');
+        const districtCards = document.querySelectorAll('.district-card');
+        
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            districtCards.forEach(card => {
+                const districtName = card.getAttribute('data-name');
+                if (districtName.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&callback=initMap" async defer></script>
 {% endblock %}

@@ -1,0 +1,70 @@
+/* Добавьте эти стили в конец файла */
+
+/* Анимация при поиске */
+.district-card {
+    transition: all 0.3s ease, opacity 0.3s ease;
+}
+
+/* Сообщение, когда ничего не найдено */
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: var(--gray);
+    display: none;
+}
+
+/* Адаптация карты для мобильных */
+@media (max-width: 576px) {
+    .map-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .map-legend {
+        margin-top: 8px;
+    }
+    
+    .hero-title {
+        font-size: 24px;
+    }
+    
+    .hero-subtitle {
+        font-size: 16px;
+    }
+}
+
+/* Эффекты для поиска */
+.search-box {
+    position: relative;
+    max-width: 500px;
+    margin: 20px auto 0;
+}
+
+.search-input {
+    width: 100%;
+    padding: 14px 20px 14px 50px;
+    border: 2px solid var(--gray-light);
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(78, 96, 255, 0.2);
+}
+
+.search-button {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--gray);
+    font-size: 18px;
+    cursor: pointer;
+}
