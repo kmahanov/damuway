@@ -1,10 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Спасибо!</title>
-</head>
-<body>
-    <h2>Спасибо за прохождение опроса!</h2>
-    <p>Ваше мнение очень важно для нас 🙏</p>
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/survey/complete.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="completion-container">
+    <div class="completion-card">
+        <div class="completion-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="#4361EE"/>
+            </svg>
+        </div>
+        <h1>Опрос завершен!</h1>
+        <p class="completion-message">Спасибо за ваши ответы. Ваше мнение очень важно для нас.</p>
+        <a href="/" class="home-button">Вернуться на главную</a>
+    </div>
+</div>
+{% endblock %}

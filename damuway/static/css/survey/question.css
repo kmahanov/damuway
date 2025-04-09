@@ -1,0 +1,128 @@
+:root {
+    --primary: #4361EE;
+    --primary-light: #F3F4FF;
+    --secondary: #3F37C9;
+    --accent: #FF6B6B;
+    --text: #2B2D42;
+    --text-light: #8D99AE;
+    --border: #EDEEF2;
+    --background: #FAFBFC;
+    --white: #FFFFFF;
+}
+
+.survey-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Inter', sans-serif;
+}
+
+.survey-progress {
+    height: 6px;
+    background-color: var(--border);
+    border-radius: 3px;
+    margin-bottom: 40px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: var(--primary);
+    transition: width 0.3s ease;
+}
+
+.question-text {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 30px;
+    text-align: center;
+    line-height: 1.4;
+}
+
+.answers-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.answer-card {
+    background-color: var(--white);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+
+.answer-card:hover {
+    border-color: var(--primary-light);
+    transform: translateY(-2px);
+}
+
+.answer-card.selected {
+    border-color: var(--primary);
+    background-color: var(--primary-light);
+}
+
+.answer-content {
+    display: flex;
+    align-items: center;
+}
+
+.answer-text {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text);
+}
+
+.feedback-container {
+    background-color: var(--white);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin-top: 20px;
+}
+
+.feedback-content h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--text);
+}
+
+.feedback-text {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text);
+    margin-bottom: 20px;
+}
+
+.next-button {
+    background-color: var(--primary);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: 100%;
+}
+
+.next-button:hover {
+    background-color: var(--secondary);
+}
+
+@media (max-width: 480px) {
+    .question-text {
+        font-size: 20px;
+    }
+    
+    .answer-card {
+        padding: 15px;
+    }
+}

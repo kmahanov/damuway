@@ -1,56 +1,89 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Опрос</title>
-</head>
-<body>
-    <div id="quiz-container">
-        <h3>{{ question.text }}</h3>
-        <p>Вопрос {{ progress }}</p>
+{% extends 'base.html' %}
+{% load static %}
 
-        <div id="answers">
-            {% for answer in question.answeroption_set.all %}
-                <button onclick="submitAnswer({{ answer.id }})">{{ answer.text }}</button>
-            {% endfor %}
-        </div>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/survey/question.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+{% endblock %}
 
-        <div id="feedback" style="display:none; margin-top: 20px;"></div>
-        <button id="next-btn" style="display:none; margin-top: 10px;" onclick="goToNext()">Следующий вопрос</button>
+{% block content %}
+<div class="survey-container">
+    <div class="survey-progress">
+        <div class="progress-bar" style="width: {{ progress_percent }}%"></div>
     </div>
+    
+    <div class="survey-content">
+        <div class="question-container">
+            <h1 class="question-text">{{ question.text }}</h1>
+            
+            <div class="answers-grid">
+                {% for answer in question.answeroption_set.all %}
+                <button class="answer-card" data-answer-id="{{ answer.id }}">
+                    <div class="answer-content">
+                        <span class="answer-text">{{ answer.text }}</span>
+                    </div>
+                </button>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="feedback-container" style="display: none;">
+            <div class="feedback-content">
+                <h3>Объяснение:</h3>
+                <p class="feedback-text"></p>
+                <button class="next-button">Продолжить</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const answerCards = document.querySelectorAll('.answer-card');
+        const feedbackContainer = document.querySelector('.feedback-container');
+        const feedbackText = document.querySelector('.feedback-text');
+        const nextButton = document.querySelector('.next-button');
         let nextQuestionId = "{{ next_question_id }}";
-
-        function submitAnswer(answerId) {
-            fetch("", {
-                method: "POST",
-                headers: {
-                    "X-CSRFToken": "{{ csrf_token }}",
-                    "X-Requested-With": "XMLHttpRequest",
-                    "Content-Type": "application/x-www-form-urlencoded",
-                },
-                body: `answer_id=${answerId}`
-            })
-            .then(res => res.json())
-            .then(data => {
-                document.getElementById('feedback').innerText = data.feedback;
-                document.getElementById('feedback').style.display = 'block';
-                document.getElementById('next-btn').style.display = 'inline-block';
-                nextQuestionId = data.next_question_id;
-                if (data.finished) {
-                    nextQuestionId = "complete";
-                }
+        
+        answerCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const answerId = this.getAttribute('data-answer-id');
+                
+                fetch("", {
+                    method: "POST",
+                    headers: {
+                        "X-CSRFToken": "{{ csrf_token }}",
+                        "X-Requested-With": "XMLHttpRequest",
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: `answer_id=${answerId}`
+                })
+                .then(res => res.json())
+                .then(data => {
+                    // Показать выбранный ответ
+                    answerCards.forEach(c => c.classList.remove('selected'));
+                    this.classList.add('selected');
+                    
+                    // Показать фидбек
+                    feedbackText.textContent = data.feedback;
+                    feedbackContainer.style.display = 'block';
+                    
+                    // Обновить информацию о следующем вопросе
+                    nextQuestionId = data.next_question_id || "complete";
+                    
+                    // Прокрутить к фидбеку
+                    feedbackContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                });
             });
-        }
-
-        function goToNext() {
+        });
+        
+        nextButton.addEventListener('click', function() {
             if (nextQuestionId === "complete") {
-                window.location.href = "/survey/complete/";
+                window.location.href = "{% url 'survey:complete' %}";
             } else {
                 window.location.href = `/survey/${nextQuestionId}/`;
             }
-        }
-    </script>
-</body>
-</html>
+        });
+    });
+</script>
+{% endblock %}
