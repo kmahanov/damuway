@@ -1,0 +1,228 @@
+:root {
+    --primary: #714EFF;
+    --primary-light: #F0EBFF;
+    --text: #2D3748;
+    --text-light: #718096;
+    --border: #E2E8F0;
+    --success: #48BB78;
+    --error: #F56565;
+}
+
+.quote-list-container {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 20px;
+    font-family: 'Inter', -apple-system, sans-serif;
+}
+
+.quote-list-header {
+    margin-bottom: 40px;
+    text-align: center;
+    position: relative;
+}
+
+.back-link {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+.back-link svg {
+    width: 16px;
+    height: 16px;
+}
+
+.quote-list-header h1 {
+    font-size: 28px;
+    color: var(--text);
+    margin-bottom: 5px;
+}
+
+.quote-list-header h1 span {
+    color: var(--primary);
+}
+
+.book-author {
+    color: var(--text-light);
+    font-size: 16px;
+    margin: 0;
+}
+
+.quotes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.quote-card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+
+.quote-card:hover {
+    transform: translateY(-5px);
+}
+
+.quote-text {
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 20px;
+}
+
+.quote-icon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0.2;
+}
+
+.quote-text p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text);
+    margin: 0;
+    font-style: italic;
+}
+
+.quote-actions {
+    display: flex;
+    gap: 15px;
+    border-top: 1px solid var(--border);
+    padding-top: 15px;
+}
+
+.like-btn,
+.dislike-btn,
+.share-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    transition: all 0.2s;
+}
+
+.like-btn {
+    color: var(--text-light);
+}
+
+.like-btn.has-likes {
+    color: var(--success);
+    background-color: rgba(72, 187, 120, 0.1);
+}
+
+.dislike-btn {
+    color: var(--text-light);
+}
+
+.dislike-btn.has-dislikes {
+    color: var(--error);
+    background-color: rgba(245, 101, 101, 0.1);
+}
+
+.share-btn {
+    color: var(--text-light);
+    margin-left: auto;
+}
+
+.like-btn:hover {
+    color: var(--success);
+    background-color: rgba(72, 187, 120, 0.1);
+}
+
+.dislike-btn:hover {
+    color: var(--error);
+    background-color: rgba(245, 101, 101, 0.1);
+}
+
+.share-btn:hover {
+    color: var(--primary);
+    background-color: var(--primary-light);
+}
+
+.empty-quotes {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 0;
+}
+
+.empty-quotes img {
+    opacity: 0.6;
+    margin-bottom: 20px;
+}
+
+.empty-quotes p {
+    color: var(--text-light);
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.back-to-book {
+    background-color: var(--primary);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.back-to-book:hover {
+    background-color: #5F3BE6;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .quote-list-header {
+        padding-top: 40px;
+    }
+    
+    .back-link {
+        position: static;
+        transform: none;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+    
+    .quote-list-header h1 {
+        font-size: 24px;
+    }
+    
+    .quotes-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .quote-card {
+        padding: 20px;
+    }
+    
+    .quote-text {
+        padding-left: 30px;
+    }
+    
+    .quote-icon {
+        width: 20px;
+        height: 20px;
+    }
+}
