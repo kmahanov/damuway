@@ -1,36 +1,54 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/recipe/recipe_list.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}
 
 {% block content %}
-<h1>Рецепты для детей</h1>
-
-<div class="mb-4">
-    <form method="get" class="form-inline">
-        <label for="age_group" class="mr-2">Фильтр по возрасту:</label>
-        <select name="age_group" id="age_group" class="form-control mr-2">
-            <option value="">Все возрасты</option>
-            {% for value, label in age_groups %}
-                <option value="{{ value }}" {% if request.GET.age_group == value %}selected{% endif %}>{{ label }}</option>
-            {% endfor %}
-        </select>
-        <button type="submit" class="btn btn-primary">Применить</button>
-    </form>
-</div>
-
-<div class="row">
-    {% for recipe in recipes %}
-    <div class="col-md-4 mb-4">
-        <div class="card">
-            <img src="{{ recipe.get_image }}" class="card-img-top" alt="{{ recipe.title }}" style="height: 200px; object-fit: cover;">
-            <div class="card-body">
-                <h5 class="card-title">{{ recipe.title }}</h5>
-                <p class="card-text">
-                    <span class="badge bg-secondary">{{ recipe.get_age_group_display }}</span>
-                    <span class="ms-2">★ {{ recipe.average_rating|default:"0" }}</span>
-                </p>
-                <a href="{% url 'recipe_detail' recipe.pk %}" class="btn btn-primary">Подробнее</a>
+<div class="recipe-list-page">
+    <div class="container">
+        <h1 class="page-title">Рецепты для детей</h1>
+        
+        <div class="age-filter">
+            <span>Фильтр по возрасту:</span>
+            <div class="filter-buttons">
+                <a href="?age_group=" class="filter-btn {% if not request.GET.age_group %}active{% endif %}">Все</a>
+                {% for group, label in age_groups %}
+                <a href="?age_group={{ group }}" class="filter-btn {% if request.GET.age_group == group %}active{% endif %}">
+                    {{ label }}
+                </a>
+                {% endfor %}
             </div>
         </div>
+        
+        <div class="recipe-grid">
+            {% for recipe in recipes %}
+            <a href="{% url 'recipe_detail' recipe.pk %}" class="recipe-card">
+                <div class="recipe-image">
+                    <img src="{{ recipe.get_image }}" alt="{{ recipe.title }}">
+                    <span class="age-badge">{{ recipe.get_age_group_display }}</span>
+                </div>
+                <div class="recipe-info">
+                    <h3>{{ recipe.title }}</h3>
+                    <div class="recipe-meta">
+                        <div class="rating">
+                            {% for i in "12345" %}
+                            <i class="fas fa-star{% if forloop.counter <= recipe.average_rating %} filled{% endif %}"></i>
+                            {% endfor %}
+                            <span>({{ recipe.ratings.count }})</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            {% empty %}
+            <div class="no-recipes">
+                <p>Рецепты не найдены. Попробуйте изменить параметры фильтра.</p>
+            </div>
+            {% endfor %}
+        </div>
     </div>
-    {% endfor %}
 </div>
 {% endblock %}
