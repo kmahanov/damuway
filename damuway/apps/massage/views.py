@@ -4,10 +4,13 @@ from .models import MassageCenter, Specialist, Review, Appointment, MassageCateg
 from .forms import ReviewForm, AppointmentForm
 
 # Массажные центры
+
 def massage_center_list(request):
     centers = MassageCenter.objects.all()
+    categories = MassageCategory.objects.all()
     context = {
         'centers': centers,
+        'categories': categories,
     }
     return render(request, 'massage/massage_center_list.html', context)
 
@@ -80,3 +83,4 @@ def book_appointment(request, specialist_id):
         'form': form,
     }
     return render(request, 'massage/book_appointment.html', context)
+

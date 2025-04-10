@@ -1,15 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Массажные центры</h1>
-  <ul>
-    {% for center in centers %}
-      <li><a href="{% url 'massage_center_detail' center.id %}">{{ center.name }}</a></li>
-    {% endfor %}
-  </ul>
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Массажные центры для детей | Damuway{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/massage/massage_center_list.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="massage-centers-page">
+    <div class="hero-banner">
+        <div class="container">
+            <h1>Массажные центры для детей</h1>
+            <p>Найдите лучшие массажные услуги для вашего ребенка</p>
+        </div>
+    </div>
+
+    <div class="container main-content">
+        <div class="filter-section">
+            <div class="search-box">
+                <input type="text" placeholder="Поиск по названию...">
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="category-filter">
+                <span>Категории:</span>
+                <div class="category-tags">
+                    <a href="?" class="tag active">Все</a>
+                    {% for category in categories %}
+                    <a href="?category={{ category.id }}" class="tag">{{ category.name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="centers-grid">
+            {% for center in centers %}
+            <div class="center-card">
+                <div class="center-image">
+                    {% if center.photos.first %}
+                    <img src="{{ center.photos.first.image_url }}" alt="{{ center.name }}">
+                    {% else %}
+                    <div class="image-placeholder">
+                        <i class="fas fa-spa"></i>
+                    </div>
+                    {% endif %}
+                    <span class="rating-badge">
+                        <i class="fas fa-star"></i> {{ center.rating|floatformat:1 }}
+                    </span>
+                </div>
+                <div class="center-info">
+                    <h3>{{ center.name }}</h3>
+                    <p class="location"><i class="fas fa-map-marker-alt"></i> {{ center.location }}</p>
+                    <div class="categories">
+                        {% for category in center.categories.all|slice:":3" %}
+                        <span class="category-tag">{{ category.name }}</span>
+                        {% endfor %}
+                    </div>
+                    <a href="{% url 'massage:massage_center_detail' center.id %}" class="view-button">
+                        Подробнее <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            {% empty %}
+            <div class="no-results">
+                <p>Массажные центры не найдены. Попробуйте изменить параметры поиска.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
