@@ -4,8 +4,7 @@ from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
-                  # Основные маршруты
-                  path('districts/', views.district_list, name='district_list'),
+                  path('', views.district_list, name='district_list'),
                   path('districts/<int:district_id>/', views.school_list, name='school_list'),
                   path('schools/<int:school_id>/', views.school_detail, name='school_detail'),
 

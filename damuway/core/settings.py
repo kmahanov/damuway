@@ -120,8 +120,18 @@ AUTH_USER_MODEL = 'user.CustomUser'
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = "ru-Ru"
+LANGUAGE_CODE = 'ru'
 
+USE_I18N = True
+
+LANGUAGES = [
+    ('en', 'English'),
+    ('ru', 'Russian'),
+]
+
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]
 TIME_ZONE = 'Asia/Almaty'
 
 USE_I18N = True

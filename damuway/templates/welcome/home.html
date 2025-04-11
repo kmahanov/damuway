@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
+
 {% block title %}Добро пожаловать в Damuway!{% endblock %}
 
 {% block extra_css %}
@@ -24,7 +25,7 @@
         <div class="services-list">
             <div class="service-item">
                 <img src="{% static 'images/kindergarten.jpg' %}" alt="Детские сады">
-                <h3><a href="/school">Детские сады<a></h3>
+                <h3><a href="/school">Детские сады</a></h3>
                 <p>Лучшие детские сады в вашем районе. Мы поможем вам найти идеальное место для вашего малыша.</p>
             </div>
             <div class="service-item">
@@ -33,7 +34,7 @@
                 <p>Полная информация о школах, которые обеспечат образование вашего ребенка.</p>
             </div>
             <div class="service-item">
-                <img src="{% static 'images/books.jpg' %}" alt="Книги">
+                <img src="{% static 'images/books.jpg' %}"  alt="Книги">
                 <h3><a href="/book" >Книги</a></h3>
                 <p>Полезные книги для развития детей разных возрастов. Подборка лучших изданий.</p>
             </div>
@@ -54,16 +55,16 @@
                 <a href="/development" class="btn">Узнать больше</a>
             </div>
             <div class="resource-item">
-                <img src="{% static 'images/games.jpg' %}" alt="Игры">
+                <img src="{% static 'images/activity.jpg' %}" alt="Игры">
                 <h3>Игры для детей</h3>
                 <p>Развивающие игры и игрушки для детей всех возрастов. Подборка для вас и вашего малыша.</p>
-                <a href="/games" class="btn">Узнать больше</a>
+                <a href="/activity" class="btn">Узнать больше</a>
             </div>
             <div class="resource-item">
-                <img src="{% static 'images/speech-therapy.jpg' %}" alt="Логопеды">
+                <img src="{% static 'images/logoped.png' %}" alt="Логопеды">
                 <h3>Логопеды и коррекция речи</h3>
                 <p>Консультации специалистов по развитию речи у детей. Индивидуальные программы занятий.</p>
-                <a href="/speech-therapy" class="btn">Узнать больше</a>
+                <a href="/logoped" class="btn">Узнать больше</a>
             </div>
         </div>
     </div>
@@ -77,12 +78,12 @@
             <div class="blog-post">
                 <h3>Как выбрать детский сад?</h3>
                 <p>Все, что вам нужно знать, чтобы выбрать лучший детский сад для вашего ребенка. Советы, рекомендации и отзывы.</p>
-                <a href="/blog/how-to-choose-kindergarten" class="btn">Читать статью</a>
+                <a href="/article/1" class="btn">Читать статью</a>
             </div>
             <div class="blog-post">
                 <h3>5 советов для родителей дошкольников</h3>
                 <p>Как создать правильную атмосферу для развития вашего малыша. Тренды и советы от экспертов.</p>
-                <a href="/blog/5-tips-for-parents" class="btn">Читать статью</a>
+                <a href="/article/2" class="btn">Читать статью</a>
             </div>
         </div>
     </div>
