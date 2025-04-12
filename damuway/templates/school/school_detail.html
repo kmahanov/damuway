@@ -12,57 +12,49 @@
     <div class="breadcrumb-nav">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{% url 'district_list' %}">Районы</a></li>
-                <li class="breadcrumb-item"><a href="{% url 'school_list' school.district.id %}">{{ school.district.name }} район</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ school.name }}</li>
+                <li class="breadcrumb-item">
+                    <a href="{% url 'school:district_list' %}" class="breadcrumb-link">
+                        Районы
+                    </a>
+                    <span class="arrow">→</span>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{% url 'school:school_list' school.district.id %}" class="breadcrumb-link">
+                        {{ school.district.name }} район
+                    </a>
+                    <span class="arrow">→</span>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    {{ school.name }}
+                </li>
             </ol>
         </nav>
     </div>
 
     <div class="school-header">
-        <h1 class="school-name">{{ school.name }}</h1>
-        <div class="school-meta">
-            <span class="badge school-type {% if school.school_type == 'state' %}bg-primary{% elif school.school_type == 'private' %}bg-success{% else %}bg-warning{% endif %}">
-                {{ school.get_school_type_display }}
-            </span>
-            <div class="rating-stars">
-                {% for i in "12345" %}
-                    {% if forloop.counter <= school.rating|add:0.5 %}
-                        <i class="fas fa-star"></i>
-                    {% else %}
-                        <i class="far fa-star"></i>
-                    {% endif %}
-                {% endfor %}
-                <span class="review-count">({{ school.reviews.count }} отзывов)</span>
+        <div class="school-image">
+            <img src="{{ school.main_image.url }}" alt="{{ school.name }}">
+        </div>
+        <div class="school-info">
+            <h1 class="school-name">{{ school.name }}</h1>
+            <div class="school-meta">
+                <span class="school-type {% if school.school_type == 'state' %}state{% elif school.school_type == 'private' %}private{% else %}other{% endif %}">
+                    {{ school.get_school_type_display }}
+                </span>
+                <div class="rating-stars">
+                    {% for i in "12345" %}
+                        {% if forloop.counter <= school.rating|add:0.5 %}
+                            <i class="fas fa-star"></i>
+                        {% else %}
+                            <i class="far fa-star"></i>
+                        {% endif %}
+                    {% endfor %}
+                    <span class="review-count">({{ school.reviews.count }} отзывов)</span>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Галерея изображений -->
-    <div class="school-gallery">
-        <div id="schoolGallery" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="{{ school.main_image.url }}" class="d-block w-100 rounded" alt="{{ school.name }}" style="height: 400px; object-fit: cover;">
-                </div>
-                {% for image in school.images.all %}
-                <div class="carousel-item">
-                    <img src="{{ image.image.url }}" class="d-block w-100 rounded" alt="{{ school.name }}" style="height: 400px; object-fit: cover;">
-                </div>
-                {% endfor %}
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#schoolGallery" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#schoolGallery" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-    </div>
-
-    <!-- Основная информация -->
     <div class="school-info-section">
         <div class="card">
             <div class="card-body">
@@ -98,43 +90,41 @@
         </div>
     </div>
 
-    <!-- Отзывы -->
     <div class="reviews-section">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h5 class="card-title mb-0">Отзывы</h5>
-                    <a href="{% url 'add_review' school.id %}" class="btn btn-sm btn-primary">
+                    <a href="{% url 'school:add_review' school.id %}" class="btn btn-add-review">
                         <i class="fas fa-plus"></i> Добавить отзыв
                     </a>
                 </div>
                 {% for review in review_page_obj %}
-                <div class="review-item mb-3 pb-3 border-bottom">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <strong>{{ review.user.username }}</strong>
-                            <div class="rating-stars">
-                                {% for i in "12345" %}
-                                    {% if forloop.counter <= review.rating %}
-                                        <i class="fas fa-star"></i>
-                                    {% else %}
-                                        <i class="far fa-star"></i>
-                                    {% endif %}
-                                {% endfor %}
+                    <div class="review-item mb-3 pb-3 border-bottom">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <strong>{{ review.user.username }}</strong>
+                                <div class="rating-stars">
+                                    {% for i in "12345" %}
+                                        {% if forloop.counter <= review.rating %}
+                                            <i class="fas fa-star"></i>
+                                        {% else %}
+                                            <i class="far fa-star"></i>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
                             </div>
+                            <small class="text-muted">{{ review.created_at|date:"d.m.Y" }}</small>
                         </div>
-                        <small class="text-muted">{{ review.created_at|date:"d.m.Y" }}</small>
+                        <p class="mt-2">{{ review.text }}</p>
                     </div>
-                    <p class="mt-2">{{ review.text }}</p>
-                </div>
                 {% empty %}
-                <p class="text-muted">Пока нет отзывов. Будьте первым!</p>
+                    <p class="text-muted">Пока нет отзывов. Будьте первым!</p>
                 {% endfor %}
             </div>
         </div>
     </div>
 
-    <!-- Карта -->
     <div class="map-section">
         <div class="card">
             <div class="card-body">
@@ -150,67 +140,25 @@
         </div>
     </div>
 
-    <!-- Ближайшие школы -->
     {% if nearby_schools %}
-    <div class="nearby-schools-section">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Ближайшие школы</h5>
-                <div class="list-group">
-                    {% for nearby in nearby_schools %}
-                    <a href="{% url 'school_detail' nearby.id %}" class="list-group-item list-group-item-action">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h6 class="mb-1">{{ nearby.name }}</h6>
-                            <small>{{ nearby.distance }} км</small>
-                        </div>
-                        <small class="text-muted">{{ nearby.address }}</small>
-                    </a>
-                    {% endfor %}
+        <div class="nearby-schools-section">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Ближайшие школы</h5>
+                    <div class="list-group">
+                        {% for nearby in nearby_schools %}
+                            <a href="{% url 'school:school_detail' nearby.id %}" class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">{{ nearby.name }}</h6>
+                                    <small>{{ nearby.distance }} км</small>
+                                </div>
+                                <small class="text-muted">{{ nearby.address }}</small>
+                            </a>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    {% endif %}
-
-    <!-- Социальные сети -->
-    {% if school.instagram or school.facebook %}
-    <div class="social-media-section">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Мы в соцсетях</h5>
-                <div class="d-flex gap-2">
-                    {% if school.instagram %}
-                    <a href="{{ school.instagram }}" target="_blank" class="social-link">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    {% endif %}
-                    {% if school.facebook %}
-                    <a href="{{ school.facebook }}" target="_blank" class="social-link">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-    </div>
     {% endif %}
 </div>
-
-<script>
-    function initMap() {
-        const schoolLocation = { lat: {{ school.latitude|default:"43.2389" }}, lng: {{ school.longitude|default:"76.9454" }} };
-        const map = new google.maps.Map(document.getElementById("school-map"), {
-            zoom: 15,
-            center: schoolLocation,
-        });
-
-        new google.maps.Marker({
-            position: schoolLocation,
-            map: map,
-            title: "{{ school.name }}",
-        });
-    }
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&callback=initMap" async defer></script>
-
 {% endblock %}
