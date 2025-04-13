@@ -11,7 +11,8 @@
 {% block content %}
 <div class="school-list-container">
     <div class="school-list-header">
-        <a href="{% url 'district_list' %}" class="back-link">
+        <a href="{% url 'school:district_list' %}" class="back-link">
+
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M19 12H5M12 19l-7-7 7-7"/>
             </svg>
@@ -23,7 +24,8 @@
 
     <div class="schools-grid">
         {% for school in page_obj %}
-        <a href="{% url 'school_detail' school.id %}" class="school-card">
+        <a href="{% url 'school:school_detail' school.id %}" class="school-card">
+
             <div class="school-image-container">
                 <img src="{{ school.main_image.url }}" alt="{{ school.name }}" class="school-image">
                 <span class="school-type {{ school.school_type }}">

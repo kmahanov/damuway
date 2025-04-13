@@ -1,70 +1,167 @@
-/* Добавьте эти стили в конец файла */
-
-/* Анимация при поиске */
-.district-card {
-    transition: all 0.3s ease, opacity 0.3s ease;
+:root {
+    --primary: #4361EE;
+    --primary-light: #F3F4FF;
+    --secondary: #3F37C9;
+    --accent: #FF6B6B;
+    --text: #2B2D42;
+    --text-light: #8D99AE;
+    --border: #EDEEF2;
+    --background: #FAFBFC;
+    --white: #FFFFFF;
 }
 
-/* Сообщение, когда ничего не найдено */
-.no-results {
-    grid-column: 1 / -1;
+/* Base Page Style */
+.districts-page {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--background);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Hero Section */
+.district-hero {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: var(--white);
+    padding: 80px 0;
     text-align: center;
-    padding: 40px;
-    color: var(--gray);
-    display: none;
+    margin-bottom: 40px;
 }
 
-/* Адаптация карты для мобильных */
-@media (max-width: 576px) {
-    .map-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-    }
-    
-    .map-legend {
-        margin-top: 8px;
-    }
-    
-    .hero-title {
-        font-size: 24px;
-    }
-    
-    .hero-subtitle {
-        font-size: 16px;
-    }
+.district-hero h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
 }
 
-/* Эффекты для поиска */
+.district-hero p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* Search Box */
 .search-box {
     position: relative;
-    max-width: 500px;
-    margin: 20px auto 0;
+    max-width: 600px;
+    margin: 0 auto 40px;
 }
 
-.search-input {
+.search-box input {
     width: 100%;
-    padding: 14px 20px 14px 50px;
-    border: 2px solid var(--gray-light);
-    border-radius: var(--border-radius);
+    padding: 15px 20px 15px 50px;
+    border-radius: 50px;
+    border: 2px solid var(--border);
     font-size: 16px;
     transition: all 0.3s ease;
 }
 
-.search-input:focus {
-    border-color: var(--primary);
+.search-box input:focus {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(78, 96, 255, 0.2);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-light);
 }
 
-.search-button {
+.search-box i {
     position: absolute;
-    left: 16px;
+    left: 20px;
     top: 50%;
     transform: translateY(-50%);
-    background: none;
-    border: none;
-    color: var(--gray);
-    font-size: 18px;
-    cursor: pointer;
+    color: var(--text-light);
+}
+
+/* District Grid */
+.districts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    padding-bottom: 60px;
+}
+
+/* Card Style */
+.district-card {
+    background-color: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.district-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+}
+
+/* Header with Soft Gradient */
+.card-header.soft-bg {
+    background: linear-gradient(135deg, #d0e8ff, #f1f5ff);
+    height: 160px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* District Number */
+.district-number {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #ffffff40;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+}
+
+/* Card Content */
+.card-content {
+    padding: 20px;
+    text-align: center;
+}
+
+.card-content h3 {
+    font-size: 1.2rem;
+    color: #2b2d42;
+    font-weight: 600;
+}
+
+.card-content p {
+    color: #7a7a7a;
+    font-size: 0.9rem;
+}
+
+/* No Districts */
+.no-districts {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: var(--text-light);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .district-hero h1 {
+        font-size: 2rem;
+    }
+
+    .district-hero p {
+        font-size: 1rem;
+    }
+
+    .districts-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .districts-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .search-box input {
+        padding: 12px 20px 12px 45px;
+    }
 }
