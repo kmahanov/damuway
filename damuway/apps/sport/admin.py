@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import SportsClub, SportsClubReview
 
-# Register your models here.
+admin.site.register(SportsClub)
+admin.site.register(SportsClubReview)
+

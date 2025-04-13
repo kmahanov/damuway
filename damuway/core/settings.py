@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'apps.catalog',
     'apps.restaurant',
     'apps.club',
+    'apps.sport',
 
 
 ]
