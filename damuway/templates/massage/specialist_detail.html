@@ -9,6 +9,6 @@
   <p><strong>Опыт:</strong> {{ specialist.experience }} лет</p>
   <p><strong>Специализация:</strong> {{ specialist.specialization.name }}</p>
 
-  <a href="{% url 'book_appointment' specialist.id %}">Записаться на сеанс</a>
+  <a href="{% url 'massage:book_appointment' specialist.id %}">Записаться на сеанс</a>
 </body>
 </html>

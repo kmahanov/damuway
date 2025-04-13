@@ -15,7 +15,7 @@ def sports_club_list(request):
         if sport_type:
             clubs = clubs.filter(sport_type=sport_type)
 
-    return render(request, 'sports/sports_club_list.html', {'clubs': clubs, 'form': form})
+    return render(request, 'sport/sports_club_list.html', {'clubs': clubs, 'form': form})
 
 def sports_club_detail(request, pk):
     club = get_object_or_404(SportsClub, pk=pk)
@@ -31,4 +31,4 @@ def sports_club_detail(request, pk):
     else:
         form = SportsClubReviewForm()
 
-    return render(request, 'sports/sports_club_detail.html', {'club': club, 'form': form})
+    return render(request, 'sport/sports_club_detail.html', {'club': club, 'form': form})

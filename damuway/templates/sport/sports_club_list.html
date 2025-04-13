@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-6">
+  <h1 class="text-2xl font-bold mb-4">Спортивные клубы</h1>
+
+  <form method="get" class="mb-6 flex flex-wrap gap-4">
+    {{ form.city.label_tag }} {{ form.city }}
+    {{ form.sport_type.label_tag }} {{ form.sport_type }}
+    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Фильтр</button>
+  </form>
+
+  {% if clubs %}
+    <div class="grid gap-4">
+      {% for club in clubs %}
+        <div class="p-4 border rounded hover:shadow-md transition">
+          <h2 class="text-xl font-semibold">{{ club.name }}</h2>
+          <p class="text-gray-600">{{ club.get_sport_type_display }} | {{ club.city }}</p>
+          <p class="text-sm">{{ club.address }}</p>
+          <p class="text-sm mt-1">Возраст от: {{ club.min_age }} лет | Цена: {{ club.price }} ₸</p>
+          <a href="{% url 'sports_club_detail' club.pk %}" class="text-blue-500 mt-2 inline-block">Подробнее →</a>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>Клубов не найдено.</p>
+  {% endif %}
+</div>
+{% endblock %}

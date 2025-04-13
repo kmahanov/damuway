@@ -15,7 +15,7 @@
 
     <div class="categories-grid">
         {% for category in categories %}
-        <a href="/{{ category.url }}/" class="category-card">
+        <a href="{{ category.url }}" class="category-card">
             {% if category.image_url %}
             <div class="category-image" style="background-image: url('{{ category.image_url }}')"></div>
             {% else %}

@@ -28,11 +28,11 @@
   <h2>Специалисты</h2>
   <ul>
     {% for specialist in specialists %}
-      <li><a href="{% url 'specialist_detail' specialist.id %}">{{ specialist.name }}</a></li>
+      <li><a href="{% url 'massage:specialist_detail' specialist.id %}">{{ specialist.name }}</a></li>
     {% endfor %}
   </ul>
 
-  <a href="{% url 'add_review' center.id %}">Добавить отзыв</a>
+  <a href="{% url 'massage:add_review' center.id %}">Добавить отзыв</a>
 {% endblock %}
 
 </body>
