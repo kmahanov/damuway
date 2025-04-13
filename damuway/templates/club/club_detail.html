@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>{{ club.name }}</h2>
+<p><strong>Город:</strong> {{ club.city }}</p>
+<p><strong>Адрес:</strong> {{ club.address }}</p>
+<p><strong>Возраст:</strong> от {{ club.min_age }} лет</p>
+<p><strong>Расписание:</strong> {{ club.schedule }}</p>
+<p>{{ club.description }}</p>
+
+<hr>
+
+<h3>Отзывы</h3>
+<ul>
+    {% for review in club.reviews.all %}
+        <li>
+            ⭐ {{ review.rating }} / 5
+            <p>{{ review.comment }}</p>
+            <small>от {{ review.user.username }}, {{ review.created_at|date:"d.m.Y" }}</small>
+        </li>
+    {% empty %}
+        <p>Пока отзывов нет. Оставьте первым!</p>
+    {% endfor %}
+</ul>
+
+{% if user.is_authenticated %}
+    <hr>
+    <h3>Оставить отзыв</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Отправить</button>
+    </form>
+{% else %}
+    <p><a href="{% url 'login' %}">Войдите</a>, чтобы оставить отзыв.</p>
+{% endif %}
+
+</body>
+</html>

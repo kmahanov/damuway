@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Кружки для детей</h2>
+
+<form method="get">
+    {{ form.as_p }}
+    <button type="submit">Фильтр</button>
+</form>
+
+<ul>
+    {% for club in clubs %}
+        <li>
+            <a href="{% url 'club_detail' club.pk %}">{{ club.name }}</a> ({{ club.city }})
+        </li>
+    {% empty %}
+        <li>Ничего не найдено.</li>
+    {% endfor %}
+</ul>
+</body>
+</html>
