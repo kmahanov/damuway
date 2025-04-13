@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>{{ restaurant.name }}</h2>
+<p><strong>Город:</strong> {{ restaurant.city }}</p>
+<p><strong>Адрес:</strong> {{ restaurant.address }}</p>
+<p>{{ restaurant.description }}</p>
+
+<hr>
+
+<h3>👶 Детское меню</h3>
+<ul>
+    {% for item in restaurant.kids_menu.all %}
+        <li>
+            <strong>{{ item.name }}</strong> – {{ item.price }} тг
+            <p>{{ item.description }}</p>
+        </li>
+    {% empty %}
+        <p>Детское меню пока не добавлено.</p>
+    {% endfor %}
+</ul>
+
+<hr>
+
+<h3>🗣️ Отзывы</h3>
+<ul>
+    {% for review in restaurant.reviews.all %}
+        <li>
+            ⭐ {{ review.rating }} / 5
+            <p>{{ review.comment }}</p>
+            <small>Автор: {{ review.user.username }}, {{ review.created_at|date:"d.m.Y" }}</small>
+        </li>
+    {% empty %}
+        <p>Пока отзывов нет. Будьте первым!</p>
+    {% endfor %}
+</ul>
+
+{% if user.is_authenticated %}
+    <hr>
+    <h3>Оставить отзыв</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Отправить</button>
+    </form>
+{% else %}
+    <p><a href="{% url 'login' %}">Войдите</a>, чтобы оставить отзыв.</p>
+{% endif %}
+
+</body>
+</html>
