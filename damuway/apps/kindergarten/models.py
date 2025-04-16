@@ -1,30 +1,23 @@
-from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.contrib.sites import requests
 from django.db import models
-from math import radians, sin, cos, sqrt, atan2
+from ..school.models import District
+from django.conf import settings
 
 
-class District(models.Model):
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
-
-
-class School(models.Model):
-    SCHOOL_TYPES = (
+class Kindergarten(models.Model):
+    KINDERGARTEN_TYPES = (
         ('state', 'Государственный'),
         ('private', 'Частный'),
-        ('semi-private', 'Полу-частный'),
     )
 
     district = models.ForeignKey(District, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     description = models.TextField()
-    school_type = models.CharField(max_length=20, choices=SCHOOL_TYPES)
+    kindergarten_type = models.CharField(max_length=20, choices=KINDERGARTEN_TYPES)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    duration = models.CharField(max_length=100)
-    achievements = models.TextField(blank=True)
+    age_range = models.CharField(max_length=100)
+    activities = models.TextField(blank=True)
     working_hours = models.CharField(max_length=100)
     phone = models.CharField(max_length=20)
     instagram = models.URLField(blank=True)
@@ -33,7 +26,7 @@ class School(models.Model):
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
     rating = models.FloatField(default=0)
-    main_image = models.ImageField(upload_to='schools/')
+    main_image = models.ImageField(upload_to='kindergartens/')
 
     def __str__(self):
         return self.name
@@ -55,30 +48,6 @@ class School(models.Model):
         except Exception as e:
             print(f"Ошибка геокодирования: {e}")
 
-    def nearby_schools(self, radius_km=5):
-        if not self.latitude or not self.longitude:
-            return []
-
-        lat, lng = radians(self.latitude), radians(self.longitude)
-        schools = School.objects.exclude(id=self.id).exclude(latitude=None).exclude(longitude=None)
-
-        nearby = []
-        for school in schools:
-            try:
-                slat, slng = radians(school.latitude), radians(school.longitude)
-                dlat, dlng = slat - lat, slng - lng
-                a = sin(dlat / 2) ** 2 + cos(lat) * cos(slat) * sin(dlng / 2) ** 2
-                c = 2 * atan2(sqrt(a), sqrt(1 - a))
-                distance = 6371 * c
-
-                if distance <= radius_km:
-                    school.distance = round(distance, 2)
-                    nearby.append(school)
-            except:
-                continue
-
-        return sorted(nearby, key=lambda x: x.distance)
-
     def save(self, *args, **kwargs):
         if not self.latitude or not self.longitude:
             self.geocode_address()
@@ -92,37 +61,31 @@ class School(models.Model):
             self.rating = 0
         self.save(update_fields=['rating'])
 
-
-class SchoolImage(models.Model):
-    school = models.ForeignKey(School, related_name='images', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='schools/gallery/')
+class KindergartenImage(models.Model):
+    kindergarten = models.ForeignKey(Kindergarten, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='kindergartens/gallery/')
 
     def __str__(self):
-        return f"Изображение для {self.school.name}"
+        return f"Изображение для {self.kindergarten.name}"
 
-
-class SchoolVideo(models.Model):
-    school = models.ForeignKey(School, related_name='videos', on_delete=models.CASCADE)
-    video = models.FileField(upload_to='schools/videos/', blank=True, null=True)
+class KindergartenVideo(models.Model):
+    kindergarten = models.ForeignKey(Kindergarten, related_name='videos', on_delete=models.CASCADE)
+    video = models.FileField(upload_to='kindergartens/videos/', blank=True, null=True)
     youtube_link = models.URLField(blank=True)
 
     def __str__(self):
-        return f"Видео для {self.school.name}"
+        return f"Видео для {self.kindergarten.name}"
 
-
-class Review(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name='school_reviews',)
-    school = models.ForeignKey(School, related_name='reviews', on_delete=models.CASCADE)
+class KindergartenReview(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='kindergarten_reviews')
+    kindergarten = models.ForeignKey(Kindergarten, related_name='reviews', on_delete=models.CASCADE)
     text = models.TextField()
     rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Отзыв от {self.user.username} для {self.school.name}"
+        return f"Отзыв от {self.user.username} для {self.kindergarten.name}"
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        self.school.update_rating()
-
+        self.kindergarten.update_rating()
