@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Районы | Damuway{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/school/district_list.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="districts-page">
+    <!-- Hero Section -->
+    <div class="district-hero">
+        <div class="container">
+            <h1>Выберите район</h1>
+            <p>Найдите лучшие детские сады в вашем районе</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Search Input -->
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="district-search" placeholder="Поиск по названию района...">
+        </div>
+
+        <!-- District Cards -->
+        <div class="districts-grid">
+            {% for district in districts %}
+            <a href="/kindergarten/districts/{{ district.id }}/" class="district-card" data-name="{{ district.name|lower }}">
+                <div class="card-header soft-bg">
+                    <div class="district-number">{{ forloop.counter }}</div>
+                </div>
+                <div class="card-content">
+                    <h3>{{ district.name }} район</h3>
+                    <p>{{ district.kindergarten_set.count }} школ</p>
+                </div>
+            </a>
+            {% empty %}
+            <div class="no-districts">
+                <p>Нет доступных районов</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script>
+    // Live search
+    document.getElementById('district-search').addEventListener('input', function() {
+        const value = this.value.toLowerCase();
+        const cards = document.querySelectorAll('.district-card');
+
+        cards.forEach(card => {
+            const name = card.dataset.name;
+            card.style.display = name.includes(value) ? 'block' : 'none';
+        });
+    });
+</script>
+{% endblock %}

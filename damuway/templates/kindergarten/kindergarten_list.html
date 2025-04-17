@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Damuway - Школы в {{ district.name }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/school/school_list.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="school-list-container">
+    <div class="school-list-header">
+        <a href="{% url 'kindergarten:kindergarten_list' %}" class="back-link">
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Все районы
+        </a>
+        <h1>Школы в {{ district.name }}</h1>
+        <p class="district-description">{{ district.kindergarten_set.count }} kindergarten в этом районе</p>
+    </div>
+
+    <div class="schools-grid">
+        {% for kindergarten in page_obj %}
+        <a href="{% url 'kindergarten:kindergarten_detail' kindergarten.id %}" class="school-card">
+
+            <div class="school-image-container">
+                <img src="{{ kindergarten.main_image.url }}" alt="{{ kindergarten.name }}" class="school-image">
+                <span class="school-type {{ kindergarten.kindergarten_type }}">
+                    {{ kindergarten.get_kindergarten_type_display }}
+                </span>
+            </div>
+            <div class="school-info">
+                <h2>{{ kindergarten.name }}</h2>
+                <div class="school-meta">
+                    <div class="rating">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#FFD700" stroke="#FFD700">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                        {{ kindergarten.rating|floatformat:1 }}
+                    </div>
+                    <div class="price">от {{ kindergarten.price }} ₸</div>
+                </div>
+                <div class="school-address">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#714EFF" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    {{ kindergarten.address|truncatechars:30 }}
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}" class="page-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 18l-6-6 6-6"/>
+            </svg>
+        </a>
+        {% endif %}
+
+        <span class="current-page">
+            Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="page-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18l6-6-6-6"/>
+            </svg>
+        </a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
