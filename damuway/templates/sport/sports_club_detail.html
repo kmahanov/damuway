@@ -8,39 +8,46 @@
 
 {% block content %}
 <div class="club-detail-container">
-  <h1>{{ club.name }}</h1>
-  <p class="sport">{{ club.get_sport_type_display }}</p>
-  <p><strong>Город:</strong> {{ club.city }}</p>
-  <p><strong>Адрес:</strong> {{ club.address }}</p>
-  <p><strong>Минимальный возраст:</strong> {{ club.min_age }} лет</p>
-  <p><strong>Расписание:</strong> {{ club.schedule|default:"уточните" }}</p>
-  <p><strong>Цена:</strong> {{ club.price }} ₸ / месяц</p>
-  {% if club.description %}
-  <p class="description">{{ club.description }}</p>
-  {% endif %}
-
-  <hr>
-
-  <div class="reviews-header">
-    <h2>Отзывы</h2>
-    <a href="{% url 'sport:add_review' club.pk %}" class="add-review-btn">+ Оставить отзыв</a>
-  </div>
-
-  {% if club.reviews.all %}
-  <div class="reviews">
-    {% for review in club.reviews.all %}
-    <div class="review">
-      <div class="top">
-        <span class="author">{{ review.user.username }}</span>
-        <span class="rating">{{ review.rating }} ★</span>
-      </div>
-      <p>{{ review.comment }}</p>
-      <span class="date">{{ review.created_at|date:"d.m.Y" }}</span>
+    <h1>{{ club.name }}</h1>
+    {% if club.images.all %}
+    <div class="club-gallery">
+        {% for image in club.images.all %}
+        <img src="{{ image.image.url }}" alt="Фото клуба {{ club.name }}">
+        {% endfor %}
     </div>
-    {% endfor %}
-  </div>
-  {% else %}
-  <p>Отзывов пока нет.</p>
-  {% endif %}
+    {% endif %}
+    <p class="sport">{{ club.get_sport_type_display }}</p>
+    <p><strong>Город:</strong> {{ club.city }}</p>
+    <p><strong>Адрес:</strong> {{ club.address }}</p>
+    <p><strong>Минимальный возраст:</strong> {{ club.min_age }} лет</p>
+    <p><strong>Расписание:</strong> {{ club.schedule|default:"уточните" }}</p>
+    <p><strong>Цена:</strong> {{ club.price }} ₸ / месяц</p>
+    {% if club.description %}
+    <p class="description">{{ club.description }}</p>
+    {% endif %}
+
+    <hr>
+
+    <div class="reviews-header">
+        <h2>Отзывы</h2>
+        <a href="{% url 'sport:add_review' club.pk %}" class="add-review-btn">+ Оставить отзыв</a>
+    </div>
+
+    {% if club.reviews.all %}
+    <div class="reviews">
+        {% for review in club.reviews.all %}
+        <div class="review">
+            <div class="top">
+                <span class="author">{{ review.user.username }}</span>
+                <span class="rating">{{ review.rating }} ★</span>
+            </div>
+            <p>{{ review.comment }}</p>
+            <span class="date">{{ review.created_at|date:"d.m.Y" }}</span>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>Отзывов пока нет.</p>
+    {% endif %}
 </div>
 {% endblock %}

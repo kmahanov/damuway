@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load widget_tweaks %}
 
-{% block title %}Спортивные клубы | Damuway{% endblock %}
+{% block title %}Спортивные клубы{% endblock %}
+
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/sport/sport.css' %}">
 {% endblock %}
@@ -9,15 +11,37 @@
 {% block content %}
 <div class="sport-list-container">
   <h1>Спортивные клубы</h1>
+
+  <!-- Фильтр -->
+  <form method="get" class="filter-form">
+    <div class="form-row">
+      {{ form.city.label_tag }}
+      {{ form.city|add_class:"filter-input" }}
+    </div>
+    <div class="form-row">
+      {{ form.sport_type.label_tag }}
+      {{ form.sport_type|add_class:"filter-select" }}
+    </div>
+    <button type="submit" class="filter-btn">Фильтровать</button>
+  </form>
+
+  <!-- Список клубов -->
   <div class="club-list">
     {% for club in clubs %}
     <a href="{% url 'sport:club_detail' club.pk %}" class="club-card">
-      <h2>{{ club.name }}</h2>
-      <p>{{ club.get_sport_type_display }} • {{ club.city }}</p>
-      <span class="price">{{ club.price }} ₸ / мес</span>
+      {% if club.images.first %}
+        <img src="{{ club.images.first.image.url }}" alt="{{ club.name }}">
+      {% else %}
+        <div class="club-placeholder">Нет фото</div>
+      {% endif %}
+      <div class="club-info">
+        <h2>{{ club.name }}</h2>
+        <p>{{ club.get_sport_type_display }} • {{ club.city }}</p>
+        <span class="price">{{ club.price }} ₸ / мес</span>
+      </div>
     </a>
     {% empty %}
-    <p>Нет клубов для отображения.</p>
+    <p>Клубы не найдены.</p>
     {% endfor %}
   </div>
 </div>

@@ -37,3 +37,10 @@ class SportsClubReview(models.Model):
     def __str__(self):
         return f'{self.club.name} - {self.user.username}'
 
+class SportsClubImage(models.Model):
+    club = models.ForeignKey(SportsClub, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='sport_club_images/')
+
+    def __str__(self):
+        return f"Фото для {self.club.name}"
+
