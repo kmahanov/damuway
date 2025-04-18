@@ -16,8 +16,8 @@ body {
 
 /* Welcome */
 .welcome-section {
-    background: linear-gradient(#c89df1, #d66efd);
-    color: #881df4;
+    background: linear-gradient(#7A4CFF, #881df4);
+    color: #e9e8ea;
     text-align: center;
     padding: 80px 20px;
     border-radius: 0 0 40px 40px;
@@ -63,7 +63,7 @@ h2 {
     font-size: 2.4rem;
     text-align: center;
     margin-bottom: 40px;
-    color: #222;
+    color: #881df4;
 }
 
 /* Карточки */
@@ -109,13 +109,13 @@ h2 {
 
 h3 {
     font-size: 1.4rem;
-    color: #333;
+    color: #881df4;
     margin-bottom: 10px;
 }
 
 p {
     font-size: 1rem;
-    color: #666;
+    color: #ae64f6;
 }
 
 /* Contact */

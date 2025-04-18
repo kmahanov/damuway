@@ -11,24 +11,46 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-          --font-main: 'Inter', -apple-system, sans-serif;
+            --font-main: 'Inter', -apple-system, sans-serif;
         }
+
         body {
-          font-family: var(--font-main);
-          -webkit-font-smoothing: antialiased;
+            font-family: var(--font-main);
+            -webkit-font-smoothing: antialiased;
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     {% block extra_css %}{% endblock %}
 </head>
+<script>
+    function toggleProfileMenu() {
+        const dropdown = document.getElementById("profileDropdown");
+        dropdown.classList.toggle("hidden");
+    }
+
+    window.addEventListener("click", function(e) {
+        const profileMenu = document.querySelector(".profile-menu");
+        if (!profileMenu.contains(e.target)) {
+            document.getElementById("profileDropdown").classList.add("hidden");
+        }
+    });
+</script>
+
+
 <body>
 
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="/" class="nav-logo">
-                <img src="{% static 'images/logo.png' %}" alt="Logo" class="logo-img">
-                <span class="logo-text">Damuway</span>
-            </a>
+<nav class="navbar">
+    <div class="nav-container">
+        {% if user.is_authenticated %}
+        <a href="{% url 'main' %}" class="nav-logo">
+            <img src="{% static 'images/logo.png' %}" alt="Logo" class="logo-img">
+            <span class="logo-text">Damuway</span></a>
+
+        {% else %}
+        <a href="/" class="nav-logo">
+            <img src="{% static 'images/logo.png' %}" alt="Logo" class="logo-img">
+            <span class="logo-text">Damuway</span>
+            {% endif %}
 
             <div class="nav-menu">
                 <a href="/catalog">Каталог</a>
@@ -38,59 +60,67 @@
 
             <div class="nav-auth">
                 {% if user.is_authenticated %}
-                    <a href="{% url 'profile' %}" class="profile-icon" title="Профиль">
+                <div class="profile-menu">
+                    <div class="profile-icon" onclick="toggleProfileMenu()">
                         <i class="fas fa-user-circle" style="font-size: 24px;"></i>
-                    </a>
+                    </div>
+                    <div class="profile-dropdown hidden" id="profileDropdown">
+                        <a href="{% url 'profile' %}">Профиль</a>
+                        <a href="{% url 'logout' %}">Выйти</a>
+                    </div>
+                </div>
                 {% else %}
-                    <a href="{% url 'login' %}" class="login-btn">Войти</a>
+                <a href="{% url 'login' %}" class="login-btn">Войти</a>
                 {% endif %}
             </div>
 
             <div class="burger-menu" onclick="toggleMobileMenu()">
                 <i class="fas fa-bars"></i>
             </div>
-        </div>
+    </div>
 
-        <div class="mobile-nav hidden" id="mobileMenu">
+    <div class="mobile-nav hidden" id="mobileMenu">
+        <a href="/catalog">Каталог</a>
+        <a href="/my-records">Мои записи</a>
+        <a href="/contacts">Контакты</a>
+
+        {% if user.is_authenticated %}
+        <a href="{% url 'profile' %}" class="profile-mobile"><i class="fas fa-user-circle" style="color: #5F3BE6"></i>
+            Профиль</a>
+        {% else %}
+        <a href="{% url 'login' %}" class="login-mobile">Войти</a>
+        {% endif %}
+    </div>
+</nav>
+
+{% block content %}{% endblock %}
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-logo">
+            <img src="{% static 'images/logo.png' %}" alt="Logo" class="logo-img">
+            <span>Damuway</span>
+        </div>
+        <div class="footer-links">
             <a href="/catalog">Каталог</a>
-            <a href="/my-records">Мои записи</a>
             <a href="/contacts">Контакты</a>
-
-            {% if user.is_authenticated %}
-                <a href="{% url 'profile' %}" class="profile-mobile"><i class="fas fa-user-circle" style="color: #5F3BE6"></i> Профиль</a>
-            {% else %}
-                <a href="{% url 'login' %}" class="login-mobile">Войти</a>
-            {% endif %}
+            <a href="/about">О нас</a>
         </div>
-    </nav>
-
-    {% block content %}{% endblock %}
-
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-logo">
-                <img src="{% static 'images/logo.png' %}" alt="Logo" class="logo-img">
-                <span>Damuway</span>
-            </div>
-            <div class="footer-links">
-                <a href="/catalog">Каталог</a>
-                <a href="/contacts">Контакты</a>
-                <a href="/about">О нас</a>
-            </div>
-            <div class="footer-socials">
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-telegram"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-            </div>
+        <div class="footer-socials">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-telegram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
         </div>
-    </footer>
+    </div>
+</footer>
 
-    <script>
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('hidden');
-        }
-    </script>
-    {% block extra_js %}{% endblock %}
+
+<script>
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobileMenu');
+        menu.classList.toggle('hidden');
+    }
+</script>
+{% block extra_js %}{% endblock %}
 </body>
 </html>
