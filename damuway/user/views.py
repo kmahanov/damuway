@@ -20,7 +20,7 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('profile')
+            return redirect('main')
     else:
         form = CustomAuthenticationForm()
     return render(request, 'user/login.html', {'form': form})

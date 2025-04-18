@@ -16,8 +16,8 @@ body {
 
 /* Welcome */
 .welcome-section {
-    background: linear-gradient(135deg, #714eff, #d66efd);
-    color: #ae64f6;
+    background: linear-gradient(#c89df1, #d66efd);
+    color: #881df4;
     text-align: center;
     padding: 80px 20px;
     border-radius: 0 0 40px 40px;
@@ -120,7 +120,7 @@ p {
 
 /* Contact */
 .contact-section {
-    background-color: #714eff;
+    background: linear-gradient(#c89df1, #d66efd);
     color: white;
     text-align: center;
     padding: 60px 20px;
