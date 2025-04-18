@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}Отзыв о ресторане | {{ restaurant.name }}{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/restaurant/restaurant.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="review-form-container">
+  <h1>Оставить отзыв о {{ restaurant.name }}</h1>
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="id_rating">Оценка:</label>
+      {{ form.rating|add_class:"form-control" }}
+    </div>
+    <div class="form-group">
+      <label for="id_comment">Комментарий:</label>
+      {{ form.comment|add_class:"form-control" }}
+    </div>
+    <button type="submit" class="submit-btn">Отправить</button>
+  </form>
+</div>
+{% endblock %}

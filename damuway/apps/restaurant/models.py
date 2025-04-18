@@ -32,3 +32,18 @@ class RestaurantReview(models.Model):
 
     def __str__(self):
         return f"{self.restaurant.name} – {self.rating}★ by {self.user.username}"
+
+class RestaurantImage(models.Model):
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='restaurant_images/')
+
+    def __str__(self):
+        return f"Фото ресторана {self.restaurant.name}"
+
+
+class MenuItemImage(models.Model):
+    item = models.ForeignKey(KidsMenuItem, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='menu_item_images/')
+
+    def __str__(self):
+        return f"Фото блюда {self.item.name}"

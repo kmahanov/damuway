@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ restaurant.name }} | Ресторан{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/restaurant/restaurant.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="restaurant-detail-container">
+  <h1>{{ restaurant.name }}</h1>
+  <p><strong>Город:</strong> {{ restaurant.city }}</p>
+  <p><strong>Адрес:</strong> {{ restaurant.address }}</p>
+
+  {% if restaurant.description %}
+  <p>{{ restaurant.description }}</p>
+  {% endif %}
+
+  {% if restaurant.images.all %}
+  <div class="restaurant-gallery">
+    {% for img in restaurant.images.all %}
+      <img src="{{ img.image.url }}" alt="Фото ресторана">
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <hr>
+  <h2>Детское меню</h2>
+  {% if restaurant.kids_menu.all %}
+    <div class="menu-list">
+      {% for item in restaurant.kids_menu.all %}
+      <div class="menu-item">
+        <strong>{{ item.name }}</strong> — {{ item.price }} ₸
+        <p>{{ item.description }}</p>
+        {% if item.images.all %}
+          <div class="menu-gallery">
+            {% for photo in item.images.all %}
+              <img src="{{ photo.image.url }}" alt="{{ item.name }}">
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>Меню пока не добавлено.</p>
+  {% endif %}
+
+  <hr>
+  <h2>Отзывы</h2>
+  {% if restaurant.reviews.all %}
+    {% for review in restaurant.reviews.all %}
+      <div class="review">
+        <div class="top">
+          <span>{{ review.user.username }}</span>
+          <span>{{ review.rating }}★</span>
+        </div>
+        <p>{{ review.comment }}</p>
+        <span class="review-date">{{ review.created_at|date:"d.m.Y" }}</span>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>Пока нет отзывов.</p>
+  {% endif %}
+</div>
+{% endblock %}
