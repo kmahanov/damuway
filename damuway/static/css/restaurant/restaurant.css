@@ -1,3 +1,16 @@
+.restaurant-list-container {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.section-title {
+  font-size: 2rem;
+  color: #714EFF;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
 .filter-form {
   display: flex;
   gap: 20px;
@@ -5,20 +18,29 @@
   margin-bottom: 30px;
 }
 
-.filter-input, .filter-select {
+.form-group {
+  flex: 1;
+  min-width: 220px;
+}
+
+.form-control {
+  width: 100%;
   padding: 10px;
   border-radius: 10px;
   border: 1px solid #ccc;
+  font-size: 1rem;
 }
 
 .filter-btn {
-  background: #714EFF;
+  background-color: #714EFF;
   color: white;
+  padding: 10px 20px;
   border: none;
-  padding: 10px 16px;
   border-radius: 10px;
   font-weight: bold;
   cursor: pointer;
+  height: 45px;
+  align-self: end;
 }
 
 .restaurant-cards {
@@ -28,48 +50,68 @@
 }
 
 .restaurant-card {
+  background: white;
   text-decoration: none;
-  color: #333;
-  background: #fff;
-  border-radius: 14px;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+  color: inherit;
+  border-radius: 16px;
   overflow: hidden;
-  transition: 0.3s;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  transition: transform 0.3s;
+  display: flex;
+  flex-direction: column;
 }
 
 .restaurant-card:hover {
-  transform: scale(1.01);
+  transform: scale(1.02);
 }
 
 .restaurant-card img {
   width: 100%;
-  height: 160px;
+  height: 180px;
   object-fit: cover;
 }
 
 .restaurant-placeholder {
+  height: 180px;
   background: #eee;
-  height: 160px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  color: #aaa;
+  justify-content: center;
+  color: #888;
+}
+
+.card-content {
+  padding: 15px;
+}
+
+.card-content h2 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.city {
+  font-size: 0.95rem;
+  color: #666;
 }
 
 .badge-kids {
   background-color: #FFDC5E;
-  padding: 4px 10px;
-  border-radius: 8px;
+  color: #333;
   font-size: 0.8rem;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 12px;
+  margin-top: 10px;
   display: inline-block;
-  margin-top: 6px;
 }
 
-.restaurant-detail-container {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 20px;
+.empty-message {
+  text-align: center;
+  margin-top: 40px;
+  font-style: italic;
+  color: #888;
 }
+
 
 .restaurant-gallery img, .menu-gallery img {
   height: 120px;
