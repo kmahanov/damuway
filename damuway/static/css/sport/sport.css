@@ -1,0 +1,118 @@
+/* Общий стиль */
+h1, h2 {
+  color: #714EFF;
+}
+
+.sport-list-container,
+.club-detail-container,
+.review-form-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+.club-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.club-card {
+  flex: 1 1 45%;
+  padding: 20px;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  background: #f8f8ff;
+  text-decoration: none;
+  color: #333;
+  transition: 0.3s;
+}
+
+.club-card:hover {
+  background: #eeeaff;
+  transform: scale(1.02);
+}
+
+.price {
+  font-weight: bold;
+  color: #4CAF50;
+}
+
+.sport {
+  font-style: italic;
+  color: #555;
+}
+
+.description {
+  margin-top: 15px;
+  font-size: 1rem;
+  color: #666;
+}
+
+.reviews-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.add-review-btn {
+  background: #714EFF;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.reviews .review {
+  background: #f1f1ff;
+  border-radius: 12px;
+  padding: 15px;
+  margin-top: 20px;
+}
+
+.review .top {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+.review .date {
+  font-size: 0.9rem;
+  color: #777;
+  margin-top: 10px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+textarea, select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.submit-btn {
+  background: #714EFF;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background: #5b39cc;
+}
