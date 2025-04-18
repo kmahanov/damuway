@@ -137,7 +137,7 @@
     <div class="tab-content" id="reviews-content">
         <div class="reviews-header">
             <h2>Отзывы читателей</h2>
-            <a href="{% url 'add_review' book.pk %}" class="add-review-btn">+ Добавить отзыв</a>
+            <a href="{% url book:'add_review' book.pk %}" class="add-review-btn">+ Добавить отзыв</a>
         </div>
         
         {% if book.reviews.all %}

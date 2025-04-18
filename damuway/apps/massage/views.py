@@ -3,7 +3,6 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import MassageCenter, Specialist, Review, Appointment, MassageCategory
 from .forms import ReviewForm, AppointmentForm
 
-# Массажные центры
 
 def massage_center_list(request):
     centers = MassageCenter.objects.all()

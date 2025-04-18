@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Добро пожаловать в Damuway!{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/welcome/home.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<!-- Welcome Section -->
+<section class="welcome-section">
+  <div class="container">
+    <h1>Добро пожаловать в <span style="color:#ffd369;">Damuway!</span></h1>
+    <p>Платформа для родителей: детсады, книги, логопеды, игры и советы в одном месте.</p>
+    <a href="/user/register" class="cta-btn">Начать путешествие</a>
+  </div>
+</section>
+
+<!-- Popular Services -->
+<section class="services-section">
+  <div class="container">
+    <h2>Популярные категории</h2>
+    <div class="services-list">
+      <div class="service-item">
+        <img src="{% static 'images/kindergarten.jpg' %}" alt="Детские сады">
+        <h3>Детские сады</h3>
+        <p>Найдите лучший садик рядом с вами.</p>
+        <a href="/kindergarten" class="cta-btn">Перейти</a>
+      </div>
+      <div class="service-item">
+        <img src="{% static 'images/schools.jpg' %}" alt="Школы">
+        <h3>Школы</h3>
+        <p>Узнайте всё о школах в вашем районе.</p>
+        <a href="/school" class="cta-btn">Перейти</a>
+      </div>
+      <div class="service-item">
+        <img src="{% static 'images/books.jpg' %}" alt="Книги">
+        <h3>Книги</h3>
+        <p>Книги для развития и вдохновения.</p>
+        <a href="/book" class="cta-btn">Перейти</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Parenting Resources -->
+<section class="resources-section">
+  <div class="container">
+    <h2>Ресурсы для родителей</h2>
+    <div class="resources-list">
+      <div class="resource-item">
+        <img src="{% static 'images/development.jpg' %}" alt="Развитие ребенка">
+        <h3>Развитие</h3>
+        <p>Методики, курсы, советы психологов.</p>
+        <a href="/development" class="cta-btn">Подробнее</a>
+      </div>
+      <div class="resource-item">
+        <img src="{% static 'images/activity.jpg' %}" alt="Игры">
+        <h3>Игры и активности</h3>
+        <p>Лучшие идеи для развития через игру.</p>
+        <a href="/activity" class="cta-btn">Подробнее</a>
+      </div>
+      <div class="resource-item">
+        <img src="{% static 'images/logoped.png' %}" alt="Логопеды">
+        <h3>Логопеды</h3>
+        <p>Коррекция речи и индивидуальные занятия.</p>
+        <a href="/logoped" class="cta-btn">Подробнее</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Blog Section -->
+<section class="blog-section">
+  <div class="container">
+    <h2>Блог</h2>
+    <div class="blog-posts">
+      <div class="blog-post">
+        <h3>Как выбрать детский сад?</h3>
+        <p>Практичные советы и что важно учесть.</p>
+        <a href="/article/1" class="cta-btn">Читать</a>
+      </div>
+      <div class="blog-post">
+        <h3>5 советов для родителей</h3>
+        <p>Создание среды для счастливого детства.</p>
+        <a href="/article/2" class="cta-btn">Читать</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials-section">
+  <div class="container">
+    <h2>Отзывы</h2>
+    <div class="testimonials-list">
+      <div class="testimonial-item">
+        <p>“Damuway — это находка для нас. Столько полезной информации и удобный интерфейс.”</p>
+        <h4>Анна, мама Максима</h4>
+      </div>
+      <div class="testimonial-item">
+        <p>“Благодаря этой платформе я нашла логопеда и детский сад. Всё в одном месте!”</p>
+        <h4>Ирина, мама Алисы</h4>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section class="contact-section">
+  <div class="container">
+    <h2>Связь с нами</h2>
+    <p>Остались вопросы? Напишите нам — мы рядом!</p>
+    <a href="/contact" class="cta-btn">Написать</a>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.querySelectorAll('.cta-btn').forEach(btn => {
+    btn.addEventListener('mouseenter', () => {
+      btn.style.transform = 'scale(1.05)';
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform = 'scale(1)';
+    });
+  });
+</script>
+{% endblock %}

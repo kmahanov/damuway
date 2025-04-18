@@ -52,7 +52,7 @@
 
 .nav-auth a {
     text-decoration: none;
-    color: #ffffff;
+    color: #333333;
     font-weight: 500;
     transition: var(--transition);
 }
@@ -63,7 +63,7 @@
 
 .login-btn {
     background-color: var(--main-color);
-    color: white;
+    color: #ae64f6;
     padding: 0.4rem 1rem;
     border-radius: 6px;
 }
