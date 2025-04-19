@@ -1,47 +1,48 @@
-from django.shortcuts import render
-from .models import Restaurant
-from .forms import RestaurantFilterForm
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Restaurant, RestaurantReview
-from .forms import ReviewForm
+from .models import Restaurant
+from .forms import RestaurantFilterForm, RestaurantReviewForm
 from django.contrib.auth.decorators import login_required
 
 def restaurant_list(request):
-    form = RestaurantFilterForm(request.GET)
     restaurants = Restaurant.objects.all()
+    form = RestaurantFilterForm(request.GET or None)
 
     if form.is_valid():
         city = form.cleaned_data.get('city')
-        search = form.cleaned_data.get('search')
+        has_kids_menu = form.cleaned_data.get('has_kids_menu')
 
         if city:
             restaurants = restaurants.filter(city__icontains=city)
-
-        if search:
-            restaurants = restaurants.filter(name__icontains=search)
+        if has_kids_menu == 'yes':
+            restaurants = restaurants.filter(has_kids_menu=True)
+        elif has_kids_menu == 'no':
+            restaurants = restaurants.filter(has_kids_menu=False)
 
     context = {
-        'form': form,
-        'restaurants': restaurants
+        'restaurants': restaurants,
+        'form': form
     }
-    return render(request, 'restaurants/restaurant_list.html', context)
+    return render(request, 'restaurant/restaurant_list.html', context)
 
 
 def restaurant_detail(request, pk):
     restaurant = get_object_or_404(Restaurant, pk=pk)
+    return render(request, 'restaurant/restaurant_detail.html', {'restaurant': restaurant})
 
-    if request.method == 'POST' and request.user.is_authenticated:
-        form = ReviewForm(request.POST)
+
+@login_required
+def add_review(request, pk):
+    restaurant = get_object_or_404(Restaurant, pk=pk)
+
+    if request.method == 'POST':
+        form = RestaurantReviewForm(request.POST)
         if form.is_valid():
             review = form.save(commit=False)
             review.user = request.user
             review.restaurant = restaurant
             review.save()
-            return redirect('restaurant_detail', pk=restaurant.pk)
+            return redirect('restaurant:restaurant_detail', pk=restaurant.pk)
     else:
-        form = ReviewForm()
+        form = RestaurantReviewForm()
 
-    return render(request, 'restaurants/restaurant_detail.html', {
-        'restaurant': restaurant,
-        'form': form
-    })
+    return render(request, 'restaurant/add_review.html', {'form': form, 'restaurant': restaurant})

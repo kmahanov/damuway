@@ -104,7 +104,7 @@
     <div class="tab-content active" id="quotes-content">
         <div class="quotes-header">
             <h2>Цитаты из книги</h2>
-            <a href="{% url 'quote_list' book.pk %}" class="see-all">Все цитаты →</a>
+            <a href="{% url 'book:quote_list' book.pk %}" class="see-all">Все цитаты →</a>
         </div>
         
         {% if book.quotes.all|slice:":3" %}
@@ -137,7 +137,7 @@
     <div class="tab-content" id="reviews-content">
         <div class="reviews-header">
             <h2>Отзывы читателей</h2>
-            <a href="{% url 'add_review' book.pk %}" class="add-review-btn">+ Добавить отзыв</a>
+            <a href="{% url 'book:add_review' book.pk %}" class="add-review-btn">+ Добавить отзыв</a>
         </div>
         
         {% if book.reviews.all %}

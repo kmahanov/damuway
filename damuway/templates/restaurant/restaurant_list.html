@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}Рестораны для семей{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/restaurant/restaurant.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="restaurant-list-container">
+  <h1 class="section-title">Рестораны для всей семьи</h1>
+
+  <!-- Форма фильтра -->
+  <form method="get" class="filter-form">
+    <div class="form-group">
+      <label for="id_city">Город</label>
+      {% render_field form.city class="form-control" placeholder="Например, Алматы" %}
+    </div>
+    <div class="form-group">
+      <label for="id_has_kids_menu">Детское меню</label>
+      {% render_field form.has_kids_menu class="form-control" %}
+    </div>
+    <button type="submit" class="filter-btn">Найти</button>
+  </form>
+
+  <!-- Карточки ресторанов -->
+  <div class="restaurant-cards">
+    {% for restaurant in restaurants %}
+    <a href="{% url 'restaurant:restaurant_detail' restaurant.pk %}" class="restaurant-card">
+      {% if restaurant.images.first %}
+        <img src="{{ restaurant.images.first.image.url }}" alt="{{ restaurant.name }}">
+      {% else %}
+        <div class="restaurant-placeholder">Нет фото</div>
+      {% endif %}
+
+      <div class="card-content">
+        <h2>{{ restaurant.name }}</h2>
+        <p class="city">{{ restaurant.city }}</p>
+        {% if restaurant.has_kids_menu %}
+        <span class="badge-kids">Детское меню</span>
+        {% endif %}
+      </div>
+    </a>
+    {% empty %}
+    <p class="empty-message">По вашему запросу ничего не найдено.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

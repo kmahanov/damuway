@@ -1,140 +1,67 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+
 {% load static %}
 
 
-{% block title %}Добро пожаловать в Damuway!{% endblock %}
-
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/welcome/home.css' %}">
+    <link rel="stylesheet" href="{% static '/css/home.css' %}">
 {% endblock %}
+
 
 {% block content %}
-<!-- Welcome Section -->
-<section class="welcome-section">
-    <div class="container">
-        <h1>Добро пожаловать в Damuway!</h1>
-        <p>Платформа для молодых родителей, предлагающая полезные ресурсы и информацию по воспитанию, детским садам, книгам, играм и многому другому.</p>
-        <a href="user/register" class="cta-btn">Начать путешествие</a>
+<div class="hero">
+    <div class="ellipse"></div>
+    <div class="content">
+        <h1>DAMUWAY – растем вместе, шаг за шагом!</h1>
+        <p>Мы собрали экспертные материалы, рекомендации и вдохновляющие идеи для родителей.</p>
     </div>
+    <div class="image">
+        <img src="{% static '/media/home/img1.png' %}" alt="Родители и дети">
+    </div>
+</div>
+
+<div class="info-section">
+    <div class="image">
+        <img src="{% static '/media/home/img2.png' %}" alt="Ребенок с книгами">
+    </div>
+    <div class="content">
+        <p>Быть родителем – это невероятное приключение, полное радости, открытий и, конечно, множества вопросов. Где найти лучший детский сад? Как развивать малыша с ранних лет? Какие книги помогут ему расти умным и счастливым?</p>
+    </div>
+</div>
+
+<div class="info-section">
+    <div class="content">
+        <p>DAMUWAY – это больше, чем просто сайт. Это пространство, созданное для молодых родителей, которые хотят дать своим детям лучшее. Мы собрали актуальную информацию, проверенные советы, полезные материалы и вдохновляющие идеи – все, что нужно для уверенности в каждом шаге родительства.</p>
+    </div>
+    <div class="image">
+        <img src="{% static '/media/home/img3.png' %}" alt="Счастливая семья">
+    </div>
+</div>
+
+<section class="features-section">
+  <div class="container">
+    <div class="features-title">
+      <span class="badge">
+        <i class="fas fa-chart-line"></i> Что вас ждет на <strong>DAMUWAY?</strong>
+      </span>
+    </div>
+    <div class="features-grid">
+      <ul>
+        <li><i class="fas fa-check-circle"></i> Полезные статьи и рекомендации от экспертов</li>
+        <li><i class="fas fa-check-circle"></i> Список проверенных детских садов и развивающих центров</li>
+      </ul>
+      <ul>
+        <li><i class="fas fa-check-circle"></i> Подборки лучших книг и развивающих игр</li>
+        <li><i class="fas fa-check-circle"></i> Уникальные лайфхаки и советы для родителей</li>
+      </ul>
+    </div>
+  </div>
 </section>
 
-<!-- Popular Services Section -->
-<section class="services-section">
-    <div class="container">
-        <h2>Популярные категории</h2>
-        <div class="services-list">
-            <div class="service-item">
-                <img src="{% static 'images/kindergarten.jpg' %}" alt="Детские сады">
-                <h3><a href="/school">Детские сады</a></h3>
-                <p>Лучшие детские сады в вашем районе. Мы поможем вам найти идеальное место для вашего малыша.</p>
-            </div>
-            <div class="service-item">
-                <img src="{% static 'images/schools.jpg' %}" alt="Школы">
-                <h3><a href="/school">Школы</a></h3>
-                <p>Полная информация о школах, которые обеспечат образование вашего ребенка.</p>
-            </div>
-            <div class="service-item">
-                <img src="{% static 'images/books.jpg' %}"  alt="Книги">
-                <h3><a href="/book" >Книги</a></h3>
-                <p>Полезные книги для развития детей разных возрастов. Подборка лучших изданий.</p>
-            </div>
-        </div>
-    </div>
-</section>
+<div class="cta">
+    <h2>Ваш ребенок заслуживает лучшего – а мы поможем вам в этом!</h2>
+    <p>Присоединяйтесь к DAMUWAY и сделайте родительство проще и счастливее!</p>
+    <a href="/user/register" class="btn">Начать работу</a>
+</div>
 
-<!-- Resources Section -->
-<section class="resources-section">
-    <div class="container">
-        <h2>Ресурсы для родителей</h2>
-        <p>Наши материалы и рекомендации помогут вам лучше понять потребности вашего ребенка.</p>
-        <div class="resources-list">
-            <div class="resource-item">
-                <img src="{% static 'images/development.jpg' %}" alt="Развитие">
-                <h3>Развитие ребенка</h3>
-                <p>Методы раннего развития, советы психологов и педагогов, курсы и тренинги.</p>
-                <a href="/development" class="btn">Узнать больше</a>
-            </div>
-            <div class="resource-item">
-                <img src="{% static 'images/activity.jpg' %}" alt="Игры">
-                <h3>Игры для детей</h3>
-                <p>Развивающие игры и игрушки для детей всех возрастов. Подборка для вас и вашего малыша.</p>
-                <a href="/activity" class="btn">Узнать больше</a>
-            </div>
-            <div class="resource-item">
-                <img src="{% static 'images/logoped.png' %}" alt="Логопеды">
-                <h3>Логопеды и коррекция речи</h3>
-                <p>Консультации специалистов по развитию речи у детей. Индивидуальные программы занятий.</p>
-                <a href="/logoped" class="btn">Узнать больше</a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Blog Section -->
-<section class="blog-section">
-    <div class="container">
-        <h2>Блог для родителей</h2>
-        <div class="blog-posts">
-            <div class="blog-post">
-                <h3>Как выбрать детский сад?</h3>
-                <p>Все, что вам нужно знать, чтобы выбрать лучший детский сад для вашего ребенка. Советы, рекомендации и отзывы.</p>
-                <a href="/article/1" class="btn">Читать статью</a>
-            </div>
-            <div class="blog-post">
-                <h3>5 советов для родителей дошкольников</h3>
-                <p>Как создать правильную атмосферу для развития вашего малыша. Тренды и советы от экспертов.</p>
-                <a href="/article/2" class="btn">Читать статью</a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Testimonials Section -->
-<section class="testimonials-section">
-    <div class="container">
-        <h2>Отзывы родителей</h2>
-        <div class="testimonials-list">
-            <div class="testimonial-item">
-                <p>"Damuway помог мне найти лучший детский сад для моего сына. Очень благодарна за подробные отзывы и информацию!"</p>
-                <h4>Анна, мама 3-х летнего Максима</h4>
-            </div>
-            <div class="testimonial-item">
-                <p>"С помощью этой платформы я нашла несколько отличных развивающих игр для дочери. Это действительно помогает ей развиваться."</p>
-                <h4>Ирина, мама 5-летней Алисы</h4>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- News Section -->
-<section class="news-section">
-    <div class="container">
-        <h2>Новости</h2>
-        <div class="news-posts">
-            <div class="news-item">
-                <h3>Новые курсы для родителей</h3>
-                <p>Мы запускаем новые курсы для родителей, посвященные воспитанию и раннему развитию. Следите за анонсами!</p>
-            </div>
-            <div class="news-item">
-                <h3>Рейтинг лучших детских садов</h3>
-                <p>Обновленный рейтинг детских садов в Алматы. Узнайте, какие сады получили самые высокие оценки.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Contact Section -->
-<section class="contact-section">
-    <div class="container">
-        <h2>Связаться с нами</h2>
-        <p>У вас есть вопросы или предложения? Напишите нам, и мы обязательно вам ответим!</p>
-        <a href="/contact" class="cta-btn">Написать нам</a>
-    </div>
-</section>
-{% endblock %}
-
-{% block extra_js %}
-<script>
-    // Здесь можно добавить дополнительные JavaScript для анимаций и интерактивности
-</script>
 {% endblock %}

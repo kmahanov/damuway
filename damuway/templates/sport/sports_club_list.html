@@ -1,30 +1,48 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load widget_tweaks %}
+
+{% block title %}Спортивные клубы{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/sport/sport.css' %}">
+{% endblock %}
 
 {% block content %}
-<div class="container mx-auto px-4 py-6">
-  <h1 class="text-2xl font-bold mb-4">Спортивные клубы</h1>
+<div class="sport-list-container">
+  <h1>Спортивные клубы</h1>
 
-  <form method="get" class="mb-6 flex flex-wrap gap-4">
-    {{ form.city.label_tag }} {{ form.city }}
-    {{ form.sport_type.label_tag }} {{ form.sport_type }}
-    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Фильтр</button>
+  <!-- Фильтр -->
+  <form method="get" class="filter-form">
+    <div class="form-row">
+      {{ form.city.label_tag }}
+      {{ form.city|add_class:"filter-input" }}
+    </div>
+    <div class="form-row">
+      {{ form.sport_type.label_tag }}
+      {{ form.sport_type|add_class:"filter-select" }}
+    </div>
+    <button type="submit" class="filter-btn">Фильтровать</button>
   </form>
 
-  {% if clubs %}
-    <div class="grid gap-4">
-      {% for club in clubs %}
-        <div class="p-4 border rounded hover:shadow-md transition">
-          <h2 class="text-xl font-semibold">{{ club.name }}</h2>
-          <p class="text-gray-600">{{ club.get_sport_type_display }} | {{ club.city }}</p>
-          <p class="text-sm">{{ club.address }}</p>
-          <p class="text-sm mt-1">Возраст от: {{ club.min_age }} лет | Цена: {{ club.price }} ₸</p>
-          <a href="{% url 'sports_club_detail' club.pk %}" class="text-blue-500 mt-2 inline-block">Подробнее →</a>
-        </div>
-      {% endfor %}
-    </div>
-  {% else %}
-    <p>Клубов не найдено.</p>
-  {% endif %}
+  <!-- Список клубов -->
+  <div class="club-list">
+    {% for club in clubs %}
+    <a href="{% url 'sport:club_detail' club.pk %}" class="club-card">
+      {% if club.images.first %}
+        <img src="{{ club.images.first.image.url }}" alt="{{ club.name }}">
+      {% else %}
+        <div class="club-placeholder">Нет фото</div>
+      {% endif %}
+      <div class="club-info">
+        <h2>{{ club.name }}</h2>
+        <p>{{ club.get_sport_type_display }} • {{ club.city }}</p>
+        <span class="price">{{ club.price }} ₸ / мес</span>
+      </div>
+    </a>
+    {% empty %}
+    <p>Клубы не найдены.</p>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}

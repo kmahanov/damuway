@@ -52,7 +52,7 @@
 
 .nav-auth a {
     text-decoration: none;
-    color: #ffffff;
+    color: #333333;
     font-weight: 500;
     transition: var(--transition);
 }
@@ -63,7 +63,7 @@
 
 .login-btn {
     background-color: var(--main-color);
-    color: white;
+    color: #ae64f6;
     padding: 0.4rem 1rem;
     border-radius: 6px;
 }
@@ -78,6 +78,52 @@
     font-size: 1.5rem;
     cursor: pointer;
     color: var(--main-color);
+}
+
+.profile-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-icon {
+    color: #333;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.profile-icon:hover {
+    color: var(--main-color);
+}
+
+.profile-dropdown {
+    position: absolute;
+    right: 0;
+    top: 40px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+    min-width: 120px;
+    text-align: left;
+    z-index: 1000;
+}
+
+.profile-dropdown a {
+    display: block;
+    padding: 10px 16px;
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.3s ease;
+}
+
+.profile-dropdown a:hover {
+    background-color: #f1f1f1;
+}
+
+/* скрытие */
+.hidden {
+    display: none;
 }
 
 /* Mobile Menu */

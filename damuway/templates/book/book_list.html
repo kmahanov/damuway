@@ -42,7 +42,7 @@
         <div class="books-grid">
             {% for book in new_books %}
             <div class="book-card">
-                <a href="{% url 'book_detail' book.pk %}">
+                <a href="{% url 'book:book_detail' book.pk %}">
                     <div class="book-cover">
                         {% if book.cover %}
                         <img src="{{ book.cover.url }}" alt="{{ book.title }}">
@@ -70,7 +70,7 @@
         <div class="books-grid">
             {% for book in popular_books %}
             <div class="book-card">
-                <a href="{% url 'book_detail' book.pk %}">
+                <a href="{% url 'book:book_detail' book.pk %}">
                     <div class="book-cover">
                         {% if book.cover %}
                         <img src="{{ book.cover.url }}" alt="{{ book.title }}">
@@ -98,7 +98,7 @@
         <div class="books-grid">
             {% for book in recommended_books %}
             <div class="book-card">
-                <a href="{% url 'book_detail' book.pk %}">
+                <a href="{% url 'book:book_detail' book.pk %}">
                     <div class="book-cover">
                         {% if book.cover %}
                         <img src="{{ book.cover.url }}" alt="{{ book.title }}">

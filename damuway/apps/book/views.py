@@ -47,7 +47,7 @@ def add_review(request, pk):
             review.user = request.user
             review.book = book
             review.save()
-            return redirect('book_detail', pk=book.pk)
+            return redirect('book:book_detail', pk=book.pk)
     else:
         form = ReviewForm()
 
