@@ -1,34 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ event.title }} | Damuway{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/event/event.css' %}">
+{% endblock %}
+
+{% block content %}
 <div class="event-detail-container">
-    <h1>{{ event.title }}</h1>
+  <h1>{{ event.title }}</h1>
 
-    {% if event.image %}
-    <img src="{{ event.image.url }}" alt="{{ event.title }}" class="event-image">
-    {% endif %}
+  {% if event.image %}
+  <div class="event-detail-image">
+    <img src="{{ event.image.url }}" alt="{{ event.title }}">
+  </div>
+  {% endif %}
 
+  <div class="event-meta">
     <p><strong>📍 Место:</strong> {{ event.location }}</p>
-    <p><strong>🗓 Дата и время:</strong> {{ event.date|date:"d M Y H:i" }}</p>
+    <p><strong>🗓 Дата:</strong> {{ event.date|date:"d M Y H:i" }}</p>
     <p><strong>🎭 Категория:</strong> {{ event.get_category_display }}</p>
     <p><strong>👶 Возраст:</strong> {{ event.age_limit }}</p>
     <p><strong>💰 Цена:</strong> {{ event.price }}</p>
-
     {% if event.organizer %}
     <p><strong>🎤 Организатор:</strong> {{ event.organizer }}</p>
     {% endif %}
+  </div>
 
-    <p class="event-description">{{ event.description }}</p>
+  {% if event.description %}
+  <p class="event-description">{{ event.description }}</p>
+  {% endif %}
 
-    {% if event.ticket_link %}
-    <a href="{{ event.ticket_link }}" class="btn" target="_blank">🎟 Купить билет</a>
-    {% endif %}
+  {% if event.ticket_link %}
+  <a href="{{ event.ticket_link }}" target="_blank" class="btn-ticket">🎟 Купить билет</a>
+  {% endif %}
 
-    <a href="{% url 'event_list' %}" class="btn-back">⬅ Назад ко всем событиям</a>
+  <a href="{% url 'event_list' %}" class="btn-back">⬅ Назад к списку</a>
 </div>
-</body>
-</html>
+{% endblock %}
