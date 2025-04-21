@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 class MassageCategory(models.Model):
 
@@ -57,7 +58,10 @@ class Review(models.Model):
 
     massage_center = models.ForeignKey(MassageCenter, related_name="reviews", on_delete=models.CASCADE)
     author = models.CharField(max_length=255, verbose_name="Имя клиента")
-    rating = models.IntegerField(verbose_name="Оценка (1-5)")
+    rating = models.IntegerField(
+        verbose_name="Оценка (1-5)",
+        validators=[MinValueValidator(1), MaxValueValidator(5)]
+    )
     comment = models.TextField(verbose_name="Комментарий")
     created_at = models.DateTimeField(auto_now_add=True)
 

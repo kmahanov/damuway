@@ -1,14 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-  <h1>{{ specialist.name }}</h1>
-  <p><strong>Опыт:</strong> {{ specialist.experience }} лет</p>
-  <p><strong>Специализация:</strong> {{ specialist.specialization.name }}</p>
+{% extends 'base.html' %}
+{% load static %}
 
-  <a href="{% url 'massage:book_appointment' specialist.id %}">Записаться на сеанс</a>
-</body>
-</html>
+{% block title %}{{ specialist.name }} | Damuway{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/massage/massage.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="specialist-detail-container">
+  <div class="specialist-card large">
+    {% if specialist.photo_url %}
+    <img src="{{ specialist.photo_url }}" alt="{{ specialist.name }}" class="round-avatar large">
+    {% endif %}
+
+    <h1>{{ specialist.name }}</h1>
+    <p class="specialist-sub">{{ specialist.specialization.name }}</p>
+    <p class="specialist-exp">Опыт: {{ specialist.experience }} лет</p>
+    <p class="specialist-center">🏢 Центр: {{ specialist.massage_center.name }}</p>
+
+    <a href="{% url 'massage:book_appointment' specialist.id %}" class="view-btn">🗓 Записаться</a>
+  </div>
+</div>
+{% endblock %}
