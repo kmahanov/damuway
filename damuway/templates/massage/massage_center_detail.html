@@ -1,39 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 {% extends 'base.html' %}
+{% load static %}
 
-{% block content %}
-  <h1>{{ center.name }}</h1>
-  <p>{{ center.description }}</p>
-  <p><strong>Рейтинг:</strong> {{ center.rating }}</p>
-  <p><strong>Локация:</strong> {{ center.location }}</p>
+{% block title %}{{ center.name }} | Damuway{% endblock %}
 
-  <h2>Отзывы</h2>
-  {% for review in review_page_obj %}
-    <div>
-      <strong>{{ review.author }}</strong> ({{ review.rating }}⭐)
-      <p>{{ review.comment }}</p>
-    </div>
-  {% endfor %}
-
-  {% if review_page_obj.has_next %}
-    <a href="?review_page={{ review_page_obj.next_page_number }}">Следующая страница</a>
-  {% endif %}
-
-  <h2>Специалисты</h2>
-  <ul>
-    {% for specialist in specialists %}
-      <li><a href="{% url 'massage:specialist_detail' specialist.id %}">{{ specialist.name }}</a></li>
-    {% endfor %}
-  </ul>
-
-  <a href="{% url 'massage:add_review' center.id %}">Добавить отзыв</a>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/massage/massage.css' %}">
 {% endblock %}
 
-</body>
-</html>
+{% block content %}
+<div class="massage-detail-container">
+  <h1>{{ center.name }}</h1>
+  <p class="location">📍 {{ center.location }}</p>
+  <p class="rating">⭐ {{ center.rating|floatformat:1 }}</p>
+
+  {% if center.description %}
+  <p class="description">{{ center.description }}</p>
+  {% endif %}
+
+  {% if center.achievements %}
+  <div class="highlight-box">
+    <h3>🏆 Достижения</h3>
+    <p>{{ center.achievements }}</p>
+  </div>
+  {% endif %}
+
+  {% if center.photos.all %}
+  <div class="center-gallery">
+    {% for photo in center.photos.all %}
+    <img src="{{ photo.image_url }}" alt="Фото центра">
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <div class="category-tags">
+    {% for category in center.categories.all %}
+    <span class="center-tag">{{ category.name }}</span>
+    {% endfor %}
+  </div>
+
+  <!-- Отзывы -->
+  <div class="reviews-section">
+    <div class="reviews-header">
+      <h2>Отзывы</h2>
+      <a href="{% url 'massage:add_review' center.id %}" class="view-btn">+ Добавить отзыв</a>
+    </div>
+    {% for review in review_page_obj %}
+    <div class="review-card">
+      <div class="review-top">
+        <strong>{{ review.author }}</strong>
+        <span class="rating">{{ review.rating }} ★</span>
+      </div>
+      <p>{{ review.comment }}</p>
+      <span class="date">{{ review.created_at|date:"d.m.Y" }}</span>
+    </div>
+    {% empty %}
+    <p class="no-results">Отзывов пока нет.</p>
+    {% endfor %}
+
+    {% if review_page_obj.has_next %}
+    <a href="?review_page={{ review_page_obj.next_page_number }}" class="load-more">Следующая страница</a>
+    {% endif %}
+  </div>
+
+  <!-- Специалисты -->
+  <h2 class="section-title">👩‍⚕️ Специалисты центра</h2>
+  <div class="specialist-grid">
+    {% for specialist in specialists %}
+    <div class="specialist-card">
+      {% if specialist.photo_url %}
+      <img src="{{ specialist.photo_url }}" alt="{{ specialist.name }}" class="round-avatar">
+      {% endif %}
+      <h3>{{ specialist.name }}</h3>
+      <p>{{ specialist.specialization.name }}</p>
+      <p>Опыт: {{ specialist.experience }} лет</p>
+      <a href="{% url 'massage:specialist_detail' specialist.id %}" class="view-btn">Подробнее</a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

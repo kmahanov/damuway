@@ -1,49 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load static %}
 
+{% block title %}События для детей | Damuway{% endblock %}
 
-<div class="event-container">
-    <h1 class="page-title">🎉 События для детей</h1>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/event/event.css' %}">
+{% endblock %}
 
-    <div class="event-filters">
-        <form method="GET">
-            <label for="city">🏙 Город:</label>
-            <select name="city" id="city" onchange="this.form.submit()">
-                <option value="">Все города</option>
-                {% for city in cities %}
-                <option value="{{ city }}" {% if request.GET.city == city %}selected{% endif %}>{{ city }}</option>
-                {% endfor %}
-            </select>
-        </form>
-    </div>
+{% block content %}
+<div class="event-list-container">
+  <h1>🎉 Детские мероприятия</h1>
 
-    <div class="event-grid">
-        {% for event in events %}
-        <div class="event-card">
-            {% if event.image %}
-            <img src="{{ event.image.url }}" alt="{{ event.title }}" class="event-img">
-            {% endif %}
-
-            <div class="event-info">
-                <h2 class="event-title">
-                    <a href="{% url 'event_detail' event.id %}">{{ event.title }}</a>
-                </h2>
-                <p class="event-location">📍 {{ event.location }}</p>
-                <p class="event-date">🗓 {{ event.date|date:"d M Y H:i" }}</p>
-                <p class="event-age">👶 Возраст: {{ event.age_limit }}</p>
-                <p class="event-price">💰 Цена: {{ event.price }}</p>
-                <a href="{% url 'event_detail' event.id %}" class="btn">Подробнее</a>
-            </div>
-        </div>
-        {% empty %}
-        <p class="no-events">😔 Пока нет запланированных событий.</p>
+  <!-- Фильтр -->
+  <form method="GET" class="filter-form">
+    <div class="form-row">
+      <label for="category">Категория</label>
+      <select name="category" id="category" class="filter-select" onchange="this.form.submit()">
+        <option value="">Все категории</option>
+        {% for key, name in categories %}
+        <option value="{{ key }}" {% if request.GET.category == key %}selected{% endif %}>{{ name }}</option>
         {% endfor %}
+      </select>
     </div>
+    <div class="form-row">
+      <label for="search">Поиск</label>
+      <input type="text" name="search" id="search" class="filter-input" placeholder="🔍 Название..." value="{{ request.GET.search }}">
+    </div>
+    <button type="submit" class="filter-btn">Поиск</button>
+  </form>
+
+  <!-- Список событий -->
+  <div class="event-grid">
+    {% for event in events %}
+    <a href="{% url 'event_detail' event.id %}" class="event-card">
+      {% if event.image %}
+      <img src="{{ event.image.url }}" alt="{{ event.title }}">
+      {% else %}
+      <div class="event-placeholder">Нет изображения</div>
+      {% endif %}
+      <div class="event-info">
+        <h2>{{ event.title }}</h2>
+        <p class="meta">📍 {{ event.location }} | 🗓 {{ event.date|date:"d M Y H:i" }}</p>
+        <p class="age">👶 {{ event.age_limit }}</p>
+        <p class="price">💰 {{ event.price }}</p>
+      </div>
+    </a>
+    {% empty %}
+    <p class="no-events">😔 Пока нет запланированных событий.</p>
+    {% endfor %}
+  </div>
 </div>
-</body>
-</html>
+{% endblock %}

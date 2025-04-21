@@ -1,15 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-  <h1>Все специалисты</h1>
-  <ul>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Специалисты по массажу | Damuway{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/massage/massage.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="specialist-list-container">
+  <h1>👩‍⚕️ Наши специалисты</h1>
+  <p class="subtitle">Профессионалы с опытом, готовые помочь вашему ребёнку</p>
+
+  <div class="specialist-grid">
     {% for specialist in specialists %}
-      <li><a href="{% url 'massage:specialist_detail' specialist.id %}">{{ specialist.name }}</a></li>
+    <div class="specialist-card">
+      {% if specialist.photo_url %}
+      <img src="{{ specialist.photo_url }}" alt="{{ specialist.name }}" class="round-avatar">
+      {% endif %}
+      <h3>{{ specialist.name }}</h3>
+      <p>{{ specialist.specialization.name }}</p>
+      <p>Опыт: {{ specialist.experience }} лет</p>
+      <a href="{% url 'massage:specialist_detail' specialist.id %}" class="view-btn">Подробнее</a>
+    </div>
     {% endfor %}
-  </ul>
-</body>
-</html>
+  </div>
+</div>
+{% endblock %}
