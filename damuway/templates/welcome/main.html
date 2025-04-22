@@ -13,9 +13,13 @@
 <!-- Welcome Section -->
 <section class="welcome-section">
   <div class="container">
-    <h1>Добро пожаловать в <span style="color:#ffd369;">Damuway!</span></h1>
-    <p>Платформа для родителей: детсады, книги, логопеды, игры и советы в одном месте.</p>
-    <a href="/user/register" class="cta-btn">Начать путешествие</a>
+    {% if user.is_authenticated %}
+      <h1>{{ user.get_username }}  Добро пожаловать в <span style="color:#ffd369;">Damuway!</span></h1>
+      <p>Платформа для родителей: детсады, книги, логопеды, игры и советы в одном месте.</p>
+    {% else %}
+         <a href="/catalog" class="cta-btn">Начать путешествие</a>
+    {% endif %}
+      <a href="/catalog" class="cta-btn">Начать путешествие</a>
   </div>
 </section>
 
