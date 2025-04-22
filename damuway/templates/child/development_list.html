@@ -1,15 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Развитие ребенка</h1>
-<ul>
-  {% for stage in stages %}
-    <li><a href="{% url 'development_detail' stage.pk %}">{{ stage }}</a></li>
-  {% endfor %}
-</ul>
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Damuway - Статья для родителей{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/child/development.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="dev-wrapper">
+  <h2>Развитие ребенка по возрасту</h2>
+  <div class="dev-grid">
+    {% for dev in developments %}
+      <div class="dev-card">
+        <h3>{{ dev.age }} месяцев</h3>
+        <a href="{% url 'development_detail' dev.age %}" class="dev-btn">Подробнее</a>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

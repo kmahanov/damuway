@@ -1,34 +1,122 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<div class="about-container">
-    <h1>{{ about.title }}</h1>
-    <p>{{ about.description }}</p>
+{% extends 'base.html' %}
+{% load static %}
 
-    {% if about.image %}
-        <img src="{{ about.image.url }}" alt="О нас" class="about-img">
-    {% endif %}
+{% block title %}Про нас{% endblock %}
 
-    <h2>Наша миссия</h2>
-    <p>{{ about.mission }}</p>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/about_us/about_us.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+{% endblock %}
 
-    <h2>Наша команда</h2>
-    <div class="team-container">
-        {% for member in team %}
+{% block content %}
+<div class="about-page">
+
+    <section class="about-intro">
+        <div class="text">
+            <h1>About Us</h1>
+            <p>Мы создаем цифровое пространство для родителей, которое помогает находить лучшие решения в сфере развития
+                и воспитания детей.</p>
+        </div>
+        <img src="/static/images/ourteam.jpg" alt="Наша команда">
+    </section>
+
+    <section class="mission-vision">
+        <div class="block">
+            <h2>Our Mission</h2>
+            <p>Поддерживать миллионы родителей, предоставляя им достоверную, удобную и полезную информацию о детях.</p>
+        </div>
+        <div class="block">
+            <h2>Our Vision</h2>
+            <p>Создать первую в СНГ родительскую платформу, объединяющую все аспекты роста ребенка — от садиков до
+                логопедов.</p>
+        </div>
+    </section>
+
+    <section class="story">
+        <div class="image">
+            <img src="/static/images/ourteam.jpg" alt="История проекта">
+        </div>
+        <div class="text">
+            <h2>Our Story</h2>
+            <p>Проект Damuway родился из личного опыта и потребности найти всё важное для ребенка в одном месте. Мы
+                начали как небольшой блог, и быстро выросли в цифровой справочник, где сотни родителей находят помощь
+                каждый день.</p>
+        </div>
+    </section>
+
+    <section class="research">
+        <h2>Наше исследование</h2>
+        <p>Для создания платформы Damuway мы провели собственное исследование: встречались с родителями, логопедами,
+            воспитателями, а также посетили школы, сады и детские рестораны.</p>
+        <ul>
+            <li>Провели интервью с менеджером ресторана и шеф-поваром</li>
+            <li>Обсудили питание детей с диетологом</li>
+            <li>Выяснили, как подбирают логопедов и развивающие кружки</li>
+            <li>Получили отзывы родителей о взаимодействии с учреждениями</li>
+        </ul>
+        <p>Эти встречи помогли нам лучше понять реальные потребности родителей и создать удобный цифровой
+            справочник.</p>
+    </section>
+
+<section class="representatives">
+  <div class="container">
+    <h2 class="section-title">Наши представители</h2>
+    <p class="section-subtitle">
+      Мы лично встретились с родителями, педагогами, шеф-поварами и администрацией лучших детских учреждений Алматы.
+    </p>
+
+    <div class="rep-grid">
+      <div class="rep-card">
+        <img src="/static/images/manager.jpg" alt="Менеджер ресторана" />
+        <p class="rep-caption">Менеджер ресторана</p>
+      </div>
+      <div class="rep-card">
+        <img src="/static/images/kithchen.jpg" alt="Шеф-повар" />
+        <p class="rep-caption">Шеф-повар</p>
+      </div>
+      <div class="rep-card">
+        <img src="/static/images/kithchen.jpg" alt="Психолог" />
+        <p class="rep-caption">Детский психолог</p>
+      </div>
+      <div class="rep-card">
+        <img src="/static/images/kindergarten.jpg" alt="Заведующая садика" />
+        <p class="rep-caption">Заведующая садика</p>
+      </div>
+      <div class="rep-card">
+        <img src="/static/images/kithchen.jpg" alt="Учитель начальных классов" />
+        <p class="rep-caption">Учитель</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+    <section class="numbers">
+        <h2>Damuway By the Numbers</h2>
+        <div class="grid">
+            <div class="item"><h3>10+</h3>
+                <p>Детских садов</p></div>
+            <div class="item"><h3>20+</h3>
+                <p>Профессионалов</p></div>
+            <div class="item"><h3>5000+</h3>
+                <p>Пользователей</p></div>
+        </div>
+    </section>
+
+    <section class="team">
+        <h2>Meet Our Team</h2>
+        <div class="team-grid">
+            {% for member in team %}
             <div class="team-card">
                 {% if member.photo %}
-                    <img src="{{ member.photo.url }}" alt="{{ member.name }}" class="team-photo">
+                <img src="{{ member.photo.url }}" alt="{{ member.name }}">
                 {% endif %}
-                <h3>{{ member.name }}</h3>
-                <p class="team-role">{{ member.role }}</p>
+                <h4>{{ member.name }}</h4>
+                <p class="role">{{ member.role }}</p>
                 <p>{{ member.bio }}</p>
             </div>
-        {% endfor %}
-    </div>
-</div>
-</body>
-</html>
+            {% endfor %}
+        </div>
+    </section>
+    {% endblock %}
+

@@ -1,26 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h2>{{ stage }}</h2>
-<p>{{ stage.recommendations }}</p>
+{% extends 'base.html' %}
+{% load static %}
 
-<h3>Комментарии</h3>
-<ul>
-  {% for comment in comments %}
-    <li><strong>{{ comment.user.username }}:</strong> {{ comment.text }} ({{ comment.created_at|date:"d.m.Y" }})</li>
-  {% empty %}
-    <li>Пока нет комментариев.</li>
-  {% endfor %}
-</ul>
+{% block title %}Damuway - Статья для родителей{% endblock %}
 
-{% if user.is_authenticated %}
-  <a href="{% url 'add_comment' stage.pk %}">Добавить комментарий</a>
-{% else %}
-  <p><a href="{% url 'login' %}">Войдите</a>, чтобы оставить комментарий.</p>
-{% endif %}
-</body>
-</html>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/child/development.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="dev-detail-wrapper">
+  <h2>Развитие в {{ development.age }} месяцев</h2>
+
+  {% if development.image %}
+    <img src="{{ development.image }}" alt="" class="dev-image">
+  {% endif %}
+
+  <div class="dev-section">
+    <h4>Физическое развитие</h4>
+    <p>{{ development.physical }}</p>
+    <h4>Речевое развитие</h4>
+    <p>{{ development.speech }}</p>
+    <h4>Эмоциональное развитие</h4>
+    <p>{{ development.emotional }}</p>
+    <h4>Социальное развитие</h4>
+    <p>{{ development.social }}</p>
+    <h4>Рекомендации родителям</h4>
+    <p>{{ development.recommendations }}</p>
+    {% if development.source %}
+      <p><a href="{{ development.source }}" target="_blank">Источник</a></p>
+    {% endif %}
+  </div>
+
+  <div class="dev-comments">
+    <h3>Комментарии</h3>
+    {% if user.is_authenticated %}
+      <form method="post">
+        {% csrf_token %}
+        <textarea name="text" class="dev-textarea" placeholder="Ваш комментарий..." required></textarea>
+        <button type="submit" class="dev-btn">Отправить</button>
+      </form>
+    {% else %}
+      <p><a href="{% url 'login' %}">Войдите</a>, чтобы оставить комментарий.</p>
+    {% endif %}
+
+    {% for comment in comments %}
+      <div class="dev-comment">
+        <strong>{{ comment.user.username }}</strong>
+        <span class="dev-date">{{ comment.created_at|date:"d.m.Y H:i" }}</span>
+        <p>{{ comment.text }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
