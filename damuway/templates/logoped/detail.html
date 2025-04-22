@@ -1,60 +1,85 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<div class="logoped-detail">
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ logoped.name }} | Damuway{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/logoped/logoped.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="logoped-detail-container">
+  <div class="logoped-profile-box">
     {% if logoped.photo %}
-        <img src="{{ logoped.photo.url }}" alt="{{ logoped.name }}" width="200">
+    <img src="{{ logoped.photo.url }}" alt="{{ logoped.name }}" class="round-avatar large">
     {% endif %}
     <h1>{{ logoped.name }}</h1>
-    <p><strong>Специализация:</strong> {{ logoped.get_specialization_display }}</p>
-    <p><strong>Опыт:</strong> {{ logoped.experience }} лет</p>
-    <p><strong>Цена за час:</strong> {{ logoped.price_per_hour }} ₸</p>
-    <p><strong>Местоположение:</strong> {{ logoped.location|default:"Не указано" }}</p>
-    <p><strong>Телефон:</strong> {{ logoped.phone|default:"Не указан" }}</p>
-    <p><strong>Email:</strong> {{ logoped.email|default:"Не указан" }}</p>
-    <p><strong>Описание:</strong> {{ logoped.description|default:"Нет описания" }}</p>
+    <p class="specialization">{{ logoped.specialization }}</p>
+    <p>🧠 Опыт: {{ logoped.experience }} лет</p>
+    <p>💵 Цена за час: ₸{{ logoped.price_per_hour }}</p>
+    {% if logoped.location %}
+    <p>📍 Локация: {{ logoped.location }}</p>
+    {% endif %}
+    {% if logoped.phone %}
+    <p>📞 Телефон: {{ logoped.phone }}</p>
+    {% endif %}
+    {% if logoped.email %}
+    <p>📩 Email: {{ logoped.email }}</p>
+    {% endif %}
 
+    <a href="{% url 'logoped:create_appointment' logoped.id %}" class="view-btn">Записаться на сеанс</a>
+  </div>
+
+  {% if logoped.description %}
+  <div class="description-box">
+    <h2>Описание</h2>
+    <p>{{ logoped.description }}</p>
+  </div>
+  {% endif %}
+
+  {% if schedules %}
+  <div class="schedule-box">
     <h2>Расписание</h2>
     <ul>
-        {% for schedule in schedules %}
-            <li>{{ schedule.day_of_week }}: {{ schedule.time_slot }}</li>
-        {% empty %}
-            <li>Расписание не указано</li>
-        {% endfor %}
+      {% for item in schedules %}
+      <li>{{ item.day_of_week }} — {{ item.time_slot }}</li>
+      {% endfor %}
     </ul>
+  </div>
+  {% endif %}
 
-    <div class="actions">
-        <a href="{% url 'logoped:create_appointment' logoped.pk %}" class="btn">Записаться на прием</a>
-        <a href="{% url 'logoped:create_booking' logoped.pk %}" class="btn">Забронировать время</a>
-    </div>
-
+  <div class="reviews-block">
     <h2>Отзывы</h2>
-    {% if reviews %}
-        {% for review in reviews %}
-            <div class="review">
-                <p><strong>{{ review.user.username }}</strong> ({{ review.rating }}⭐)</p>
-                <p>{{ review.text }}</p>
-                <p class="date">{{ review.created_at }}</p>
-            </div>
-        {% endfor %}
-    {% else %}
-        <p>Пока нет отзывов.</p>
-    {% endif %}
+    {% for review in reviews %}
+    <div class="review-card">
+      <div class="review-top">
+        <strong>{{ review.user.username }}</strong>
+        <span>{{ review.rating }} ★</span>
+      </div>
+      <p>{{ review.text }}</p>
+      <span class="date">{{ review.created_at|date:"d.m.Y" }}</span>
+    </div>
+    {% empty %}
+    <p>Пока нет отзывов.</p>
+    {% endfor %}
+  </div>
 
-    {% if user.is_authenticated %}
-        <h3>Оставить отзыв</h3>
-        <form method="post">
-            {% csrf_token %}
-            {{ review_form.as_p }}
-            <button type="submit">Отправить отзыв</button>
-        </form>
-    {% else %}
-        <p><a href="{% url 'login' %}">Войдите</a>, чтобы оставить отзыв.</p>
-    {% endif %}
+  {% if user.is_authenticated %}
+  <div class="form-container">
+    <h3>Оставить отзыв</h3>
+    <form method="post">
+      {% csrf_token %}
+      <div class="form-group">
+        {{ review_form.text.label_tag }}
+        {{ review_form.text }}
+      </div>
+      <div class="form-group">
+        {{ review_form.rating.label_tag }}
+        {{ review_form.rating }}
+      </div>
+      <button type="submit" class="submit-btn">Отправить</button>
+    </form>
+  </div>
+  {% endif %}
 </div>
-</body>
-</html>
+{% endblock %}
