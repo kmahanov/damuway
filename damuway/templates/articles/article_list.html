@@ -1,21 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h2>Статьи</h2>
-<ul>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Damuway - Статья для родителей{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/articles/articles.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="articles-wrapper">
+
+  <h1>Статьи</h1>
+
+  <form method="get">
+    <input type="text" name="search" placeholder="Поиск..." value="{{ request.GET.search }}">
+    <select name="category">
+      <option value="">Все категории</option>
+      {% for cat in categories %}
+        <option value="{{ cat.id }}" {% if request.GET.category == cat.id|stringformat:"s" %}selected{% endif %}>{{ cat.name }}</option>
+      {% endfor %}
+    </select>
+    <button type="submit">Найти</button>
+  </form>
+
+  <div class="articles">
     {% for article in articles %}
-        <li>
-            <a href="{% url 'article_detail' article.pk %}">
-                <h3>{{ article.title }}</h3>
-              <h3>{{ article.author }}</h3>
-            </a>
-            <p>{{ article.description|truncatewords:20 }}</p>
-        </li>
+      <div>
+        <h2><a href="{% url 'article_detail' article.id %}">{{ article.title }}</a></h2>
+        <p>{{ article.content|truncatewords:30 }}</p>
+        <p>Автор: {{ article.author }} | {{ article.created_at|date:"d.m.Y" }}</p>
+      </div>
     {% endfor %}
-</ul>
-</body>
-</html>
+  </div>
+
+</div>
+{% endblock %}

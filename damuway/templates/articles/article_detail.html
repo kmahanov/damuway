@@ -1,15 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h2>{{ article.title }}</h2>
-<p><strong>Автор:</strong> {{ article.author }}</p>
-<p><strong>Дата:</strong> {{ article.created_at }}</p>
-<hr>
-<p>{{ article.content }}</p>
-<a href="{% url 'article_list' %}">← Назад к списку</a>
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Damuway Статья для родителей{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/articles/articles.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}<div class="article-detail-container">
+
+  <h1 class="article-title">{{ article.title }}</h1>
+  <p class="article-meta">Автор: {{ article.author }} | {{ article.created_at|date:"d.m.Y" }}</p>
+
+  {% if article.image %}
+    <img src="{{ article.image.url }}" alt="Article Image" class="article-image">
+  {% endif %}
+
+  <div class="article-content">
+    {{ article.content|safe }}
+  </div>
+
+  {% if user.is_authenticated %}
+    <button id="like-btn" class="like-button" data-id="{{ article.id }}">❤️ {{ article.likes.count }}</button>
+  {% endif %}
+
+  <!-- Комментарии -->
+  <div class="comment-section">
+    <h3>Комментарии</h3>
+    <form method="post">
+      {% csrf_token %}
+      <input type="text" name="author" placeholder="Ваше имя" required>
+      <textarea name="text" placeholder="Комментарий" rows="4" required></textarea>
+      <button type="submit">Оставить комментарий</button>
+    </form>
+
+    <ul class="comment-list">
+      {% for comment in comments %}
+        <li>
+          <div class="comment-header">
+            <strong>{{ comment.author }}</strong>
+            <span class="comment-date">{{ comment.created_at|date:"d.m.Y H:i" }}</span>
+          </div>
+          <div class="comment-text">{{ comment.text }}</div>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <!-- Похожие статьи -->
+  <div class="related-articles">
+    <h3>Похожие статьи</h3>
+    <ul>
+      {% for related in related_articles %}
+        <li><a href="{% url 'article_detail' related.id %}">{{ related.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+
+</div>
+{% endblock %}
+<script>
+  const likeBtn = document.getElementById("like-btn");
+  if (likeBtn) {
+    likeBtn.addEventListener("click", function() {
+      fetch(`/articles/${this.dataset.id}/like/`)
+        .then(res => res.json())
+        .then(data => {
+          this.innerText = `❤️ ${data.likes_count}`;
+        });
+    });
+  }
+</script>

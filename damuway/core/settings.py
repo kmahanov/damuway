@@ -57,9 +57,20 @@ INSTALLED_APPS = [
     'apps.club',
     'apps.sport',
     'apps.kindergarten',
-
-
+    'django_summernote',
+    'ckeditor5',
 ]
+
+CKEDITOR_5_CONFIGS = {
+    "default": {
+        "toolbar": [
+            "heading", "|", "bold", "italic", "link", "underline",
+            "|", "bulletedList", "numberedList", "|", "blockQuote", "codeBlock",
+            "|", "insertTable", "|", "undo", "redo",
+        ],
+        "language": "ru",
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -1,7 +1,8 @@
 from django.urls import path
-from .views import article_list, article_detail
+from . import views
 
 urlpatterns = [
-    path('', article_list, name='article_list'),
-    path('<int:pk>/', article_detail, name='article_detail'),
+    path('', views.article_list, name='article_list'),
+    path('<int:pk>/', views.article_detail, name='article_detail'),
+    path('<int:pk>/like/', views.like_article, name='like_article'),
 ]
