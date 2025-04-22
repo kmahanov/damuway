@@ -1,12 +1,35 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Damuway - Игры и активности для детей{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/activity/activity.css' %}">
+{% endblock %}
 
 {% block content %}
-{% for activity in activities %}
-    <div>
-        <h2><a href="{% url 'activity_detail' activity.pk %}">{{ activity.title }}</a></h2>
-        <p>Возраст: {{ activity.get_age_group_display }}</p>
-        <img src="{{ activity.image_url }}" alt="{{ activity.title }}" style="max-width: 200px;">
-        <p>Рейтинг: {{ activity.average_rating }} ⭐</p>
-    </div>
-{% endfor %}
+<div class="activity-list-container">
+  <h1>🎲 Игры и активности</h1>
+  <p class="subtitle">Развивающие занятия для разных возрастов</p>
+
+  <div class="activity-grid">
+    {% for activity in activities %}
+    <a href="{% url 'activity_detail' activity.id %}" class="activity-card">
+      {% if activity.image_url %}
+      <img src="{{ activity.image_url }}" alt="{{ activity.title }}">
+      {% else %}
+      <div class="activity-placeholder">📸</div>
+      {% endif %}
+      <div class="activity-info">
+        <h3>{{ activity.title }}</h3>
+        <p class="age-group">👶 {{ activity.get_age_group_display }}</p>
+        <p class="type">📂 {{ activity.activity_type }}</p>
+        <p class="rating">⭐ {{ activity.average_rating|floatformat:1 }}</p>
+      </div>
+    </a>
+    {% empty %}
+    <p>Активности пока не добавлены.</p>
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}

@@ -1,0 +1,151 @@
+:root {
+    --accent: #714EFF;
+    --bg: #F9F9FB;
+    --text: #2D3748;
+    --subtext: #666;
+    --border: #E2E8F0;
+  }
+  
+  body {
+    background: var(--bg);
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .activity-list-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+  }
+  
+  .activity-list-container h1 {
+    font-size: 2rem;
+    color: var(--accent);
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .subtitle {
+    text-align: center;
+    color: var(--subtext);
+    margin-bottom: 30px;
+  }
+  
+  .activity-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 25px;
+  }
+  
+  .activity-card {
+    background: white;
+    border-radius: 16px;
+    text-decoration: none;
+    color: inherit;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: 0.3s;
+  }
+  
+  .activity-card:hover {
+    transform: translateY(-4px);
+  }
+  
+  .activity-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+  
+  .activity-placeholder {
+    width: 100%;
+    height: 180px;
+    background: #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    color: #bbb;
+  }
+  
+  .activity-info {
+    padding: 15px;
+  }
+  
+  .activity-info h3 {
+    margin: 0 0 8px;
+    color: var(--text);
+  }
+  
+  .age-group,
+  .type,
+  .rating {
+    font-size: 0.9rem;
+    color: var(--subtext);
+    margin-bottom: 4px;
+  }
+  
+  .activity-detail-container {
+    max-width: 800px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  }
+  
+  .activity-detail-container h1 {
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  
+  .activity-image img {
+    width: 100%;
+    border-radius: 12px;
+    margin: 20px 0;
+  }
+  
+  .activity-description,
+  .activity-materials,
+  .activity-video {
+    margin: 25px 0;
+  }
+  
+  .activity-video iframe {
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+  }
+  
+  .rating-form {
+    margin-top: 30px;
+  }
+  
+  .rating-form label {
+    font-weight: 500;
+    display: block;
+    margin-bottom: 6px;
+  }
+  
+  .rating-form select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
+  
+  .submit-btn {
+    background: var(--accent);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  .submit-btn:hover {
+    background: #5b3be6;
+  }
+  

@@ -1,18 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Отмена записи</h1>
+{% extends 'base.html' %}
+{% load static %}
 
-<p>Вы уверены, что хотите отменить запись к {{ booking.logoped.name }} на {{ booking.date_time }}?</p>
+{% block title %}Отмена записи | Damuway{% endblock %}
 
-<form method="post">
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/logoped/logoped.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="cancel-container">
+  <h1>❌ Отмена записи</h1>
+  <p>Вы действительно хотите отменить запись к <strong>{{ booking.logoped.name }}</strong> на <strong>{{ booking.date_time|date:"d.m.Y H:i" }}</strong>?</p>
+
+  <form method="post">
     {% csrf_token %}
-    <button type="submit">Да, отменить</button>
-    <a href="{% url 'logoped:profile' %}">Нет, вернуться назад</a>
-</form>
-</body>
-</html>
+    <button type="submit" class="submit-btn danger">Отменить запись</button>
+  </form>
+</div>
+{% endblock %}

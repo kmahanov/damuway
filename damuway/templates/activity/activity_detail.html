@@ -1,33 +1,55 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ activity.title }} | Damuway{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/activity/activity.css' %}">
+{% endblock %}
 
 {% block content %}
-<h1>{{ activity.title }}</h1>
-<p>{{ activity.description }}</p>
+<div class="activity-detail-container">
+  <h1>{{ activity.title }}</h1>
+  <p class="age-group">👶 {{ activity.get_age_group_display }}</p>
+  <p class="type">📂 {{ activity.activity_type }}</p>
+  <p class="rating">⭐ Средняя оценка: {{ activity.average_rating|floatformat:1 }}</p>
 
+  {% if activity.image_url %}
+  <div class="activity-image">
+    <img src="{{ activity.image_url }}" alt="{{ activity.title }}">
+  </div>
+  {% endif %}
 
-{% if activity.image_url %}
-    <img src="{{ activity.image_url }}" alt="{{ activity.title }}" style="max-width: 300px;">
-{% endif %}
+  <div class="activity-description">
+    <h3>Описание</h3>
+    <p>{{ activity.description }}</p>
+  </div>
 
+  {% if activity.materials %}
+  <div class="activity-materials">
+    <h3>Материалы</h3>
+    <p>{{ activity.materials }}</p>
+  </div>
+  {% endif %}
 
-{% if activity.video_url %}
-    <h3>Видео:</h3>
-    <iframe width="560" height="315" src="{{ activity.video_url }}" frameborder="0" allowfullscreen></iframe>
-{% endif %}
+  {% if activity.video_url %}
+  <div class="activity-video">
+    <h3>Видео</h3>
+    <iframe src="{{ activity.video_url }}" frameborder="0" allowfullscreen></iframe>
+  </div>
+  {% endif %}
 
-<p>Материалы: {{ activity.materials }}</p>
-<p>Рейтинг: {{ activity.average_rating }} ⭐</p>
-
-
-<h3>Добавить оценку:</h3>
-<form action="{% url 'add_rating' activity.pk %}" method="post">
+  {% if user.is_authenticated %}
+  <form method="post" action="{% url 'add_rating' activity.id %}" class="rating-form">
     {% csrf_token %}
-    <select name="value">
-        {% for i in "12345" %}
-            <option value="{{ i }}">{{ i }}</option>
-        {% endfor %}
+    <label for="value">Ваша оценка:</label>
+    <select name="value" required>
+      {% for i in "12345" %}
+      <option value="{{ i }}">{{ i }} ★</option>
+      {% endfor %}
     </select>
-    <button type="submit">Оценить</button>
-</form>
-
+    <button type="submit" class="submit-btn">Оценить</button>
+  </form>
+  {% endif %}
+</div>
 {% endblock %}

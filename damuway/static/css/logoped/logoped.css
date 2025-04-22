@@ -1,0 +1,235 @@
+:root {
+    --accent: #714EFF;
+    --text: #333;
+    --subtext: #777;
+    --bg: #F9F9FB;
+  }
+  
+  body {
+    background: var(--bg);
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .logoped-list-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+  }
+  
+  .logoped-list-container h1 {
+    color: var(--accent);
+    font-size: 2rem;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .subtitle {
+    text-align: center;
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 30px;
+  }
+  
+  .logoped-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+  }
+  
+  .logoped-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    text-align: center;
+    padding: 20px;
+    transition: 0.3s ease;
+  }
+  
+  .logoped-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  }
+  
+  .round-avatar {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 15px;
+  }
+  
+  .logoped-info h3 {
+    font-size: 1.1rem;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+  
+  .logoped-info p {
+    font-size: 0.9rem;
+    color: var(--subtext);
+    margin: 3px 0;
+  }
+  
+  .price {
+    font-weight: bold;
+    color: var(--accent);
+    margin-top: 6px;
+  }
+  
+  .view-btn {
+    display: inline-block;
+    margin-top: 12px;
+    background: var(--accent);
+    color: white;
+    padding: 6px 14px;
+    font-size: 0.85rem;
+    border-radius: 8px;
+  }
+
+  .logoped-detail-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  }
+  
+  .logoped-profile-box {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .round-avatar.large {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
+  
+  .specialization {
+    font-weight: 500;
+    color: #666;
+    margin-bottom: 8px;
+  }
+  
+  .description-box,
+  .schedule-box {
+    margin-bottom: 30px;
+  }
+  
+  .schedule-box ul {
+    list-style: none;
+    padding-left: 0;
+    color: #444;
+  }
+  
+  .reviews-block {
+    margin-top: 40px;
+  }
+  
+  .review-card {
+    background: #f9f9ff;
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 15px;
+  }
+  
+  .review-top {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+  }
+  
+  .date {
+    font-size: 0.85rem;
+    color: #888;
+    margin-top: 8px;
+  }
+
+  .form-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.05);
+  }
+  
+  .form-container h1 {
+    text-align: center;
+    color: var(--accent);
+    margin-bottom: 25px;
+    font-size: 1.4rem;
+  }
+  
+  .styled-form .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .styled-form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .styled-form input,
+  .styled-form select {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    background-color: #f9f9ff;
+  }
+  
+  .submit-btn {
+    background: var(--accent);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  .submit-btn:hover {
+    background: #5c3fd9;
+  }
+  
+  .cancel-container {
+    max-width: 500px;
+    margin: 60px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    text-align: center;
+  }
+  
+  .cancel-container h1 {
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  
+  .cancel-container p {
+    font-size: 1rem;
+    color: #444;
+    margin-bottom: 20px;
+  }
+  
+  .submit-btn.danger {
+    background: #FF5C5C;
+  }
+  
+  .submit-btn.danger:hover {
+    background: #e84848;
+  }
+  

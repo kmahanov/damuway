@@ -1,18 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Забронировать время у {{ logoped.name }}</h1>
+{% extends 'base.html' %}
+{% load static %}
 
-<form method="post">
+{% block title %}Создать запись | Damuway{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/logoped/logoped.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+  <h1>📅 Бронирование к {{ logoped.name }}</h1>
+
+  <form method="post" class="styled-form">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Подтвердить бронирование</button>
-</form>
-
-<a href="{% url 'logoped:detail' logoped.pk %}">Назад к профилю логопеда</a>
-</body>
-</html>
+    <div class="form-group">
+      {{ form.date_time.label_tag }}
+      {{ form.date_time }}
+    </div>
+    <button type="submit" class="submit-btn">Создать запись</button>
+  </form>
+</div>
+{% endblock %}
