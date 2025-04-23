@@ -298,6 +298,17 @@ h1, h2, h3, p {
 }
 
 
+
+.lang-switcher select {
+    background: white;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    padding: 6px 10px;
+    border-radius: 8px;
+    outline: none;
+}
+
+
 @media (max-width: 768px) {
     .nav-menu, .nav-auth {
         display: none;

@@ -1,0 +1,183 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Damuway\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-23 17:48+0500\n"
+"PO-Revision-Date: 2025-04-23 17:00+0500\n"
+"Last-Translator: Kairat Bekmuratov\n"
+"Language-Team: Kazakh\n"
+"Language: kk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\apps\recipe\models.py:17
+msgid "Название"
+msgstr "Атауы"
+
+#: .\apps\recipe\models.py:21
+msgid "Возрастная группа"
+msgstr "Жас ерекшелігі"
+
+#: .\apps\recipe\models.py:24
+msgid "Ингредиенты"
+msgstr "Құрамы"
+
+#: .\apps\recipe\models.py:25
+msgid "Способ приготовления"
+msgstr "Дайындау тәсілі"
+
+#: .\apps\recipe\models.py:31
+msgid "Изображение (файл)"
+msgstr "Сурет (файл)"
+
+#: .\apps\recipe\models.py:36
+msgid "Изображение (ссылка)"
+msgstr "Сурет (сілтеме)"
+
+#: .\apps\recipe\models.py:39
+msgid "Средний рейтинг"
+msgstr "Орташа рейтинг"
+
+#: .\apps\recipe\models.py:57 .\apps\recipe\models.py:76
+msgid "Рецепт"
+msgstr "Рецепт"
+
+#: .\apps\recipe\models.py:64
+msgid "Комментарий"
+msgstr "Пікір"
+
+#: .\apps\recipe\models.py:65
+msgid "Дата добавления"
+msgstr "Қосу күні"
+
+#: .\apps\recipe\models.py:85
+msgid "Оценка"
+msgstr "Бағалау"
+
+#: .\templates\base.html:45 .\templates\base.html:92 .\templates\base.html:114
+msgid "Каталог"
+msgstr "Каталог"
+
+#: .\templates\base.html:46 .\templates\base.html:93
+msgid "Мои записи"
+msgstr "Менің жазбаларым"
+
+#: .\templates\base.html:47
+msgid "Помощь родителям"
+msgstr "Ата-аналарға көмек"
+
+#: .\templates\base.html:48
+msgid "Мероприятия для семьи"
+msgstr "Отбасыға арналған іс-шаралар"
+
+#: .\templates\base.html:49
+msgid "Книги"
+msgstr "Кітаптар"
+
+#: .\templates\base.html:50
+msgid "Статья"
+msgstr "Мақала"
+
+#: .\templates\base.html:51
+msgid "Опрос"
+msgstr "Сауалнама"
+
+#: .\templates\base.html:52 .\templates\base.html:94 .\templates\base.html:115
+msgid "Контакты"
+msgstr "Байланыс"
+
+#: .\templates\base.html:66 .\templates\base.html:98
+msgid "Профиль"
+msgstr "Профиль"
+
+#: .\templates\base.html:67
+msgid "Выйти"
+msgstr "Шығу"
+
+#: .\templates\base.html:71 .\templates\base.html:100
+msgid "Войти"
+msgstr "Кіру"
+
+#: .\templates\base.html:116
+msgid "О нас"
+msgstr "Біз туралы"
+
+#: .\templates\welcome\home.html:13
+msgid "DAMUWAY – растем вместе, шаг за шагом!"
+msgstr "DAMUWAY – бірге өсеміз, қадам сайын!"
+
+#: .\templates\welcome\home.html:14
+msgid ""
+"Мы собрали экспертные материалы, рекомендации и вдохновляющие идеи для "
+"родителей."
+msgstr ""
+"Ата-аналар үшін сараптамалық материалдар мен шабыт беретін идеяларды жинадық."
+
+#: .\templates\welcome\home.html:17
+msgid "Родители и дети"
+msgstr "Ата-аналар мен балалар"
+
+#: .\templates\welcome\home.html:23
+msgid "Ребенок с книгами"
+msgstr ""
+
+#: .\templates\welcome\home.html:26
+msgid ""
+"Быть родителем – это невероятное приключение, полное радости, открытий и, "
+"конечно, множества вопросов. Где найти лучший детский сад? Как развивать "
+"малыша с ранних лет? Какие книги помогут ему расти умным и счастливым?"
+msgstr ""
+"Ата-ана болу – бұл қуанышқа, жаңалықтарға және көптеген сұрақтарға толы "
+"керемет саяхат. Үздік балабақшаны қайдан табуға болады? Баланы ерте жастан "
+"қалай дамытуға болады? Қандай кітаптар оны ақылды әрі бақытты етеді?"
+
+#: .\templates\welcome\home.html:32
+msgid ""
+"DAMUWAY – это больше, чем просто сайт. Это пространство, созданное для "
+"молодых родителей, которые хотят дать своим детям лучшее. Мы собрали "
+"актуальную информацию, проверенные советы, полезные материалы и "
+"вдохновляющие идеи – все, что нужно для уверенности в каждом шаге "
+"родительства."
+msgstr ""
+"DAMUWAY – бұл жай ғана сайт емес. Бұл өз балаларына ең жақсыны бергісі "
+"келетін жас ата-аналар үшін жасалған кеңістік. Біз өзекті ақпаратты, "
+"тексерілген кеңестерді, пайдалы материалдар мен шабыттандыратын идеяларды "
+"жинадық – ата-аналық жолда сенімді болу үшін."
+
+#: .\templates\welcome\home.html:35
+msgid "Счастливая семья"
+msgstr "Бақытты отбасы"
+
+#: .\templates\welcome\home.html:43
+msgid "Что вас ждет на"
+msgstr "DAMUWAY сізге не ұсынады?"
+
+#: .\templates\welcome\home.html:48
+msgid "Полезные статьи и рекомендации от экспертов"
+msgstr "Сарапшылардан пайдалы мақалалар мен кеңестер"
+
+#: .\templates\welcome\home.html:49
+msgid "Список проверенных детских садов и развивающих центров"
+msgstr "Тексерілген балабақшалар мен дамыту орталықтарының тізімі"
+
+#: .\templates\welcome\home.html:52
+msgid "Подборки лучших книг и развивающих игр"
+msgstr "Үздік кітаптар мен дамытушы ойындар жинағы"
+
+#: .\templates\welcome\home.html:53
+msgid "Уникальные лайфхаки и советы для родителей"
+msgstr "Ата-аналарға арналған ерекше лайфхактар мен кеңестер"
+
+#: .\templates\welcome\home.html:60
+msgid "Ваш ребенок заслуживает лучшего – а мы поможем вам в этом!"
+msgstr "Сіздің балаңыз ең жақсыны лайық – біз оған көмектесеміз!"
+
+#: .\templates\welcome\home.html:61
+msgid "Присоединяйтесь к DAMUWAY и сделайте родительство проще и счастливее!"
+msgstr "DAMUWAY-ға қосылыңыз және ата-аналықты жеңіл әрі бақытты етіңіз!"
+
+#: .\templates\welcome\home.html:62
+msgid "Начать работу"
+msgstr "Бастау"

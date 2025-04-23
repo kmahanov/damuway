@@ -77,12 +77,19 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
+
+import os
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale'),
+]
 
 TEMPLATES = [
     {
@@ -92,6 +99,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.request',
+                'django.template.context_processors.i18n',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -140,10 +148,13 @@ AUTH_USER_MODEL = 'user.CustomUser'
 LANGUAGE_CODE = 'ru'
 
 USE_I18N = True
+USE_L10N = True
+USE_TZ = True
 
 LANGUAGES = [
-    ('en', 'English'),
     ('ru', 'Russian'),
+    ('kk', 'Kazakh'),
+    ('en', 'English'),
 ]
 
 LOCALE_PATHS = [
