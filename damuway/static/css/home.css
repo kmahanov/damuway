@@ -252,3 +252,71 @@ footer {
 .rep-card:hover {
   transform: translateY(-5px);
 }
+
+body.dark-mode .hero {
+  background: #1e1e1e;
+}
+
+body.dark-mode .hero .content {
+  color: #ffffff;
+}
+
+/* Фиолетовый эллипс пусть остаётся — он ок */
+
+/* Info Section */
+body.dark-mode .info-section {
+  background-color: #1e1e1e;
+  color: white;
+}
+
+body.dark-mode .info-section .content {
+  color: white;
+}
+
+/* Features Section */
+body.dark-mode .features-section {
+  background: linear-gradient(to right, #2b2b2b, #1e1e1e);
+}
+
+body.dark-mode .features-grid li {
+  color: #ddd;
+}
+
+body.dark-mode .features-grid li i {
+  color: #4cd964;
+}
+
+/* CTA */
+body.dark-mode .cta {
+  background-color: #1e1e1e;
+  color: white;
+}
+
+body.dark-mode .cta .btn {
+  background-color: #714EFF;
+  color: white;
+}
+
+/* Representatives Section */
+body.dark-mode .representatives {
+  background-color: #1e1e1e;
+}
+
+body.dark-mode .rep-card {
+  background-color: #2a2a2a;
+  color: white;
+  box-shadow: 0 2px 10px rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .rep-card p {
+  color: #e0e0e0;
+}
+
+/* Заголовки и подзаголовки */
+body.dark-mode .section-title {
+  color: #ffffff;
+}
+
+body.dark-mode .section-subtitle {
+  color: #cccccc;
+}

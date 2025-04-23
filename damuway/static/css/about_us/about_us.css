@@ -182,3 +182,47 @@
   font-weight: 500;
   color: #444;
 }
+body.dark-mode .about-page {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+
+body.dark-mode .about-intro .text {
+  color: #e0e0e0;
+}
+
+
+body.dark-mode .mission-vision .block,
+body.dark-mode .story .text,
+body.dark-mode .research,
+body.dark-mode .numbers .item,
+body.dark-mode .team-card,
+body.dark-mode .rep-card {
+  background-color: #1f1f1f;
+  color: white;
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.02);
+}
+
+
+body.dark-mode .team-card .role,
+body.dark-mode .rep-caption {
+  color: #cccccc;
+}
+
+
+body.dark-mode .section-title {
+  color: #ffffff;
+}
+
+body.dark-mode .section-subtitle {
+  color: #bbbbbb;
+}
+
+body.dark-mode .research h2 {
+  color: #ffffff;
+}
+
+body.dark-mode .representatives {
+  background-color: #181818;
+}

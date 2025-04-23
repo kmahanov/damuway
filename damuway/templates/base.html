@@ -28,7 +28,7 @@
         dropdown.classList.toggle("hidden");
     }
 
-    window.addEventListener("click", function(e) {
+    window.addEventListener("click", function (e) {
         const profileMenu = document.querySelector(".profile-menu");
         if (!profileMenu.contains(e.target)) {
             document.getElementById("profileDropdown").classList.add("hidden");
@@ -37,7 +37,7 @@
 </script>
 
 
-<body>
+<body class="{% if request.COOKIES.theme == 'dark' %}dark-mode{% endif %}">
 
 <nav class="navbar">
     <div class="nav-container">
@@ -63,6 +63,10 @@
                 <a href="/about">Контакты</a>
             </div>
 
+            <div class="theme-switcher">
+                <button id="toggle-theme" class="theme-btn">🌙</button>
+            </div>
+
             <div class="nav-auth">
                 {% if user.is_authenticated %}
                 <div class="profile-menu">
@@ -74,6 +78,7 @@
                         <a href="{% url 'logout' %}">Выйти</a>
                     </div>
                 </div>
+
                 {% else %}
                 <a href="{% url 'login' %}" class="login-btn">Войти</a>
                 {% endif %}
@@ -126,6 +131,38 @@
         menu.classList.toggle('hidden');
     }
 </script>
+
+<script>
+  const themeBtn = document.getElementById("toggle-theme");
+
+  function setTheme(isDark) {
+    if (isDark) {
+      document.body.classList.add("dark-mode");
+      themeBtn.textContent = "☀️";
+      document.cookie = "theme=dark; path=/";
+    } else {
+      document.body.classList.remove("dark-mode");
+      themeBtn.textContent = "🌙";
+      document.cookie = "theme=light; path=/";
+    }
+  }
+
+
+  themeBtn.addEventListener("click", function () {
+    const isDark = !document.body.classList.contains("dark-mode");
+    setTheme(isDark);
+  });
+
+
+  if (document.cookie.includes("theme=dark")) {
+    setTheme(true);
+  } else {
+    setTheme(false);
+  }
+</script>
+
+
 {% block extra_js %}{% endblock %}
+
 </body>
 </html>
