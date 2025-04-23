@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'apps.kindergarten',
     'django_summernote',
     'ckeditor5',
+    'ai_help'
 ]
 
 CKEDITOR_5_CONFIGS = {

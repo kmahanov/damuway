@@ -90,7 +90,7 @@
 
     <div class="mobile-nav hidden" id="mobileMenu">
         <a href="/catalog">{% trans "Каталог" %}</a>
-        <a href="/my-records">{% trans "Мои записи" %}</a>
+        <a href="{% url 'ask_ai' %}">🤖 AI помощник</a>
         <a href="/contacts">{% trans "Контакты" %}</a>
 
         {% if user.is_authenticated %}

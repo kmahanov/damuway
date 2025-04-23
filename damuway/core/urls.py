@@ -30,6 +30,7 @@ urlpatterns += i18n_patterns(
     path('club/', include('apps.club.urls')),
     path('sport/', include('apps.sport.urls')),
     path('kindergarten/', include('apps.kindergarten.urls')),
+    path("ai/", include("ai_help.urls")),
 )
 
 if settings.DEBUG:

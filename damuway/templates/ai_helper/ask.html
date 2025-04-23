@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Damuway - Добавить отзыв на "{{ book.title }}"{% endblock %}
+
+{% block extra_css   %}
+<link rel="stylesheet" href="#">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<style>
+  .chat-box {
+    max-width: 600px;
+    margin: 20px auto;
+    background: #f7f7f7;
+    border-radius: 12px;
+    padding: 20px;
+    font-family: sans-serif;
+  }
+
+  .msg {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+  }
+
+  .msg.bot .bubble {
+    background: #e0eaff;
+    border-radius: 15px 15px 15px 0;
+  }
+
+  .msg.user .bubble {
+    background: #d1ffd1;
+    border-radius: 15px 15px 0 15px;
+    margin-left: auto;
+  }
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    border-radius: 50%;
+  }
+
+  .bubble {
+    padding: 10px 15px;
+    max-width: 80%;
+  }
+
+  .form-area {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .form-area input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+  }
+
+  .form-area button {
+    padding: 10px 20px;
+    background: #714eff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+</style>
+
+<div class="chat-box">
+  <h2>AI-помощник родителям 🤖</h2>
+
+  {% for item in history reversed %}
+    <div class="msg user">
+      <div class="bubble">{{ item.question }}</div>
+      <img src="/static/images/ai.png" class="avatar" alt="User">
+    </div>
+    <div class="msg bot">
+      <img src="/static/images/bot.png" class="avatar" alt="AI">
+      <div class="bubble">{{ item.answer }}</div>
+    </div>
+  {% endfor %}
+
+  <form method="post" id="ai-form" class="form-area">
+    {% csrf_token %}
+    <input type="text" name="question" placeholder="Введите вопрос..." required>
+    <button type="submit">Спросить</button>
+    <button type="button" id="clear-chat">Новый вопрос</button>
+  </form>
+
+  <div id="answer"></div>
+</div>
+
+<script>
+  document.getElementById("ai-form").addEventListener("submit", async function(e) {
+    e.preventDefault();
+    const form = new FormData(this);
+    const res = await fetch("", {
+      method: "POST",
+      body: form
+    });
+    const data = await res.json();
+    location.reload();
+  });
+
+  document.getElementById("clear-chat").addEventListener("click", async () => {
+    const confirmed = confirm("Очистить историю вопросов?");
+    if (!confirmed) return;
+
+    await fetch("{% url 'clear_ai_history' %}");
+    location.reload();
+  });
+</script>
+
+{% endblock %}
