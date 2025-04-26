@@ -1,25 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h2>Кружки для детей</h2>
+{% extends 'base.html' %}
+{% load static %}
 
-<form method="get">
-    {{ form.as_p }}
-    <button type="submit">Фильтр</button>
-</form>
+{% block title %}Клубы{% endblock %}
 
-<ul>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/club/club_list.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="club-container">
+  <h1 class="page-title">Каталог клубов</h1>
+
+  <form method="get" class="filter-form">
+    <input type="text" name="city" placeholder="Введите город" value="{{ form.city.value }}" />
+    <input type="text" name="search" placeholder="Поиск по названию" value="{{ form.search.value }}" />
+    <button type="submit">🔍 Поиск</button>
+  </form>
+
+  <div class="club-grid">
     {% for club in clubs %}
-        <li>
-            <a href="{% url 'club_detail' club.pk %}">{{ club.name }}</a> ({{ club.city }})
-        </li>
+    <div class="club-card">
+      <div class="club-info">
+        <h2>{{ club.name }}</h2>
+        <p class="city">{{ club.city }}</p>
+        <p class="age">Возраст: от {{ club.min_age }} лет</p>
+        <p class="description">{{ club.description|truncatewords:20 }}</p>
+      </div>
+      <a href="{% url 'club_detail' club.pk %}" class="view-btn">Подробнее</a>
+    </div>
     {% empty %}
-        <li>Ничего не найдено.</li>
+    <p class="no-results">Клубы не найдены.</p>
     {% endfor %}
-</ul>
-</body>
-</html>
+  </div>
+</div>
+{% endblock %}

@@ -1,36 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>{{ advice.title }}</h1>
-<p>{{ advice.content }}</p>
-<p>Категория возраста: {{ advice.age_category }}</p>
+{% extends 'base.html' %}
+{% load static %}
 
-<h2>Отзывы</h2>
-<ul>
+{% block title %}{{ advice.title }} | Damuway{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/advice/advice.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="advice-detail-container">
+  <h1>{{ advice.title }}</h1>
+  {% if advice.age_category %}
+  <p class="age">👶 {{ advice.age_category.name }}</p>
+  {% endif %}
+  <div class="advice-content">
+    <p>{{ advice.content }}</p>
+  </div>
+
+  <div class="reviews-header">
+    <h2>Отзывы родителей</h2>
+    <a href="{% url 'add_review_advice' advice.id %}" class="add-review-btn">+ Добавить отзыв</a>
+  </div>
+
+  {% if reviews %}
+  <div class="reviews-list">
     {% for review in reviews %}
-        <li>
-            <strong>{{ review.user.username }}</strong>: {{ review.rating }}★<br>
-            {{ review.comment }}<br>
-            <small>{{ review.created_at|date:"d.m.Y H:i" }}</small>
-        </li>
-    {% empty %}
-        <li>Пока нет отзывов</li>
+    <div class="review-card">
+      <div class="review-top">
+        <strong>{{ review.user.username }}</strong>
+        <span>{{ review.rating }} ★</span>
+      </div>
+      <p>{{ review.comment }}</p>
+      <span class="date">{{ review.created_at|date:"d.m.Y" }}</span>
+    </div>
     {% endfor %}
-</ul>
-
-{% if user.is_authenticated %}
-    <h3>Оставить отзыв</h3>
-    <form method="post" action="{% url 'add_review' advice.pk %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Отправить</button>
-    </form>
-{% else %}
-    <p><a href="{% url 'login' %}">Войдите</a>, чтобы оставить отзыв.</p>
-{% endif %}
-</body>
-</html>
+  </div>
+  {% else %}
+  <p class="empty-message">Пока нет отзывов. Будьте первым!</p>
+  {% endif %}
+</div>
+{% endblock %}
