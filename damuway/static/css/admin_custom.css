@@ -1,0 +1,35 @@
+:root {
+    --primary: #714EFF;
+    --accent: #4A2FFF;
+    --secondary: #F0F0F5;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif !important;
+    background-color: #f8f8fc;
+}
+
+.navbar-brand {
+    font-weight: 600;
+    font-size: 22px;
+    color: #714EFF !important;
+}
+
+.sidebar {
+    background-color: #ffffff !important;
+    border-right: 1px solid #eee;
+}
+
+.sidebar a {
+    color: #333 !important;
+}
+
+.jazzmin-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #714EFF;
+}
+
+.module h2, .module caption {
+    color: #4A2FFF;
+}
