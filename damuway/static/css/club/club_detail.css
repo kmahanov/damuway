@@ -1,0 +1,143 @@
+:root {
+    --primary: #714EFF;
+    --primary-light: #E6E4FF;
+    --background: #F9F8FF;
+    --text: #333;
+    --gray: #666;
+    --border: #DDD;
+  }
+  
+  body {
+    background-color: var(--background);
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .club-detail-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(113, 78, 255, 0.1);
+  }
+  
+  .club-header h1 {
+    font-size: 32px;
+    color: var(--primary);
+    margin-bottom: 8px;
+  }
+  
+  .club-header .location,
+  .club-header .age-range {
+    color: var(--gray);
+    margin-bottom: 5px;
+  }
+  
+  .club-body {
+    margin-top: 20px;
+    font-size: 16px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+  
+  .schedule {
+    margin-top: 12px;
+    font-weight: 500;
+    color: var(--primary);
+  }
+  
+  .review-section {
+    margin-top: 40px;
+  }
+  
+  .review-section h2 {
+    font-size: 24px;
+    color: var(--primary);
+    margin-bottom: 16px;
+  }
+  
+  .review-card {
+    background-color: var(--primary-light);
+    padding: 16px;
+    border-radius: 14px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(113, 78, 255, 0.05);
+  }
+  
+  .review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .review-header strong {
+    color: var(--text);
+    font-size: 16px;
+  }
+  
+  .rating {
+    color: #f5b301;
+    font-weight: bold;
+  }
+  
+  .comment {
+    color: var(--text);
+  }
+  
+  .date {
+    font-size: 12px;
+    color: var(--gray);
+    margin-top: 8px;
+  }
+  
+  .review-form {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  
+  .review-form select,
+  .review-form textarea {
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    font-size: 15px;
+    width: 100%;
+  }
+  
+  .review-form button {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .review-form button:hover {
+    background-color: #4B2EFF;
+  }
+  
+  @media (max-width: 600px) {
+    .club-detail-container {
+      padding: 16px;
+    }
+  
+    .club-header h1 {
+      font-size: 24px;
+    }
+  
+    .review-card {
+      padding: 12px;
+    }
+  
+    .review-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+  

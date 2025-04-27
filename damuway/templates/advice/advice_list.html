@@ -1,18 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Советы по здоровью</h1>
-<ul>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Здоровье и советы | Damuway{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/advice/advice.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="advice-list-container">
+  <h1>🩺 Советы для родителей</h1>
+  <p class="subtitle">Полезные рекомендации по возрасту</p>
+
+  <div class="advice-grid">
     {% for advice in advices %}
-        <li>
-            <a href="{% url 'advice_detail' advice.pk %}">{{ advice.title }}</a>
-            <p>{{ advice.created_at|date:"d.m.Y" }}</p>
-        </li>
+    <a href="{% url 'advice_detail' advice.id %}" class="advice-card">
+      <div class="advice-info">
+        <h3>{{ advice.title }}</h3>
+        {% if advice.age_category %}
+        <p class="age">👶 {{ advice.age_category.name }}</p>
+        {% endif %}
+        <p class="excerpt">{{ advice.content|truncatewords:20 }}</p>
+      </div>
+    </a>
     {% endfor %}
-</ul>
-</body>
-</html>
+  </div>
+</div>
+{% endblock %}

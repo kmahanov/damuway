@@ -1,0 +1,184 @@
+:root {
+    --accent: #714EFF;
+    --text: #2D3748;
+    --text-light: #718096;
+    --border: #E2E8F0;
+    --bg: #F9F9FB;
+  }
+  
+  body {
+    background: var(--bg);
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .advice-list-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+  }
+  
+  .advice-list-container h1 {
+    color: var(--accent);
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  .subtitle {
+    text-align: center;
+    font-size: 1rem;
+    color: var(--text-light);
+    margin-bottom: 30px;
+  }
+  
+  .advice-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  
+  .advice-card {
+    background: white;
+    border-radius: 14px;
+    text-decoration: none;
+    color: inherit;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: 0.2s;
+  }
+  
+  .advice-card:hover {
+    transform: translateY(-3px);
+  }
+  
+  .advice-info h3 {
+    margin: 0 0 8px;
+    color: var(--text);
+  }
+  
+  .advice-info .age {
+    font-size: 0.9rem;
+    color: var(--text-light);
+  }
+  
+  .advice-info .excerpt {
+    font-size: 0.95rem;
+    color: #555;
+  }
+  
+  .advice-detail-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  }
+  
+  .advice-detail-container h1 {
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  
+  .advice-content {
+    margin: 20px 0;
+    color: var(--text);
+    line-height: 1.6;
+  }
+  
+  .reviews-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+  }
+  
+  .add-review-btn {
+    background: var(--accent);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  .reviews-list {
+    margin-top: 20px;
+  }
+  
+  .review-card {
+    background: #F9F9FF;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .review-top {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .date {
+    font-size: 0.85rem;
+    color: #888;
+  }
+  
+  .empty-message {
+    text-align: center;
+    color: var(--text-light);
+    margin-top: 30px;
+  }
+  
+  .form-container {
+    max-width: 500px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.05);
+  }
+  
+  .form-container h1 {
+    color: var(--accent);
+    margin-bottom: 25px;
+    text-align: center;
+  }
+  
+  .styled-form .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .styled-form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .styled-form select,
+  .styled-form textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    font-size: 1rem;
+    background: #f9f9ff;
+  }
+  
+  .submit-btn {
+    width: 100%;
+    padding: 12px;
+    background: var(--accent);
+    color: white;
+    border-radius: 10px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .submit-btn:hover {
+    background: #5c3fe0;
+  }
+  

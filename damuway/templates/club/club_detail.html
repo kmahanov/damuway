@@ -1,43 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h2>{{ club.name }}</h2>
-<p><strong>Город:</strong> {{ club.city }}</p>
-<p><strong>Адрес:</strong> {{ club.address }}</p>
-<p><strong>Возраст:</strong> от {{ club.min_age }} лет</p>
-<p><strong>Расписание:</strong> {{ club.schedule }}</p>
-<p>{{ club.description }}</p>
+{% extends 'base.html' %}
+{% load static %}
 
-<hr>
+{% block title %}{{ club.name }} | Клубы{% endblock %}
 
-<h3>Отзывы</h3>
-<ul>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/club/club_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="club-detail-container">
+  <div class="club-header">
+    <h1>{{ club.name }}</h1>
+    <p class="location">📍 {{ club.city }}, {{ club.address }}</p>
+    <p class="age-range">Возраст от {{ club.min_age }} лет</p>
+  </div>
+
+  <div class="club-body">
+    <p class="description">{{ club.description }}</p>
+    {% if club.schedule %}<p class="schedule">🕒 Расписание: {{ club.schedule }}</p>{% endif %}
+  </div>
+
+  <div class="review-section">
+    <h2>Отзывы</h2>
+
     {% for review in club.reviews.all %}
-        <li>
-            ⭐ {{ review.rating }} / 5
-            <p>{{ review.comment }}</p>
-            <small>от {{ review.user.username }}, {{ review.created_at|date:"d.m.Y" }}</small>
-        </li>
+      <div class="review-card">
+        <div class="review-header">
+          <strong>{{ review.user.username }}</strong>
+          <span class="rating">{{ review.rating }} ★</span>
+        </div>
+        <p class="comment">{{ review.comment }}</p>
+        <p class="date">{{ review.created_at|date:"d.m.Y H:i" }}</p>
+      </div>
     {% empty %}
-        <p>Пока отзывов нет. Оставьте первым!</p>
+      <p>Пока нет отзывов.</p>
     {% endfor %}
-</ul>
 
-{% if user.is_authenticated %}
-    <hr>
-    <h3>Оставить отзыв</h3>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Отправить</button>
+    {% if user.is_authenticated %}
+    <form method="post" class="review-form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Оставить отзыв</button>
     </form>
-{% else %}
-    <p><a href="{% url 'login' %}">Войдите</a>, чтобы оставить отзыв.</p>
-{% endif %}
-
-</body>
-</html>
+    {% else %}
+    <p><a href="/user/login/">Войдите</a>, чтобы оставить отзыв.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

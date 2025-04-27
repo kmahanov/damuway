@@ -1,64 +1,373 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load static %}
-{% load i18n %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static '/css/home.css' %}">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/welcome/home.css' %}">
+<script>
+  
+  setTimeout(function() {
+    var alertNode = document.querySelector('.alert');
+    if (alertNode) {
+      var alert = new bootstrap.Alert(alertNode);
+      alert.close();
+    }
+  }, 5000); 
+</script>
+
 {% endblock %}
 
 {% block content %}
-<div class="hero">
-    <div class="ellipse"></div>
-    <div class="content">
-        <h1>{% trans "DAMUWAY – растем вместе, шаг за шагом!" %}</h1>
-        <p>{% trans "Мы собрали экспертные материалы, рекомендации и вдохновляющие идеи для родителей." %}</p>
-    </div>
-    <div class="image">
-        <img src="{% static '/media/home/img1.png' %}" alt="{% trans 'Родители и дети' %}">
-    </div>
+<div class="background-wave">
+  <svg viewBox="0 0 400 4200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="
+      M200 0
+      C300 100 100 200 200 300
+      C300 400 100 500 200 600
+      C300 700 100 800 200 900
+      C300 1000 100 1100 200 1200
+      C300 1300 100 1400 200 1500
+      C300 1600 100 1700 200 1800
+      C300 1900 100 2000 200 2100
+      C300 2200 100 2300 200 2400
+      C300 2500 100 2600 200 2700
+      C300 2800 100 2900 200 3000
+      C300 3100 100 3200 200 3300
+      C300 3400 100 3500 200 3600
+      C300 3700 100 3800 200 3900
+      C300 4000 100 4100 200 4200
+      C300 4300 100 4400 200 4500
+      C300 4600 100 4700 200 4800
+      C300 4900 100 5000 200 5100
+      C300 5200 100 5300 200 5400
+      C300 5500 100 5600 200 5700
+      C300 5800 100 5900 200 6000
+      C300 6100 100 6200 200 6300
+      C300 6400 100 6500 200 6600
+      C300 6700 100 6800 200 6900
+      C300 7000 100 7100 200 7200
+      C300 7300 100 7400 200 7500
+      C300 7600 100 7700 200 7800
+      C300 7900 100 8000 200 8100
+    " 
+    stroke="#714EFF" stroke-width="40" fill="none" />
+  </svg>
 </div>
 
-<div class="info-section">
-    <div class="image">
-        <img src="{% static '/media/home/img2.png' %}" alt="{% trans 'Ребенок с книгами' %}">
-    </div>
-    <div class="content">
-        <p>{% trans "Быть родителем – это невероятное приключение, полное радости, открытий и, конечно, множества вопросов. Где найти лучший детский сад? Как развивать малыша с ранних лет? Какие книги помогут ему расти умным и счастливым?" %}</p>
-    </div>
+<!-- Alert -->
+<div class="d-flex justify-content-center">
+  <div class="alert alert-primary alert-dismissible fade show text-center my-4" role="alert" style="max-width: 600px; width: 100%;">
+    🎉 Добро пожаловать на DAMUWAY! Откройте новые возможности вместе с нами.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
 </div>
 
-<div class="info-section">
-    <div class="content">
-        <p>{% trans "DAMUWAY – это больше, чем просто сайт. Это пространство, созданное для молодых родителей, которые хотят дать своим детям лучшее. Мы собрали актуальную информацию, проверенные советы, полезные материалы и вдохновляющие идеи – все, что нужно для уверенности в каждом шаге родительства." %}</p>
-    </div>
-    <div class="image">
-        <img src="{% static '/media/home/img3.png' %}" alt="{% trans 'Счастливая семья' %}">
-    </div>
-</div>
 
-<section class="features-section">
-  <div class="container">
-    <div class="features-title">
-      <span class="badge">
-        <i class="fas fa-chart-line"></i> {% trans "Что вас ждет на" %} <strong>DAMUWAY?</strong>
-      </span>
-    </div>
-    <div class="features-grid">
-      <ul>
-        <li><i class="fas fa-check-circle"></i> {% trans "Полезные статьи и рекомендации от экспертов" %}</li>
-        <li><i class="fas fa-check-circle"></i> {% trans "Список проверенных детских садов и развивающих центров" %}</li>
-      </ul>
-      <ul>
-        <li><i class="fas fa-check-circle"></i> {% trans "Подборки лучших книг и развивающих игр" %}</li>
-        <li><i class="fas fa-check-circle"></i> {% trans "Уникальные лайфхаки и советы для родителей" %}</li>
-      </ul>
+
+
+<!-- Hero Section -->
+<section class="py-5">
+  <div class="container text-center">
+    <div class="row align-items-center">
+      <div class="col-md-6" data-aos="fade-right">
+        <h1 class="display-3 fw-bold">DAMUWAY — растем вместе, шаг за шагом</h1>
+        <p class="lead mt-4">Лучшие школы, садики, кружки и советы для развития вашего ребёнка.</p>
+        <a href="{% url 'register' %}" class="btn btn-primary btn-lg mt-4">Начать</a>
+      </div>
+      <div class="col-md-6" data-aos="fade-left">
+        <img src="{% static 'img/illustrations/hero-family-animated.gif' %}" class="img-fluid" alt="Семья растет вместе">
+      </div>
     </div>
   </div>
 </section>
 
-<div class="cta">
-    <h2>{% trans "Ваш ребенок заслуживает лучшего – а мы поможем вам в этом!" %}</h2>
-    <p>{% trans "Присоединяйтесь к DAMUWAY и сделайте родительство проще и счастливее!" %}</p>
-    <a href="/user/register" class="btn">{% trans "Начать работу" %}</a>
+<!-- About Section -->
+<section class="py-5 bg-light">
+  <div class="container text-center" data-aos="fade-up">
+    <h2 class="display-5 fw-semibold">Почему DAMUWAY?</h2>
+    <p class="lead mt-3">Мы создали DAMUWAY, чтобы поддерживать родителей на каждом этапе развития ребёнка. Только проверенные советы, лучшие учреждения и честные отзывы.</p>
+    <img src="{% static 'img/illustrations/aboutus.gif' %}" class="img-fluid mt-4" alt="О нас" style="max-width:400px;">
+  </div>
+</section>
+
+<!-- Catalogs Section -->
+<section class="py-5">
+  <div class="container" data-aos="fade-up">
+    <h2 class="text-center display-5 fw-semibold mb-5">Что вы найдете у нас?</h2>
+    <div class="row g-4">
+      <div class="col-6 col-md-3">
+        <div class="card shadow-sm text-center p-3 h-100">
+          <img src="{% static 'img/icons/kindergarten.svg' %}" class="mx-auto" alt="Садики" style="width: 60px;">
+          <div class="card-body">
+            <h5 class="card-title">Садики</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="card shadow-sm text-center p-3 h-100">
+          <img src="{% static 'img/icons/school.svg' %}" class="mx-auto" alt="Школы" style="width: 60px;">
+          <div class="card-body">
+            <h5 class="card-title">Школы</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="card shadow-sm text-center p-3 h-100">
+          <img src="{% static 'img/icons/sport.svg' %}" class="mx-auto" alt="Спорт" style="width: 60px;">
+          <div class="card-body">
+            <h5 class="card-title">Спортклубы</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="card shadow-sm text-center p-3 h-100">
+          <img src="{% static 'img/icons/book.svg' %}" class="mx-auto" alt="Книги" style="width: 60px;">
+          <div class="card-body">
+            <h5 class="card-title">Книги</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="py-5 bg-light">
+  <div class="container" data-aos="fade-up">
+    <h2 class="text-center display-5 fw-semibold mb-5">Отзывы родителей</h2>
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="card shadow-sm p-4 h-100">
+          <blockquote class="blockquote mb-0">
+            <p>“DAMUWAY помог нам найти лучший садик для нашего малыша! Очень удобно!”</p>
+            <footer class="blockquote-footer mt-3">Алина, мама двухлетнего сына</footer>
+          </blockquote>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card shadow-sm p-4 h-100">
+          <blockquote class="blockquote mb-0">
+            <p>“Отличный сервис! Мы забронировали логопеда через платформу за пару минут.”</p>
+            <footer class="blockquote-footer mt-3">Максим, папа первоклассника</footer>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5 bg-light" data-aos="fade-up">
+  <div class="container text-center">
+    <h2 class="display-5 fw-semibold mb-5">Как работает DAMUWAY?</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm p-4">
+          <div class="mb-3">
+            <span class="badge bg-primary rounded-pill p-3 fs-5">1</span>
+          </div>
+          <h5 class="card-title">Выберите</h5>
+          <p class="card-text">Изучите лучшие садики, школы, кружки и специалистов, используя фильтры поиска.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm p-4">
+          <div class="mb-3">
+            <span class="badge bg-primary rounded-pill p-3 fs-5">2</span>
+          </div>
+          <h5 class="card-title">Бронируйте</h5>
+          <p class="card-text">Бронируйте встречи и занятия через удобную форму прямо на сайте.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm p-4">
+          <div class="mb-3">
+            <span class="badge bg-primary rounded-pill p-3 fs-5">3</span>
+          </div>
+          <h5 class="card-title">Развивайтесь</h5>
+          <p class="card-text">Получайте лучшее развитие для вашего ребёнка и оставляйте отзывы для других родителей.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5" data-aos="fade-up">
+  <div class="container text-center">
+    <h2 class="display-5 fw-semibold mb-5">Наши преимущества</h2>
+    <div class="row g-4">
+      <div class="col-md-3">
+        <div class="card h-100 shadow-sm p-4">
+          <h5 class="card-title mb-3">Проверенные места</h5>
+          <p class="card-text">Только лучшие садики, школы и кружки с реальными отзывами родителей.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card h-100 shadow-sm p-4">
+          <h5 class="card-title mb-3">Реальные отзывы</h5>
+          <p class="card-text">Читайте честные мнения и делитесь своим опытом после бронирования.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card h-100 shadow-sm p-4">
+          <h5 class="card-title mb-3">Удобный поиск</h5>
+          <p class="card-text">Фильтруйте по возрасту, типу заведения, местоположению и рейтингу.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card h-100 shadow-sm p-4">
+          <h5 class="card-title mb-3">Простая запись</h5>
+          <p class="card-text">Бронируйте встречу за пару кликов без звонков и бумажной волокиты.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="py-5 bg-light" data-aos="fade-up">
+  <div class="container text-center">
+    <h2 class="display-5 fw-semibold mb-5">Наши достижения</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        
+        <div class="mb-4">
+          <h5>Бронирований через DAMUWAY</h5>
+          <div class="progress" style="height: 20px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 85%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">85%</div>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <h5>Довольных родителей</h5>
+          <div class="progress" style="height: 20px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">90%</div>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <h5>Добавленных заведений</h5>
+          <div class="progress" style="height: 20px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: 70%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">70%</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FAQ Section -->
+<section class="py-5">
+  <div class="container" data-aos="fade-up">
+    <h2 class="text-center display-5 fw-semibold mb-5">Часто задаваемые вопросы</h2>
+    <div class="accordion" id="faqAccordion">
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+            Что такое DAMUWAY?
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            DAMUWAY — это единая платформа для родителей для поиска лучших мест для развития детей: садики, школы, кружки, специалисты.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+            Нужно ли создавать аккаунт?
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Да, регистрация нужна для бронирования специалистов, оставления отзывов и сохранения избранных мест.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingThree">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+            Сколько стоит использование платформы?
+          </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            DAMUWAY абсолютно бесплатен для родителей. Вы можете искать, бронировать и оставлять отзывы без оплаты.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingFour">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour">
+            Могу ли я оставить отзыв о заведении или специалисте?
+          </button>
+        </h2>
+        <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Да, после бронирования и посещения вы сможете оставить свой отзыв, чтобы помочь другим родителям.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingFive">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive">
+            Как выбрать лучший садик или школу?
+          </button>
+        </h2>
+        <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Используйте фильтры по возрасту, рейтингу, типу учреждения и изучайте отзывы реальных родителей, чтобы выбрать лучшее место для вашего ребенка.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- CTA with Modal -->
+<section class="py-5 bg-light text-center">
+  <div class="container" data-aos="fade-up">
+    <h2 class="display-5 fw-semibold">Присоединяйтесь к DAMUWAY</h2>
+    <p class="lead mt-3">Создайте аккаунт всего за 1 минуту!</p>
+    <button class="btn btn-primary btn-lg mt-4" data-bs-toggle="modal" data-bs-target="#registerModal">
+      Зарегистрироваться
+    </button>
+  </div>
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="registerModalLabel">Создайте аккаунт</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+      </div>
+      <div class="modal-body">
+        <p>Получите доступ к отзывам, бронированию специалистов и другим возможностям DAMUWAY.</p>
+        <a href="{% url 'register' %}" class="btn btn-primary w-100">Регистрация</a>
+      </div>
+    </div>
+  </div>
 </div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+  AOS.init({
+    once: true,
+    duration: 800,
+  });
+</script>
 {% endblock %}
