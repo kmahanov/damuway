@@ -30,20 +30,34 @@ def kindergarten_list(request, district_id):
     return render(request, 'kindergarten/kindergarten_list.html', context)
 
 
+
 def kindergarten_detail(request, kindergarten_id):
     kindergarten = get_object_or_404(Kindergarten, id=kindergarten_id)
-    nearby_kindergartens = kindergarten.nearby_kindergartens(radius_km=3)
     reviews = kindergarten.reviews.all().order_by('-created_at')
 
     review_paginator = Paginator(reviews, 5)
     review_page = request.GET.get('review_page')
     review_page_obj = review_paginator.get_page(review_page)
 
+
+    form = None
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form = KindergartenReviewForm(request.POST)
+            if form.is_valid():
+                review = form.save(commit=False)
+                review.user = request.user
+                review.kindergarten = kindergarten
+                review.save()
+                kindergarten.update_rating()
+                return redirect('kindergarten:kindergarten_detail', kindergarten_id=kindergarten.id)
+        else:
+            form = KindergartenReviewForm()
+
     context = {
         'kindergarten': kindergarten,
-        'nearby_kindergartens': nearby_kindergartens[:5],
         'review_page_obj': review_page_obj,
-        'google_maps_api_key': settings.GOOGLE_MAPS_API_KEY,
+        'form': form,
     }
     return render(request, 'kindergarten/kindergarten_detail.html', context)
 

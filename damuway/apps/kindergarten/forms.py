@@ -6,10 +6,10 @@ from ..school.models import District
 class KindergartenReviewForm(forms.ModelForm):
     class Meta:
         model = KindergartenReview
-        fields = ['text', 'rating']
+        fields = ['rating', 'text']
         widgets = {
-            'text': forms.Textarea(attrs={'rows': 4, 'placeholder': 'Ваш отзыв...'}),
-            'rating': forms.Select()
+            'rating': forms.Select(choices=[(i, f'{i} ★') for i in range(1, 6)], attrs={'class': 'form-select'}),
+            'text': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
         }
 
 class KindergartenSearchForm(forms.Form):

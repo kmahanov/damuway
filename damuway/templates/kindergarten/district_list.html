@@ -30,13 +30,13 @@
         <!-- District Cards -->
         <div class="districts-grid">
             {% for district in districts %}
-            <a href="/kindergarten/districts/{{ district.id }}/" class="district-card" data-name="{{ district.name|lower }}">
+            <a href="{% url 'kindergarten_list' district.id %}" class="district-card" data-name="{{ district.name|lower }}">
                 <div class="card-header soft-bg">
                     <div class="district-number">{{ forloop.counter }}</div>
                 </div>
                 <div class="card-content">
                     <h3>{{ district.name }} район</h3>
-                    <p>{{ district.kindergarten_set.count }} школ</p>
+                    <p>{{ district.kindergarten_set.count }} садов</p>
                 </div>
             </a>
             {% empty %}
@@ -49,14 +49,16 @@
 </div>
 
 <script>
-    // Live search
-    document.getElementById('district-search').addEventListener('input', function() {
-        const value = this.value.toLowerCase();
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.getElementById('district-search');
         const cards = document.querySelectorAll('.district-card');
 
-        cards.forEach(card => {
-            const name = card.dataset.name;
-            card.style.display = name.includes(value) ? 'block' : 'none';
+        searchInput.addEventListener('input', function () {
+            const value = this.value.toLowerCase();
+            cards.forEach(card => {
+                const name = card.dataset.name;
+                card.style.display = name.includes(value) ? 'block' : 'none';
+            });
         });
     });
 </script>

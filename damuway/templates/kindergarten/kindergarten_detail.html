@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}{{ school.name }}{% endblock %}
+{% block title %}{{ kindergarten.name }}{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/school/school_detail.css' %}">
@@ -9,41 +9,45 @@
 
 {% block content %}
 <div class="school-detail-container">
+    <!-- Хлебные крошки -->
     <div class="breadcrumb-nav">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="{% url 'kindergarten:kindergarten_district_list' %}" class="breadcrumb-link">
-                        Районы
-                    </a>
+                    <a href="{% url 'kindergarten_district_list' %}" class="breadcrumb-link">Районы</a>
                     <span class="arrow">→</span>
                 </li>
                 <li class="breadcrumb-item">
-                    <a href="{% url 'kindergarten:kindergarten_list' kindergarten.district.id %}" class="breadcrumb-link">
+                    <a href="{% url 'kindergarten_list' kindergarten.district.id %}" class="breadcrumb-link">
                         {{ kindergarten.district.name }} район
                     </a>
                     <span class="arrow">→</span>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                    {{ school.name }}
+                    {{ kindergarten.name }}
                 </li>
             </ol>
         </nav>
     </div>
 
+    <!-- Шапка -->
     <div class="school-header">
         <div class="school-image">
-            <img src="{{ kindergarten.main_image.url }}" alt="{{ kindergarten.name }}">
+            {% if kindergarten.main_image %}
+                <img src="{{ kindergarten.main_image.url }}" alt="{{ kindergarten.name }}">
+            {% else %}
+                <img src="{% static 'images/default-kindergarten.jpg' %}" alt="Нет изображения">
+            {% endif %}
         </div>
         <div class="school-info">
             <h1 class="school-name">{{ kindergarten.name }}</h1>
             <div class="school-meta">
-                <span class="school-type {% if kindergarten.kindergarten_type == 'state' %}state{% elif kindergarten.kindergarten_type == 'private' %}private{% else %}other{% endif %}">
+                <span class="school-type {{ kindergarten.kindergarten_type }}">
                     {{ kindergarten.get_kindergarten_type_display }}
                 </span>
                 <div class="rating-stars">
                     {% for i in "12345" %}
-                        {% if forloop.counter <= kindergarten.rating|add:0.5 %}
+                        {% if forloop.counter <= kindergarten.rating|floatformat:0 %}
                             <i class="fas fa-star"></i>
                         {% else %}
                             <i class="far fa-star"></i>
@@ -55,77 +59,93 @@
         </div>
     </div>
 
+    <!-- Основная информация -->
     <div class="school-info-section">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">О школе</h5>
+                <h5 class="card-title">О садике</h5>
                 <p class="card-text">{{ kindergarten.description }}</p>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        <i class="fas fa-money-bill-wave me-2"></i>
-                        <strong>Стоимость:</strong> {{ kindergarten.price|floatformat:"0" }} тг/мес
-                    </li>
-                    <li class="list-group-item">
-                        <i class="fas fa-clock me-2"></i>
-                        <strong>Срок обучения:</strong> {{ kindergarten.duration }}
-                    </li>
-                    <li class="list-group-item">
-                        <i class="fas fa-trophy me-2"></i>
-                        <strong>Достижения:</strong> {{ kindergarten.achievements|default:"-" }}
-                    </li>
-                    <li class="list-group-item">
-                        <i class="fas fa-calendar-alt me-2"></i>
-                        <strong>Режим работы:</strong> {{ kindergarten.working_hours }}
-                    </li>
-                    <li class="list-group-item">
-                        <i class="fas fa-map-marker-alt me-2"></i>
-                        <strong>Адрес:</strong> {{ kindergarten.address }}
-                    </li>
-                    <li class="list-group-item">
-                        <i class="fas fa-phone me-2"></i>
-                        <strong>Телефон:</strong> {{ kindergarten.phone }}
-                    </li>
+                    <li class="list-group-item"><i class="fas fa-money-bill-wave me-2"></i><strong>Стоимость:</strong> {{ kindergarten.price|floatformat:"0" }} тг/мес</li>
+                    <li class="list-group-item"><i class="fas fa-child me-2"></i><strong>Возраст:</strong> {{ kindergarten.age_range }}</li>
+                    <li class="list-group-item"><i class="fas fa-calendar-alt me-2"></i><strong>Режим работы:</strong> {{ kindergarten.working_hours }}</li>
+                    <li class="list-group-item"><i class="fas fa-map-marker-alt me-2"></i><strong>Адрес:</strong> {{ kindergarten.address }}</li>
+                    <li class="list-group-item"><i class="fas fa-phone me-2"></i><strong>Телефон:</strong> {{ kindergarten.phone }}</li>
+                    {% if kindergarten.instagram %}
+                    <li class="list-group-item"><i class="fab fa-instagram me-2"></i><a href="{{ kindergarten.instagram }}" target="_blank">Instagram</a></li>
+                    {% endif %}
+                    {% if kindergarten.facebook %}
+                    <li class="list-group-item"><i class="fab fa-facebook me-2"></i><a href="{{ kindergarten.facebook }}" target="_blank">Facebook</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
     </div>
 
-    <div class="reviews-section">
+    <!-- Отзывы -->
+    <div class="reviews-section mt-5">
         <div class="card">
             <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h5 class="card-title mb-0">Отзывы</h5>
-                    <a href="{% url 'kindergarten:add_review' kindergarten.id %}" class="btn btn-add-review">
-                        <i class="fas fa-plus"></i> Добавить отзыв
-                    </a>
-                </div>
+                <h5 class="card-title mb-3">Отзывы</h5>
+
                 {% for review in review_page_obj %}
-                    <div class="review-item mb-3 pb-3 border-bottom">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <strong>{{ review.user.username }}</strong>
-                                <div class="rating-stars">
-                                    {% for i in "12345" %}
-                                        {% if forloop.counter <= review.rating %}
-                                            <i class="fas fa-star"></i>
-                                        {% else %}
-                                            <i class="far fa-star"></i>
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
+                <div class="review-item mb-3 pb-3 border-bottom">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <strong>{{ review.user.username }}</strong>
+                            <div class="rating-stars">
+                                {% for i in "12345" %}
+                                    {% if forloop.counter <= review.rating %}
+                                        <i class="fas fa-star"></i>
+                                    {% else %}
+                                        <i class="far fa-star"></i>
+                                    {% endif %}
+                                {% endfor %}
                             </div>
-                            <small class="text-muted">{{ review.created_at|date:"d.m.Y" }}</small>
                         </div>
-                        <p class="mt-2">{{ review.text }}</p>
+                        <small class="text-muted">{{ review.created_at|date:"d.m.Y" }}</small>
                     </div>
+                    <p class="mt-2">{{ review.text }}</p>
+                </div>
                 {% empty %}
                     <p class="text-muted">Пока нет отзывов. Будьте первым!</p>
                 {% endfor %}
+
+                <!-- Форма для отзыва -->
+                {% if user.is_authenticated %}
+                <div class="add-review-form mt-5">
+                    <h6 class="mb-3">Оставить отзыв</h6>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="id_rating" class="form-label">Оценка</label>
+                            {{ form.rating }}
+                            {% if form.rating.errors %}
+                                <div class="text-danger small">{{ form.rating.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_text" class="form-label">Отзыв</label>
+                            {{ form.text }}
+                            {% if form.text.errors %}
+                                <div class="text-danger small">{{ form.text.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Отправить
+                        </button>
+                    </form>
+                </div>
+                {% else %}
+                <p class="text-muted mt-4">Чтобы оставить отзыв, <a href="{% url 'login' %}?next={{ request.path }}">войдите в аккаунт</a>.</p>
+                {% endif %}
             </div>
         </div>
     </div>
 
-    <div class="map-section">
+    <!-- Карта -->
+    {% if kindergarten.latitude and kindergarten.longitude %}
+    <div class="map-section mt-5">
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Расположение</h5>
@@ -139,26 +159,28 @@
             </div>
         </div>
     </div>
+    {% endif %}
 
+    <!-- Ближайшие садики -->
     {% if nearby_schools %}
-        <div class="nearby-schools-section">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Ближайшие школы</h5>
-                    <div class="list-group">
-                        {% for nearby in nearby_schools %}
-                            <a href="{% url 'kindergarten:kindergarten_detail' nearby.id %}" class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h6 class="mb-1">{{ nearby.name }}</h6>
-                                    <small>{{ nearby.distance }} км</small>
-                                </div>
-                                <small class="text-muted">{{ nearby.address }}</small>
-                            </a>
-                        {% endfor %}
-                    </div>
+    <div class="nearby-schools-section mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Ближайшие садики</h5>
+                <div class="list-group">
+                    {% for nearby in nearby_schools %}
+                    <a href="{% url 'kindergarten_detail' nearby.id %}" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">{{ nearby.name }}</h6>
+                            <small>{{ nearby.distance|floatformat:1 }} км</small>
+                        </div>
+                        <small class="text-muted">{{ nearby.address }}</small>
+                    </a>
+                    {% endfor %}
                 </div>
             </div>
         </div>
+    </div>
     {% endif %}
 </div>
 {% endblock %}
