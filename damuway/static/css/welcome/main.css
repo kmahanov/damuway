@@ -1,0 +1,253 @@
+:root {
+    --primary-color: #714EFF;
+    --text-dark: #111;
+    --text-light: #666;
+    --background-light: #f9f9f9;
+  }
+  
+  /* Общие стили */
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #ffffff;
+    color: var(--text-dark);
+    font-size: 16px;
+  }
+  
+  /* Welcome Section */
+  .welcome-section {
+    padding: 80px 0 40px 0;
+  }
+  
+  .welcome-section h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+  }
+  
+  .welcome-section p {
+    font-size: 1.2rem;
+    margin-top: 20px;
+    color: var(--text-light);
+  }
+  
+  /* Services Section */
+  .services-section {
+    padding: 60px 0;
+  }
+  
+  .service-item {
+    background: #ffffff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 30px 20px;
+    text-align: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .service-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  }
+  
+  .service-item img {
+    max-width: 100%;
+    height: 180px;
+    object-fit: contain;
+    margin-bottom: 20px;
+  }
+  
+  .service-item h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  
+  .service-item p {
+    font-size: 1rem;
+    color: var(--text-light);
+    margin-bottom: 20px;
+    flex-grow: 1;
+  }
+  
+  .cta-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+  
+  .cta-btn:hover {
+    background-color: #5a3dff;
+  }
+  
+  /* Recommendations Section */
+  .recommendations-section {
+    background-color: var(--background-light);
+    padding: 60px 0;
+  }
+  
+  .recommendation-item {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 25px 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .recommendation-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  }
+  
+  .recommendation-item h4 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  
+  .recommendation-item p {
+    font-size: 1rem;
+    color: var(--text-light);
+    margin-bottom: 15px;
+  }
+  
+  .cta-btn-small {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 500;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+  }
+  
+  .cta-btn-small:hover {
+    background-color: #5a3dff;
+  }
+  
+  /* Чатбот кнопка */
+  .chatbot-float {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 999;
+  }
+  
+  /* Dark mode */
+  body.dark-mode {
+    background: #121212;
+    color: #ffffff;
+  }
+  
+  body.dark-mode .welcome-section p,
+  body.dark-mode .service-item p,
+  body.dark-mode .recommendation-item p {
+    color: #bbbbbb;
+  }
+  
+  body.dark-mode .service-item,
+  body.dark-mode .recommendation-item {
+    background-color: #1e1e1e;
+    border-color: #333;
+  }
+  
+  body.dark-mode .service-item:hover,
+  body.dark-mode .recommendation-item:hover {
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.08);
+  }
+  
+  body.dark-mode .cta-btn,
+  body.dark-mode .cta-btn-small {
+    background-color: var(--primary-color);
+  }
+  
+  body.dark-mode .cta-btn:hover,
+  body.dark-mode .cta-btn-small:hover {
+    background-color: #5a3dff;
+  }
+  
+  .recommendation-item {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 25px 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+    height: 100%; /* чтобы все карточки были одинаковые */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .top-specialists-section {
+    padding: 60px 0;
+  }
+  
+  .specialist-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    height: 100%;
+    transition: transform 0.3s;
+  }
+  
+  .specialist-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .specialist-photo {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 15px;
+  }
+  .events-section {
+    padding: 60px 0;
+    background: var(--background-light);
+  }
+  
+  .event-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s;
+  }
+  
+  .event-card:hover {
+    transform: translateY(-5px);
+  }
+  .ai-helper-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #714EFF 0%, #8A6EFF 100%);
+    color: white;
+    border-radius: 20px;
+    margin: 40px 20px;
+  }
+        
+  /* Адаптивность */
+  @media (max-width: 768px) {
+    .welcome-section h1 {
+      font-size: 2rem;
+    }
+    
+    .services-section,
+    .recommendations-section {
+      padding: 40px 0;
+    }
+  }
+  

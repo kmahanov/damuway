@@ -4,138 +4,135 @@
 {% block title %}Добро пожаловать в Damuway!{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/welcome/home.css' %}">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/welcome/main.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
 <a href="{% url 'ask_ai' %}" class="chatbot-float" title="Спросить у AI">
-  <img src="/static/images/bot.png" {% static 'images/logo.png' %}" alt="AI" width="60" />
+  <img src="{% static 'images/bot.png' %}" alt="AI" width="60" />
 </a>
 
-<!-- Welcome Section -->
 <section class="welcome-section">
-  <div class="container">
+  <div class="container text-center">
     {% if user.is_authenticated %}
-      <h1>{{ user.get_username }}  Добро пожаловать в <span style="color:#ffd369;">Damuway!</span></h1>
-      <p>Платформа для родителей: детсады, книги, логопеды, игры и советы в одном месте.</p>
-    {% else %}
-         <a href="/catalog" class="cta-btn">Начать путешествие</a>
+      <h1><span style="color: #714EFF;">{{ user.get_username }}</span>, добро пожаловать в <span style="color: #714EFF;">Damuway!</span></h1>
+      <p class="lead mt-3">Платформа для родителей: детсады, книги, логопеды, активности и советы — всё в одном месте.</p>
     {% endif %}
-      <a href="/catalog" class="cta-btn">Начать путешествие</a>
   </div>
 </section>
 
-<!-- Popular Services -->
 <section class="services-section">
   <div class="container">
-    <h2>Популярные категории</h2>
-    <div class="services-list">
-      <div class="service-item">
-        <img src="{% static 'images/kindergarten.jpg' %}" alt="Детские сады">
-        <h3>Детские сады</h3>
-        <p>Найдите лучший садик рядом с вами.</p>
-        <a href="/kindergarten" class="cta-btn">Перейти</a>
+    <h2 class="text-center mb-5">Популярные категории</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="service-item">
+          <img src="{% static 'img/illustrations/kindergartenmain.png' %}" alt="Детские сады">
+          <h3>Детские сады</h3>
+          <p>Найдите лучший садик рядом с вами.</p>
+          <a href="/kindergarten" class="cta-btn">Перейти</a>
+        </div>
       </div>
-      <div class="service-item">
-        <img src="{% static 'images/schools.jpg' %}" alt="Школы">
-        <h3>Школы</h3>
-        <p>Узнайте всё о школах в вашем районе.</p>
-        <a href="/school" class="cta-btn">Перейти</a>
+      <div class="col-md-4">
+        <div class="service-item">
+          <img src="{% static 'img/illustrations/schoolmain.png' %}" alt="Школы">
+          <h3>Школы</h3>
+          <p>Узнайте всё о школах в вашем районе.</p>
+          <a href="/school" class="cta-btn">Перейти</a>
+        </div>
       </div>
-      <div class="service-item">
-        <img src="{% static 'images/books.jpg' %}" alt="Книги">
-        <h3>Книги</h3>
-        <p>Книги для развития и вдохновения.</p>
-        <a href="/book" class="cta-btn">Перейти</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Parenting Resources -->
-<section class="resources-section">
-  <div class="container">
-    <h2>Ресурсы для родителей</h2>
-    <div class="resources-list">
-      <div class="resource-item">
-        <img src="{% static 'images/development.jpg' %}" alt="Развитие ребенка">
-        <h3>Развитие</h3>
-        <p>Методики, курсы, советы психологов.</p>
-        <a href="/development" class="cta-btn">Подробнее</a>
-      </div>
-      <div class="resource-item">
-        <img src="{% static 'images/activity.jpg' %}" alt="Игры">
-        <h3>Игры и активности</h3>
-        <p>Лучшие идеи для развития через игру.</p>
-        <a href="/activity" class="cta-btn">Подробнее</a>
-      </div>
-      <div class="resource-item">
-        <img src="{% static 'images/logoped.png' %}" alt="Логопеды">
-        <h3>Логопеды</h3>
-        <p>Коррекция речи и индивидуальные занятия.</p>
-        <a href="/logoped" class="cta-btn">Подробнее</a>
+      <div class="col-md-4">
+        <div class="service-item">
+          <img src="{% static 'img/illustrations/bookmain.png' %}" alt="Книги">
+          <h3>Книги</h3>
+          <p>Книги для развития и вдохновения.</p>
+          <a href="/book" class="cta-btn">Перейти</a>
+        </div>
       </div>
     </div>
   </div>
 </section>
-
-<!-- Blog Section -->
-<section class="blog-section">
+<section class="recommendations-section">
   <div class="container">
-    <h2>Блог</h2>
-    <div class="blog-posts">
-      <div class="blog-post">
-        <h3>Как выбрать детский сад?</h3>
-        <p>Практичные советы и что важно учесть.</p>
-        <a href="/article/1" class="cta-btn">Читать</a>
+    <h2 class="text-center mb-5">Рекомендации для вас</h2>
+    <div class="row g-6">
+      <div class="col-md-6 d-flex">
+        <div class="recommendation-item flex-fill">
+          <h4>10 идей для развития малышей</h4>
+          <p>Развивающие игры, которые помогут ребёнку расти и учиться через веселье.</p>
+          <a href="/article/3" class="cta-btn-small">Читать</a>
+        </div>
       </div>
-      <div class="blog-post">
-        <h3>5 советов для родителей</h3>
-        <p>Создание среды для счастливого детства.</p>
-        <a href="/article/2" class="cta-btn">Читать</a>
+      <div class="col-md-6 d-flex">
+        <div class="recommendation-item flex-fill">
+          <h4>Топ-5 книг для детей до 5 лет</h4>
+          <p>Подборка лучших детских книг для развития речи и воображения.</p>
+          <a href="/article/4" class="cta-btn-small">Читать</a>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+<section class="top-specialists-section">
+  <div class="container">
+    <h2 class="text-center mb-5">Лучшие специалисты</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="specialist-card">
+          <img src="{% static 'img/specialists/logoped1.jpg' %}" class="specialist-photo" alt="Логопед Анна">
+          <h5>Анна Иванова</h5>
+          <p>Логопед, стаж 7 лет. Индивидуальный подход.</p>
+          <a href="/logoped/1" class="cta-btn-small">Подробнее</a>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="specialist-card">
+          <img src="{% static 'img/specialists/massage1.jpg' %}" class="specialist-photo" alt="Массажист Олег">
+          <h5>Олег Петров</h5>
+          <p>Детский массажист. Более 300 счастливых клиентов.</p>
+          <a href="/specialist/1" class="cta-btn-small">Подробнее</a>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="specialist-card">
+          <img src="{% static 'img/specialists/logoped2.jpg' %}" class="specialist-photo" alt="Логопед Елена">
+          <h5>Елена Кузнецова</h5>
+          <p>Логопед-дефектолог, ранняя коррекция речи.</p>
+          <a href="/logoped/2" class="cta-btn-small">Подробнее</a>
+        </div>
       </div>
     </div>
   </div>
 </section>
-
-<!-- Testimonials -->
-<section class="testimonials-section">
+<section class="events-section">
   <div class="container">
-    <h2>Отзывы</h2>
-    <div class="testimonials-list">
-      <div class="testimonial-item">
-        <p>“Damuway — это находка для нас. Столько полезной информации и удобный интерфейс.”</p>
-        <h4>Анна, мама Максима</h4>
+    <h2 class="text-center mb-5">Мероприятия для всей семьи</h2>
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="event-card">
+          <h5>Фестиваль детства</h5>
+          <p>1 июня — праздник для всей семьи в Центральном парке.</p>
+          <a href="/event/1" class="cta-btn-small">Подробнее</a>
+        </div>
       </div>
-      <div class="testimonial-item">
-        <p>“Благодаря этой платформе я нашла логопеда и детский сад. Всё в одном месте!”</p>
-        <h4>Ирина, мама Алисы</h4>
+      <div class="col-md-6">
+        <div class="event-card">
+          <h5>Мастер-класс по рисованию</h5>
+          <p>15 мая — занятие для детей 4-8 лет, творческая студия "Арт-Бум".</p>
+          <a href="/event/2" class="cta-btn-small">Подробнее</a>
+        </div>
       </div>
     </div>
   </div>
 </section>
-
-<!-- Contact Section -->
-<section class="contact-section">
-  <div class="container">
-    <h2>Связь с нами</h2>
-    <p>Остались вопросы? Напишите нам — мы рядом!</p>
-    <a href="/contact" class="cta-btn">Написать</a>
+<section class="ai-helper-section">
+  <div class="container text-center">
+    <h2>Нужна помощь? Спросите у нашего AI!</h2>
+    <p>Наш AI ассистент подскажет вам лучшие варианты садиков, кружков и многое другое.</p>
+    <a href="{% url 'ask_ai' %}" class="btn btn-primary btn-lg mt-3">Спросить у AI</a>
   </div>
 </section>
 
-{% endblock %}
-
-{% block extra_js %}
-<script>
-  document.querySelectorAll('.cta-btn').forEach(btn => {
-    btn.addEventListener('mouseenter', () => {
-      btn.style.transform = 'scale(1.05)';
-    });
-    btn.addEventListener('mouseleave', () => {
-      btn.style.transform = 'scale(1)';
-    });
-  });
-</script>
 {% endblock %}
