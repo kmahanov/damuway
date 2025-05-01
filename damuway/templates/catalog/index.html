@@ -5,27 +5,24 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/catalog/index.css' %}">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
 <div class="catalog-container">
-    <h1 class="catalog-title">Каталог Damuway</h1>
-    <p class="catalog-subtitle">Выберите интересующий раздел</p>
+  <h1 class="catalog-title">Каталог Damuway</h1>
+  <p class="catalog-subtitle">Выберите интересующий раздел</p>
 
-    <div class="categories-grid">
-        {% for category in categories %}
-        <a href="{{ category.url }}" class="category-card">
-            {% if category.image_url %}
-            <div class="category-image" style="background-image: url('{{ category.image_url }}')"></div>
-            {% else %}
-            <div class="category-icon">
-                {{ category.name|slice:":1" }}
-            </div>
-            {% endif %}
-            <h3>{{ category.name }}</h3>
-        </a>
-        {% endfor %}
-    </div>
+  <div class="categories-grid">
+    {% for category in categories %}
+    <a href="{{ category.url }}" class="category-card">
+      {% if category.icon_name %}
+      <img src="{% static 'img/icons/' %}{{ category.icon_name }}" alt="{{ category.name }}" class="category-icon-img">
+      {% else %}
+      <div class="category-icon-text">{{ category.name|slice:":1" }}</div>
+      {% endif %}
+      <h3>{{ category.name }}</h3>
+    </a>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}

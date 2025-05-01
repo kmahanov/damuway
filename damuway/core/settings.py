@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'jazzmin',
+    # 'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     'apps.sport',
     'apps.kindergarten',
     'django_summernote',
-    'ckeditor5',
+    'ckeditor',
     'ai_help',
 
 ]
