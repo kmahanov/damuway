@@ -1,172 +1,196 @@
 :root {
     --main-color: #714EFF;
     --transition: all 0.3s ease;
-}
-
-/* --- Navbar --- */
-.navbar {
+  }
+  
+  /* --- Navbar --- */
+  .navbar {
     padding: 0.8rem 1.5rem;
     background-color: #fff;
     transition: var(--transition);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-}
-
-.navbar-brand {
+  }
+  
+  .navbar-brand {
     font-weight: bold;
     font-size: 1.5rem;
     color: var(--main-color);
     text-decoration: none;
-}
-
-.navbar-brand img {
+  }
+  
+  .navbar-brand img {
     height: 32px;
     margin-right: 8px;
-}
-
-.nav-link {
+  }
+  
+  .nav-link {
     color: #333;
     font-weight: 500;
     transition: var(--transition);
-}
-
-.nav-link:hover {
+  }
+  
+  .nav-link:hover {
     color: var(--main-color);
-}
-
-.navbar-toggler {
+  }
+  
+  .navbar-toggler {
     border: none;
-}
-
-.navbar-toggler:focus {
+  }
+  
+  .navbar-toggler:focus {
     outline: none;
     box-shadow: none;
-}
-
-/* --- Buttons --- */
-.btn-primary {
+  }
+  
+  .navbar-toggler-icon {
+    transition: var(--transition);
+  }
+  
+  .btn-primary {
     background-color: var(--main-color);
     border: none;
+    color: white;
     transition: background-color 0.3s ease;
-}
-
-.btn-primary:hover {
+  }
+  
+  .btn-primary:hover {
     background-color: #5a3dff;
-}
-
-.btn-outline-primary {
+  }
+  
+  .btn-outline-primary {
     color: var(--main-color);
     border-color: var(--main-color);
     transition: var(--transition);
-}
-
-.btn-outline-primary:hover {
+  }
+  
+  .btn-outline-primary:hover {
     background-color: var(--main-color);
     color: white;
-}
-
-/* --- Dropdown --- */
-.dropdown-menu {
+  }
+  
+  /* --- Dropdown --- */
+  .dropdown-menu {
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-.dropdown-item {
+  }
+  
+  .dropdown-item {
     font-weight: 500;
     transition: background 0.3s ease;
-}
-
-.dropdown-item:hover {
+  }
+  
+  .dropdown-item:hover {
     background-color: #f0f0f0;
-}
-
-/* --- Language Switcher --- */
-.form-select-sm {
-    font-size: 0.9rem;
-    border-radius: 6px;
-}
-
-/* --- Footer --- */
-.footer {
+  }
+  
+  /* --- Footer --- */
+  .footer {
     background-color: #f8f9fa;
     padding: 2rem 1rem;
     font-size: 0.95rem;
-}
-
-.footer a {
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  
+  .footer a {
     color: #333;
     font-weight: 500;
     transition: color 0.3s ease;
     text-decoration: none;
-}
-
-.footer a:hover {
+  }
+  
+  .footer a:hover {
     color: var(--main-color);
-}
-
-.footer i {
+  }
+  
+  .footer i {
     font-size: 1.2rem;
-}
-
-/* --- Theme (Dark mode) --- */
-body.dark-mode {
+    color: var(--main-color);
+  }
+  
+  .footer span {
+    color: #333;
+  }
+  
+  /* --- Dark Mode --- */
+  body.dark-mode {
     background-color: #121212;
     color: #ffffff;
-}
-
-body.dark-mode .navbar {
-    background-color: #1e1e1e;
-}
-
-body.dark-mode .nav-link,
-body.dark-mode .navbar-brand,
-body.dark-mode .footer a {
-    color: #ffffff;
-}
-
-body.dark-mode .footer {
-    background-color: #1e1e1e;
-}
-
-body.dark-mode .dropdown-menu {
-    background-color: #2c2c2c;
-}
-
-body.dark-mode .dropdown-item {
-    color: #ffffff;
-}
-
-body.dark-mode .dropdown-item:hover {
-    background-color: #444;
-}
-
-body.dark-mode .btn-outline-primary {
+  }
+  
+  body.dark-mode .navbar {
+    background-color: #1e1e1e !important;
+    box-shadow: 0 2px 10px rgba(255, 255, 255, 0.05);
+  }
+  
+  body.dark-mode .navbar-brand,
+  body.dark-mode .nav-link,
+  body.dark-mode .navbar-brand strong {
+    color: #ffffff !important;
+  }
+  
+  body.dark-mode .navbar-toggler-icon {
+    filter: invert(1);
+  }
+  
+  body.dark-mode .btn-outline-primary {
     color: #ffffff;
     border-color: #ffffff;
-}
-
-body.dark-mode .btn-outline-primary:hover {
+  }
+  
+  body.dark-mode .btn-outline-primary:hover {
+    background-color: var(--main-color);
+    color: #ffffff;
+  }
+  
+  body.dark-mode .btn-primary {
     background-color: #714EFF;
     color: #ffffff;
-}
-
-body.dark-mode .form-select-sm {
-    background-color: #1e1e1e;
+  }
+  
+  body.dark-mode .btn-primary:hover {
+    background-color: #5a3dff;
+  }
+  
+  body.dark-mode .form-select-sm {
+    background-color: #2c2c2c;
     color: #ffffff;
-    border-color: #555;
-}
-
-body.dark-mode .footer i {
-    color: #714EFF;
-}
-
-/* --- Mobile (Burger menu responsive) --- */
-@media (max-width: 768px) {
-    .navbar-nav {
-        gap: 1rem;
-        padding-top: 1rem;
-    }
+    border-color: #444;
+  }
+  
+  body.dark-mode .dropdown-menu {
+    background-color: #2c2c2c;
+  }
+  
+  body.dark-mode .dropdown-item {
+    color: #ffffff;
+  }
+  
+  body.dark-mode .dropdown-item:hover {
+    background-color: #444;
+  }
+  
+  body.dark-mode .footer {
+    background-color: #1e1e1e;
+  }
+  
+  body.dark-mode .footer a,
+  body.dark-mode .footer span {
+    color: #e0e0e0;
+  }
+  
+  body.dark-mode .footer a:hover {
+    color: var(--main-color);
+  }
+  
+  body.dark-mode .footer i {
+    color: var(--main-color);
+  }
+  
+  /* --- Mobile --- */
+  @media (max-width: 768px) {
     .footer {
-        text-align: center;
+      text-align: center;
     }
-}
+  }
+  
