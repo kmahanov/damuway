@@ -6,6 +6,8 @@ from math import radians, sin, cos, sqrt, atan2
 
 class District(models.Model):
     name = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='districts/', blank=True, null=True)
+    image_url = models.URLField(blank=True, null=True)
 
     def __str__(self):
         return self.name

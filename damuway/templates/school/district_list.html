@@ -31,14 +31,18 @@
         <div class="districts-grid">
             {% for district in districts %}
             <a href="/school/districts/{{ district.id }}/" class="district-card" data-name="{{ district.name|lower }}">
-                <div class="card-header soft-bg">
-                    <div class="district-number">{{ forloop.counter }}</div>
-                </div>
-                <div class="card-content">
-                    <h3>{{ district.name }} район</h3>
-                    <p>{{ district.school_set.count }} школ</p>
-                </div>
-            </a>
+    <div class="card-header soft-bg">
+        {% if district.image_url %}
+            <img src="{{ district.image_url }}" alt="{{ district.name }}" class="district-image">
+        {% else %}
+            <div class="district-number">{{ forloop.counter }}</div>
+        {% endif %}
+    </div>
+    <div class="card-content">
+        <h3>{{ district.name }} район</h3>
+        <p>{{ district.school_set.count }} школ</p>
+    </div>
+</a>
             {% empty %}
             <div class="no-districts">
                 <p>Нет доступных районов</p>
