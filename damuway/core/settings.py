@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     'apps.sport',
     'apps.kindergarten',
     'django_summernote',
-    'ckeditor',
+    #'ckeditor',
     'ai_help',
 
 ]
