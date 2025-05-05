@@ -1,41 +1,50 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}{{ event.title }} | Damuway{% endblock %}
+{% block title %}{{ event.title }} | Афиша Damuway{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/event/event.css' %}">
+<link rel="stylesheet" href="{% static 'css/event/event_detail.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="event-detail-container">
-  <h1>{{ event.title }}</h1>
+<div class="event-detail-wrapper">
 
-  {% if event.image %}
-  <div class="event-detail-image">
+  <!-- 🖼 Левая часть -->
+  <div class="event-poster">
+    {% if event.image %}
     <img src="{{ event.image.url }}" alt="{{ event.title }}">
-  </div>
-  {% endif %}
-
-  <div class="event-meta">
-    <p><strong>📍 Место:</strong> {{ event.location }}</p>
-    <p><strong>🗓 Дата:</strong> {{ event.date|date:"d M Y H:i" }}</p>
-    <p><strong>🎭 Категория:</strong> {{ event.get_category_display }}</p>
-    <p><strong>👶 Возраст:</strong> {{ event.age_limit }}</p>
-    <p><strong>💰 Цена:</strong> {{ event.price }}</p>
-    {% if event.organizer %}
-    <p><strong>🎤 Организатор:</strong> {{ event.organizer }}</p>
+    {% else %}
+    <div class="poster-placeholder">Нет изображения</div>
     {% endif %}
   </div>
 
-  {% if event.description %}
-  <p class="event-description">{{ event.description }}</p>
-  {% endif %}
+  <!-- 📄 Правая часть -->
+  <div class="event-main-info">
+    <h1>{{ event.title }}</h1>
 
-  {% if event.ticket_link %}
-  <a href="{{ event.ticket_link }}" target="_blank" class="btn-ticket">🎟 Купить билет</a>
-  {% endif %}
+    <div class="event-meta">
+      <p><strong>📍 Место проведения:</strong> {{ event.location }}</p>
+      <p><strong>📅 Дата и время:</strong> {{ event.date|date:"d M Y, H:i" }}</p>
+      {% if event.duration %}
+      <p><strong>⏳ Продолжительность:</strong> {{ event.duration }}</p>
+      {% endif %}
+      <p><strong>👶 Возрастное ограничение:</strong> {{ event.age_limit }}</p>
+      <p><strong>💰 Цена:</strong> {{ event.price }}</p>
+      {% if event.organizer %}
+      <p><strong>🎭 Организатор / Режиссёр:</strong> {{ event.organizer }}</p>
+      {% endif %}
+    </div>
 
-  <a href="{% url 'event_list' %}" class="btn-back">⬅ Назад к списку</a>
+    <div class="event-description">
+      <h2>Описание</h2>
+      <p>{{ event.description }}</p>
+    </div>
+
+    {% if event.ticket_link %}
+    <a href="{{ event.ticket_link }}" class="btn-buy" target="_blank">Купить билет</a>
+    {% endif %}
+  </div>
+
 </div>
 {% endblock %}

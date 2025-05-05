@@ -1,22 +1,44 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
+from django.db.models import Q
+from datetime import datetime,  date
 from .models import Event
+from .forms import EventFilterForm
+from django.views.generic import DetailView
 
 
-def event_list(request):
-    category = request.GET.get("category")
-    search_query = request.GET.get("search")
+def event_list_view(request):
+    events = Event.objects.all().order_by('date')
+    featured_events = Event.objects.filter(featured=True).order_by('date')
 
-    events = Event.objects.all().order_by("date")
+    form = EventFilterForm(request.GET)
 
-    if category:
-        events = events.filter(category=category)
+    if form.is_valid():
+        category = form.cleaned_data.get('category')
+        search = form.cleaned_data.get('search')
+        selected_date = form.cleaned_data.get('date')
 
-    if search_query:
-        events = events.filter(title__icontains=search_query)
+        if category:
+            events = events.filter(category=category)
+        if search:
+            events = events.filter(Q(title__icontains=search) | Q(description__icontains=search))
+        if selected_date:
+            start = datetime.combine(selected_date, datetime.min.time())
+            end = datetime.combine(selected_date, datetime.max.time())
+            events = events.filter(date__range=(start, end))
 
-    categories = Event.CATEGORY_CHOICES
-    return render(request, "event/event_list.html", {"events": events, "categories": categories})
+    # 📆 Календарь с 1 по 31 мая
+    calendar_days = range(1, 32)
+    today = date.today()
 
-def event_detail(request, event_id):
-    event = get_object_or_404(Event, id=event_id)
-    return render(request, "event/event_detail.html", {"event": event})
+    return render(request, 'event/event_list.html', {
+        'form': form,
+        'events': events,
+        'featured_events': featured_events,
+        'calendar_days': calendar_days,
+        'today': today
+    })
+
+class EventDetailView(DetailView):
+    model = Event
+    template_name = 'event/event_detail.html'
+    context_object_name = 'event'

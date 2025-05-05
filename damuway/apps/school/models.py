@@ -12,6 +12,13 @@ class District(models.Model):
     def __str__(self):
         return self.name
 
+    def get_image(self):
+        if self.image:
+            return self.image.url
+        elif self.image_url:
+            return self.image_url
+        return None
+
 
 class School(models.Model):
     SCHOOL_TYPES = (

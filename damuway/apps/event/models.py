@@ -21,6 +21,7 @@ class Event(models.Model):
     price = models.CharField(max_length=50, verbose_name="Цена", default="Бесплатно")
     ticket_link = models.URLField(blank=True, null=True, verbose_name="Ссылка на билеты")
     organizer = models.CharField(max_length=255, blank=True, null=True, verbose_name="Организатор")
+    featured = models.BooleanField(default=False, verbose_name="Показывать в слайдере")
 
     def __str__(self):
         return self.title

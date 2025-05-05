@@ -1,53 +1,95 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}События для детей | Damuway{% endblock %}
+{% block title %}Афиша событий Алматы | Damuway{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/event/event.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
 {% endblock %}
 
 {% block content %}
-<div class="event-list-container">
-  <h1>🎉 Детские мероприятия</h1>
+<div class="event-page">
 
-  <!-- Фильтр -->
-  <form method="GET" class="filter-form">
-    <div class="form-row">
-      <label for="category">Категория</label>
-      <select name="category" id="category" class="filter-select" onchange="this.form.submit()">
-        <option value="">Все категории</option>
-        {% for key, name in categories %}
-        <option value="{{ key }}" {% if request.GET.category == key %}selected{% endif %}>{{ name }}</option>
+    <!-- 🔥 Заголовок -->
+    <h1 class="event-title">Афиша событий Алматы</h1>
+
+    <!-- 📆 Календарь -->
+    <div class="calendar-row">
+        <div class="calendar-month">Май</div>
+        <div class="calendar-days">
+            {% for day in calendar_days %}
+                {% if day == today.day %}
+                    <button class="calendar-day today">{{ day }}</button>
+                {% else %}
+                    <button class="calendar-day">{{ day }}</button>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- 📌 Календарные кнопки -->
+    <div class="calendar-buttons">
+        <a href="?date={{ today }}" class="calendar-btn">Сегодня</a>
+        <a href="?date={{ today|add:"1 day" }}" class="calendar-btn">Завтра</a>
+        <a href="?weekend=true" class="calendar-btn">Выходные</a>
+        <input type="date" name="date" class="calendar-picker"
+               onchange="window.location.href='?date=' + this.value;">
+    </div>
+
+    <!-- 🎉 Слайдер -->
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            {% for event in featured_events %}
+            <div class="swiper-slide slide-hero">
+                <img src="{{ event.image.url }}" alt="{{ event.title }}" class="slide-img">
+                <div class="slide-content">
+                    <h2>{{ event.title }}</h2>
+                    {% if event.ticket_link %}
+                        <a href="{{ event.ticket_link }}" class="btn-buy" target="_blank">Купить билет</a>
+                    {% else %}
+                        <a href="{% url 'event_detail' event.id %}" class="btn-buy">Подробнее</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+
+    <!-- 🧲 Популярное -->
+    <div class="section-heading">
+        <h2>Популярное</h2>
+    </div>
+
+    <!-- 🎟 Карточки событий -->
+    <div class="event-grid">
+        {% for event in events %}
+        <a href="{% url 'event_detail' event.id %}" class="event-card">
+            <img src="{{ event.image.url }}" alt="{{ event.title }}">
+            <div class="event-info">
+                <h3>{{ event.title }}</h3>
+                <p>📍 {{ event.location }}</p>
+                <p>📅 {{ event.date|date:"d M Y H:i" }}</p>
+                <p>👶 {{ event.age_limit }} | 💰 {{ event.price }}</p>
+            </div>
+        </a>
+        {% empty %}
+        <p class="no-events">😔 Пока нет мероприятий.</p>
         {% endfor %}
-      </select>
     </div>
-    <div class="form-row">
-      <label for="search">Поиск</label>
-      <input type="text" name="search" id="search" class="filter-input" placeholder="🔍 Название..." value="{{ request.GET.search }}">
-    </div>
-    <button type="submit" class="filter-btn">Поиск</button>
-  </form>
 
-  <!-- Список событий -->
-  <div class="event-grid">
-    {% for event in events %}
-    <a href="{% url 'event_detail' event.id %}" class="event-card">
-      {% if event.image %}
-      <img src="{{ event.image.url }}" alt="{{ event.title }}">
-      {% else %}
-      <div class="event-placeholder">Нет изображения</div>
-      {% endif %}
-      <div class="event-info">
-        <h2>{{ event.title }}</h2>
-        <p class="meta">📍 {{ event.location }} | 🗓 {{ event.date|date:"d M Y H:i" }}</p>
-        <p class="age">👶 {{ event.age_limit }}</p>
-        <p class="price">💰 {{ event.price }}</p>
-      </div>
-    </a>
-    {% empty %}
-    <p class="no-events">😔 Пока нет запланированных событий.</p>
-    {% endfor %}
-  </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<script>
+    const swiper = new Swiper(".mySwiper", {
+        loop: true,
+        pagination: {
+            el: ".swiper-pagination",
+        },
+    });
+</script>
 {% endblock %}

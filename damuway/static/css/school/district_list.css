@@ -25,8 +25,8 @@
 
 /* Hero Section */
 .district-hero {
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: var(--white);
+    background-image: url("https://static.vecteezy.com/system/resources/thumbnails/010/801/642/small_2x/aerial-clean-top-view-of-the-night-time-city-map-with-street-and-river-001-vector.jpg");
+    color: #4a148c;
     padding: 80px 0;
     text-align: center;
     margin-bottom: 40px;
@@ -160,6 +160,23 @@
     .districts-grid {
         grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     }
+}
+
+.card-header img.district-image {
+    display: block;
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-bottom: 1px solid var(--border);
+}
+
+/* Сохраняем старую заливку и выравнивание только если изображения нет */
+.card-header.soft-bg:has(.district-number) {
+    background: linear-gradient(135deg, #d0e8ff, #f1f5ff);
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 @media (max-width: 480px) {
