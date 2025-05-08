@@ -13,4 +13,7 @@ urlpatterns = [
     path('my-bookings/', views.user_bookings, name='user_bookings'),
     path('my-reviews/', views.user_reviews, name='user_reviews'),
     path('cancel-booking/<int:pk>/', views.cancel_booking, name='cancel_booking'),
+    path('specialist/anna/', views.specialist_anna, name='specialist_anna'),
+    path('specialist/oleg/', views.specialist_oleg, name='specialist_oleg'),
+    path('specialist/elena/', views.specialist_elena, name='specialist_elena'),
 ]

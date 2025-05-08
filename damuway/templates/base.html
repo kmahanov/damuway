@@ -18,123 +18,133 @@
       --font-main: 'Inter', sans-serif;
       --main-color: #714EFF;
     }
+
+    html, body {
+      height: 100%;
+    }
+
     body {
       font-family: var(--font-main);
       transition: background-color 0.3s ease, color 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    main {
+      flex: 1;
     }
   </style>
 
   {% block extra_css %}{% endblock %}
 </head>
 <body class="{% if request.COOKIES.theme == 'dark' %}dark-mode{% endif %}">
+  <div class="wrapper">
 
-<!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
-  <div class="container">
-    <!-- Logo -->
-    <a class="navbar-brand d-flex align-items-center" href="{% url 'main' %}">
-      <img src="{% static 'images/logo.png' %}" alt="Logo" height="32" class="me-2">
-      <strong>DAMUWAY</strong>
-    </a>
-
-    <!-- Burger -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <!-- Menu -->
-    <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
-      <!-- Center nav -->
-      <ul class="navbar-nav mx-auto align-items-center gap-lg-3">
-        <li class="nav-item">
-          <a class="btn btn-primary px-3 py-2" href="/catalog">{% trans "Каталог" %}</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link py-2" href="/about">{% trans "О нас" %}</a>
-        </li>
-      </ul>
-
-      <!-- Right -->
-      <ul class="navbar-nav align-items-center gap-2">
-        <li class="nav-item">
-          <form action="{% url 'set_language' %}" method="post" class="mb-0">
-            {% csrf_token %}
-            <select name="language" onchange="this.form.submit()" class="form-select form-select-sm">
-              <option value="ru" {% if LANGUAGE_CODE == "ru" %}selected{% endif %}>RU</option>
-              <option value="kk" {% if LANGUAGE_CODE == "kk" %}selected{% endif %}>KZ</option>
-              <option value="en" {% if LANGUAGE_CODE == "en" %}selected{% endif %}>EN</option>
-            </select>
-          </form>
-        </li>
-        <li class="nav-item">
-          <button id="toggle-theme" class="btn btn-outline-light" style="color: var(--main-color); border: none;">🌙</button>
-        </li>
-        {% if user.is_authenticated %}
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-            <i class="fas fa-user-circle" style="font-size: 24px; color: var(--main-color);"></i>
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="{% url 'profile' %}">{% trans "Профиль" %}</a></li>
-            <li><a class="dropdown-item" href="{% url 'logout' %}">{% trans "Выйти" %}</a></li>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="{% url 'main' %}">
+          <img src="{% static 'images/logo.png' %}" alt="Logo" height="32" class="me-2">
+          <strong>DAMUWAY</strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+          <ul class="navbar-nav mx-auto align-items-center gap-lg-3">
+            <li class="nav-item"><a class="btn btn-primary px-3 py-2" href="/catalog">{% trans "Каталог" %}</a></li>
+            <li class="nav-item"><a class="nav-link py-2" href="/about">{% trans "О нас" %}</a></li>
           </ul>
-        </li>
-        {% else %}
-        <li class="nav-item">
-          <a href="{% url 'login' %}" class="btn btn-outline-primary">{% trans "Войти" %}</a>
-        </li>
-        {% endif %}
-      </ul>
-    </div>
+          <ul class="navbar-nav align-items-center gap-2">
+            <li class="nav-item">
+              <form action="{% url 'set_language' %}" method="post" class="mb-0">
+                {% csrf_token %}
+                <select name="language" onchange="this.form.submit()" class="form-select form-select-sm">
+                  <option value="ru" {% if LANGUAGE_CODE == "ru" %}selected{% endif %}>RU</option>
+                  <option value="kk" {% if LANGUAGE_CODE == "kk" %}selected{% endif %}>KZ</option>
+                  <option value="en" {% if LANGUAGE_CODE == "en" %}selected{% endif %}>EN</option>
+                </select>
+              </form>
+            </li>
+            <li class="nav-item">
+              <button id="toggle-theme" class="btn btn-outline-light" style="color: var(--main-color); border: none;">🌙</button>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                <i class="fas fa-user-circle" style="font-size: 24px; color: var(--main-color);"></i>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="{% url 'profile' %}">{% trans "Профиль" %}</a></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">{% trans "Выйти" %}</a></li>
+              </ul>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a href="{% url 'login' %}" class="btn btn-outline-primary">{% trans "Войти" %}</a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+
+
+    <footer class="footer mt-5 py-4 bg-light">
+      <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+        <div class="d-flex align-items-center mb-3 mb-md-0">
+          <img src="{% static 'images/logo.png' %}" alt="Logo" height="28" class="me-2">
+          <span class="fw-bold">Damuway</span>
+        </div>
+        <div class="d-flex flex-column flex-md-row gap-3 mb-3 mb-md-0">
+          <a href="#">{% trans "Политика конфиденциальности" %}</a>
+          <a href="#">{% trans "Поддержка" %}</a>
+          <a href="#">FAQ</a>
+        </div>
+        <div class="d-flex gap-3">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-telegram"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+    </footer>
+
   </div>
-</nav>
 
-<!-- CONTENT -->
-{% block content %}{% endblock %}
 
-<!-- FOOTER -->
-<footer class="footer mt-5 py-4">
-  <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
-    <div class="d-flex align-items-center mb-3 mb-md-0">
-      <img src="{% static 'images/logo.png' %}" alt="Logo" height="28" class="me-2">
-      <span class="fw-bold">Damuway</span>
-    </div>
-    <div class="d-flex flex-column flex-md-row gap-3 mb-3 mb-md-0">
-      <a href="/privacy">{% trans "Политика конфиденциальности" %}</a>
-      <a href="/support">{% trans "Поддержка" %}</a>
-      <a href="/faq">FAQ</a>
-    </div>
-    <div class="d-flex gap-3">
-      <a href="#"><i class="fab fa-instagram"></i></a>
-      <a href="#"><i class="fab fa-telegram"></i></a>
-      <a href="#"><i class="fab fa-youtube"></i></a>
-    </div>
-  </div>
-</footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
 
-<!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-  // Theme
-  const themeBtn = document.getElementById("toggle-theme");
-  function setTheme(isDark) {
-    document.body.classList.toggle("dark-mode", isDark);
-    themeBtn.textContent = isDark ? "☀️" : "🌙";
-    document.cookie = "theme=" + (isDark ? "dark" : "light") + "; path=/";
-  }
-  themeBtn?.addEventListener("click", () => setTheme(!document.body.classList.contains("dark-mode")));
-  if (document.cookie.includes("theme=dark")) setTheme(true);
+    const themeBtn = document.getElementById("toggle-theme");
+    function setTheme(isDark) {
+      document.body.classList.toggle("dark-mode", isDark);
+      themeBtn.textContent = isDark ? "☀️" : "🌙";
+      document.cookie = "theme=" + (isDark ? "dark" : "light") + "; path=/";
+    }
+    themeBtn?.addEventListener("click", () => setTheme(!document.body.classList.contains("dark-mode")));
+    if (document.cookie.includes("theme=dark")) setTheme(true);
 
-  // Auto close burger
-  document.querySelectorAll('.navbar-collapse .nav-link, .navbar-collapse .btn').forEach(el => {
-    el.addEventListener('click', () => {
-      const collapse = document.querySelector('.navbar-collapse');
-      const bsCollapse = bootstrap.Collapse.getInstance(collapse);
-      if (bsCollapse) bsCollapse.hide();
+    // Auto close burger
+    document.querySelectorAll('.navbar-collapse .nav-link, .navbar-collapse .btn').forEach(el => {
+      el.addEventListener('click', () => {
+        const collapse = document.querySelector('.navbar-collapse');
+        const bsCollapse = bootstrap.Collapse.getInstance(collapse);
+        if (bsCollapse) bsCollapse.hide();
+      });
     });
-  });
-</script>
+  </script>
 
-{% block extra_js %}{% endblock %}
+  {% block extra_js %}{% endblock %}
 </body>
 </html>

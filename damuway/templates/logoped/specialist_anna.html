@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Анна Иванова — Логопед | Damuway{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/specialist_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="specialist-detail-section py-5">
+  <div class="container">
+    <div class="row">
+      <!-- Фото и базовая инфа -->
+      <div class="col-md-4 text-center mb-4">
+        <img src="{% static 'img/illustrations/anna.jpg' %}" alt="Анна Иванова" class="img-fluid rounded shadow">
+        <h3 class="mt-3">Анна Иванова</h3>
+        <p class="text-muted">Логопед, стаж 7 лет</p>
+        <a href="#" class="btn btn-primary mt-2">Записаться на приём</a>
+      </div>
+
+      <!-- Информация -->
+      <div class="col-md-8">
+        <h4>О специалисте</h4>
+        <p>Анна Иванова — сертифицированный логопед с 7-летним опытом работы с детьми от 3 до 12 лет. Специализируется на коррекции звуков, запуске речи, работе с ЗПР и РАС. Индивидуальный подход к каждому ребёнку, работа в игровой форме, тесное взаимодействие с родителями.</p>
+
+        <h4 class="mt-4">Услуги</h4>
+        <ul>
+          <li>Диагностика речи и консультация</li>
+          <li>Индивидуальные логопедические занятия</li>
+          <li>Развитие фонематического слуха и внимания</li>
+          <li>Запуск речи у неговорящих детей</li>
+        </ul>
+
+        <h4 class="mt-4">Отзывы родителей</h4>
+        <div class="bg-light p-3 rounded mb-3">
+          <p><strong>Марина:</strong> “После 2 месяцев занятий мой сын начал говорить! Анна — волшебница! Спасибо огромное.”</p>
+        </div>
+        <div class="bg-light p-3 rounded">
+          <p><strong>Алексей:</strong> “Очень доброжелательная и профессиональная. Занятия проходят весело и эффективно.”</p>
+        </div>
+
+        <a href="/" class="btn btn-outline-secondary mt-4">← Вернуться на главную</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

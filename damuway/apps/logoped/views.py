@@ -116,3 +116,14 @@ def cancel_booking(request, pk):
         return redirect('user_bookings')
 
     return render(request, 'logoped/cancel_booking.html', {'booking': booking})
+
+from django.shortcuts import render
+
+def specialist_anna(request):
+    return render(request, 'logoped/specialist_anna.html')
+
+def specialist_oleg(request):
+    return render(request, 'logoped/specialist_oleg.html')
+
+def specialist_elena(request):
+    return render(request, 'logoped/specialist_elena.html')

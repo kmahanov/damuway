@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Олег Петров — Детский массажист | Damuway{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/specialist_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="specialist-detail-section py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 text-center mb-4">
+        <img src="{% static 'img/illustrations/massage-timur-2.jpg' %}" alt="Олег Петров" class="img-fluid rounded shadow">
+        <h3 class="mt-3">Олег Петров</h3>
+        <p class="text-muted">Детский массажист, 5 лет опыта</p>
+        <a href="#" class="btn btn-primary mt-2">Записаться на массаж</a>
+      </div>
+      <div class="col-md-8">
+        <h4>О специалисте</h4>
+        <p>Олег — квалифицированный детский массажист, помогающий детям с первых месяцев жизни. Более 300 благодарных семей доверили ему здоровье своих малышей. Работает с проблемами тонуса, колик, плоскостопия и другими состояниями.</p>
+
+        <h4 class="mt-4">Услуги</h4>
+        <ul>
+          <li>Общий укрепляющий массаж</li>
+          <li>Массаж при гипертонусе и гипотонусе</li>
+          <li>Профилактика сколиоза и плоскостопия</li>
+          <li>Консультация и подбор упражнений</li>
+        </ul>
+
+        <h4 class="mt-4">Отзывы родителей</h4>
+        <div class="bg-light p-3 rounded mb-3">
+          <p><strong>Гульнар:</strong> “Уже после 3 сеансов дочка начала лучше спать, перестали колики. Олег — очень чуткий специалист.”</p>
+        </div>
+        <div class="bg-light p-3 rounded">
+          <p><strong>Динара:</strong> “Мягкий подход и профессионализм! Рекомендую всем мамам!”</p>
+        </div>
+
+        <a href="/" class="btn btn-outline-secondary mt-4">← Вернуться на главную</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

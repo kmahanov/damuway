@@ -16,7 +16,7 @@ urlpatterns += i18n_patterns(
     path('book/', include('apps.book.urls')),
     path('school/', include('apps.school.urls')),
     path('massage/', include('apps.massage.urls')),
-    path('logoped/', include('apps.logoped.urls')),
+    path('logoped/', include(('apps.logoped.urls', 'logoped'), namespace='logoped')),
     path('event/', include('apps.event.urls')),
     path('about/', include('apps.about_us.urls')),
     path('activity/', include('apps.activity.urls')),

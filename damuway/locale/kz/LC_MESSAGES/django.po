@@ -1,0 +1,100 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-05-08 06:48+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: .\apps\recipe\models.py:17
+msgid "Название"
+msgstr ""
+
+#: .\apps\recipe\models.py:21
+msgid "Возрастная группа"
+msgstr ""
+
+#: .\apps\recipe\models.py:24
+msgid "Ингредиенты"
+msgstr ""
+
+#: .\apps\recipe\models.py:25
+msgid "Способ приготовления"
+msgstr ""
+
+#: .\apps\recipe\models.py:31
+msgid "Изображение (файл)"
+msgstr ""
+
+#: .\apps\recipe\models.py:36
+msgid "Изображение (ссылка)"
+msgstr ""
+
+#: .\apps\recipe\models.py:39
+msgid "Средний рейтинг"
+msgstr ""
+
+#: .\apps\recipe\models.py:57 .\apps\recipe\models.py:76
+msgid "Рецепт"
+msgstr ""
+
+#: .\apps\recipe\models.py:64
+msgid "Комментарий"
+msgstr ""
+
+#: .\apps\recipe\models.py:65
+msgid "Дата добавления"
+msgstr ""
+
+#: .\apps\recipe\models.py:85
+msgid "Оценка"
+msgstr ""
+
+#: .\templates\base.html:30
+msgid "Добро пожаловать на DAMUWAY! Откройте новые возможности вместе с нами."
+msgstr ""
+
+#: .\templates\base.html:39
+msgid "DAMUWAY — растем вместе, шаг за шагом"
+msgstr ""
+
+#: .\templates\base.html:40
+msgid "Лучшие школы, садики, кружки и советы для развития вашего ребёнка."
+msgstr ""
+
+#: .\templates\base.html:41
+msgid "Начать"
+msgstr ""
+
+#: .\templates\base.html:44
+msgid "Семья растет вместе"
+msgstr ""
+
+#: .\templates\base.html:52
+msgid "Почему DAMUWAY?"
+msgstr ""
+
+#: .\templates\base.html:53
+msgid ""
+"Мы создали DAMUWAY, чтобы поддерживать родителей на каждом этапе развития "
+"ребёнка. Только проверенные советы, лучшие учреждения и честные отзывы."
+msgstr ""
+
+#: .\templates\base.html:54
+msgid "О нас"
+msgstr ""
+
+#: .\templates\base.html:60
+msgid "Что вы найдете у нас?"
+msgstr ""

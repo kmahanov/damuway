@@ -71,7 +71,7 @@
           <a href="/article/4" class="cta-btn-small">Читать</a>
         </div>
       </div>
-      
+
     </div>
   </div>
 </section>
@@ -81,26 +81,26 @@
     <div class="row g-4">
       <div class="col-md-4">
         <div class="specialist-card">
-          <img src="{% static 'img/specialists/logoped1.jpg' %}" class="specialist-photo" alt="Логопед Анна">
+          <img src="{% static 'img/illustrations/anna.jpg' %}" class="specialist-photo" alt="Логопед Анна">
           <h5>Анна Иванова</h5>
           <p>Логопед, стаж 7 лет. Индивидуальный подход.</p>
-          <a href="/logoped/1" class="cta-btn-small">Подробнее</a>
+          <a href="{% url 'logoped:specialist_anna' %}" class="cta-btn-small">Подробнее</a>
         </div>
       </div>
       <div class="col-md-4">
         <div class="specialist-card">
-          <img src="{% static 'img/specialists/massage1.jpg' %}" class="specialist-photo" alt="Массажист Олег">
+          <img src="{% static 'img/illustrations/massage-timur-2.jpg' %}" class="specialist-photo" alt="Массажист Олег">
           <h5>Олег Петров</h5>
           <p>Детский массажист. Более 300 счастливых клиентов.</p>
-          <a href="/specialist/1" class="cta-btn-small">Подробнее</a>
+          <a href="{% url 'logoped:specialist_oleg' %}" class="cta-btn-small">Подробнее</a>
         </div>
       </div>
       <div class="col-md-4">
         <div class="specialist-card">
-          <img src="{% static 'img/specialists/logoped2.jpg' %}" class="specialist-photo" alt="Логопед Елена">
+          <img src="{% static 'img/illustrations/Luciano_Massage3.webp' %}" class="specialist-photo" alt="Логопед Елена">
           <h5>Елена Кузнецова</h5>
           <p>Логопед-дефектолог, ранняя коррекция речи.</p>
-          <a href="/logoped/2" class="cta-btn-small">Подробнее</a>
+          <a href="{% url 'logoped:specialist_elena' %}" class="cta-btn-small">Подробнее</a>
         </div>
       </div>
     </div>
@@ -114,14 +114,14 @@
         <div class="event-card">
           <h5>Фестиваль детства</h5>
           <p>1 июня — праздник для всей семьи в Центральном парке.</p>
-          <a href="/event/1" class="cta-btn-small">Подробнее</a>
+          <a href="#" class="cta-btn-small">Подробнее</a>
         </div>
       </div>
       <div class="col-md-6">
         <div class="event-card">
           <h5>Мастер-класс по рисованию</h5>
           <p>15 мая — занятие для детей 4-8 лет, творческая студия "Арт-Бум".</p>
-          <a href="/event/2" class="cta-btn-small">Подробнее</a>
+          <a href="#" class="cta-btn-small">Подробнее</a>
         </div>
       </div>
     </div>
