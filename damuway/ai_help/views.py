@@ -3,7 +3,9 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from .models import QuestionAnswer
 from .ai_generator import generate_answer
-
+from django.views.decorators.http import require_GET
+from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 
 @login_required
 def ask_ai_view(request):
@@ -17,9 +19,7 @@ def ask_ai_view(request):
     history = QuestionAnswer.objects.filter(user=request.user).order_by('-created_at')[:5]
     return render(request, 'ai_helper/ask.html', {'history': history})
 
-from django.views.decorators.http import require_GET
-from django.http import HttpResponse
-from django.contrib.auth.decorators import login_required
+
 
 @login_required
 @require_GET

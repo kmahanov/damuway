@@ -1,55 +1,67 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Damuway - Профиль{% endblock %}
+{% block title %}Профиль | Damuway{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/user/profile.css' %}">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 {% endblock %}
+
 {% block content %}
-<div class="profile-container">
-    <div class="profile-card">
-        <!-- Аватар и основная информация -->
-        <div class="profile-header">
-            <div class="avatar-circle">
-                {{ user.first_name.0|default:user.username.0 }}
-            </div>
-            <h1>{{ user.first_name|default:user.username }}</h1>
-            <p class="user-email">{{ user.email }}</p>
-            <p class="member-since">Участник с {{ user.date_joined|date:"d.m.Y" }}</p>
-        </div>
+<div class="profile-page">
+  <div class="profile-wrapper">
 
-        <!-- Основные данные -->
-        <div class="profile-details">
-            <div class="detail-item">
-                <span class="detail-label">Имя пользователя:</span>
-                <span class="detail-value">{{ user.username }}</span>
-            </div>
-            
-            <div class="detail-item">
-                <span class="detail-label">Дата регистрации:</span>
-                <span class="detail-value">{{ user.date_joined|date:"d.m.Y" }}</span>
-            </div>
-            
-            <div class="detail-item">
-                <span class="detail-label">Последний вход:</span>
-                <span class="detail-value">
-                    {% if user.last_login %}
-                        {{ user.last_login|date:"d.m.Y H:i" }}
-                    {% else %}
-                        Ещё не входил
-                    {% endif %}
-                </span>
-            </div>
-        </div>
-
-        <!-- Действия -->
-        <div class="profile-actions">
-            <a href="#" class="action-btn edit-btn">Изменить имя</a>
-            <a href="{% url 'password_reset' %}" class="action-btn change-btn">Сменить пароль</a>
-            <a href="{% url 'logout' %}" class="action-btn logout-btn">Выйти из аккаунта</a>
-        </div>
+    <!-- Левая колонка -->
+    <div class="profile-sidebar">
+      <div class="avatar-circle-big">
+        {{ user.first_name.0|default:user.username.0 }}
+      </div>
+      <h2>{{ user.first_name|default:user.username }}</h2>
+      <p class="user-email">{{ user.email }}</p>
+      <p class="member-since">С нами с {{ user.date_joined|date:"d.m.Y" }}</p>
+      <div class="profile-quote">
+        <q>“Забота начинается с осознанности.”</q>
+      </div>
     </div>
+
+    <!-- Правая колонка -->
+    <div class="profile-main">
+      <h3>О пользователе</h3>
+      <p>Рады видеть вас в Damuway, {{ user.first_name|default:user.username }}! Здесь вы можете управлять своим профилем, читать статьи, оставлять отзывы и находить нужную информацию для себя и своего ребёнка.</p>
+
+      <div class="profile-details">
+        <div class="detail-item">
+          <strong>Имя пользователя:</strong> {{ user.username }}
+        </div>
+        <div class="detail-item">
+          <strong>Дата регистрации:</strong> {{ user.date_joined|date:"d.m.Y" }}
+        </div>
+        <div class="detail-item">
+          <strong>Последний вход:</strong>
+          {% if user.last_login %}
+            {{ user.last_login|date:"d.m.Y H:i" }}
+          {% else %}
+            Ещё не входил
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="profile-stats">
+        <h4>Активность</h4>
+        <ul>
+          <li>Отзывы: <strong>12</strong></li>
+          <li>Избранные статьи: <strong>5</strong></li>
+          <li>Посещённые страницы: <strong>24</strong></li>
+        </ul>
+      </div>
+
+      <div class="profile-actions">
+        <a href="#" class="action-btn edit-btn">Редактировать профиль</a>
+        <a href="{% url 'password_reset' %}" class="action-btn change-btn">Сменить пароль</a>
+        <a href="{% url 'logout' %}" class="action-btn logout-btn">Выйти</a>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}

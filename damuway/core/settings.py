@@ -25,13 +25,13 @@ SECRET_KEY = 'django-insecure-)&@3vh1pji-&04m+(n4ep1($=1gy04fk27=pk_z631kqa+$yve
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    # 'jazzmin',
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -201,66 +201,66 @@ GOOGLE_MAPS_API_KEY = 'AIzaSyCSGkHrOCjab82WAhhlPayKqkzJ5MV0qlI'
 FILE_UPLOAD_MAX_MEMORY_SIZE = 26214400  # 25MB
 DATA_UPLOAD_MAX_MEMORY_SIZE = 26214400  # 25MB
 
-# JAZZMIN_SETTINGS = {
-#     "site_title": "DamuWay Admin",
-#     "site_header": "Панель управления DamuWay 👶💡",
-#     "site_brand": "DamuWay",
-#     "site_logo": "images/logo.png",
-#     "site_logo_classes": "img-circle",
-#     "welcome_sign": "Добро пожаловать в мир заботы о детях 🌿",
-#     "copyright": "© 2025 DamuWay",
-#     "search_model": ["users.CustomUser", "books.Book"],
-#
-#     "user_avatar": "profile.avatar",
-#
-#     "topmenu_links": [
-#         {"name": "Главная", "url": "/", "new_window": True, "icon": "fas fa-home"},
-#         {"model": "auth.User"},
-#         {"model": "books.Book"},
-#     ],
-#
-#     "usermenu_links": [
-#         {"name": "Поддержка", "url": "https://t.me/damuway_admin", "new_window": True, "icon": "fas fa-life-ring"},
-#     ],
-#
-#     "icons": {
-#         "auth": "fas fa-users-cog",
-#         "auth.user": "fas fa-user",
-#         "books": "fas fa-book",
-#         "massage": "fas fa-spa",
-#         "kindergarten": "fas fa-school",
-#         "school": "fas fa-chalkboard-teacher",
-#         "restaurant": "fas fa-utensils",
-#         "sports": "fas fa-dumbbell",
-#     },
-#
-#     "show_sidebar": True,
-#     "navigation_expanded": True,
-#     "hide_apps": [],
-#     "hide_models": [],
-#     "order_with_respect_to": ["books", "school", "kindergarten", "massage", "sports", "restaurant"],
-#
-#     "custom_css": "css/admin_custom.css",
-#     "custom_js": None,
-#     "related_modal_active": True,
-#
-#     "default_icon_parents": "fas fa-chevron-circle-right",
-#     "default_icon_children": "fas fa-circle",
-# }
-# JAZZMIN_UI_TWEAKS = {
-#     "show_ui_builder": False,
-#     "navbar_fixed": True,
-#     "footer_fixed": False,
-# }
-#
-# JAZZMIN_SETTINGS["custom_links"] = {
-#     "users": [{
-#         "name": "💬 Обратная связь",
-#         "url": "https://t.me/damuway_admin",
-#         "icon": "fas fa-paper-plane",
-#         "permissions": ["auth.view_user"]
-#     }]
-# }
-# JAZZMIN_SETTINGS["custom_js"] = "js/admin_message.js"
-# JAZZMIN_SETTINGS["show_ui_builder"] = False
-# JAZZMIN_SETTINGS["copyright"] = "С любовью 💜 от команды DamuWay"
+JAZZMIN_SETTINGS = {
+    "site_title": "DamuWay Admin",
+    "site_header": "Панель управления DamuWay 👶💡",
+    "site_brand": "DamuWay",
+    "site_logo": "images/logo.png",
+    "site_logo_classes": "img-circle",
+    "welcome_sign": "Добро пожаловать в мир заботы о детях 🌿",
+    "copyright": "© 2025 DamuWay",
+    "search_model": ["users.CustomUser", "books.Book"],
+
+    "user_avatar": "profile.avatar",
+
+    "topmenu_links": [
+        {"name": "Главная", "url": "/", "new_window": True, "icon": "fas fa-home"},
+        {"model": "auth.User"},
+        {"model": "books.Book"},
+    ],
+
+    "usermenu_links": [
+        {"name": "Поддержка", "url": "https://t.me/damuway_admin", "new_window": True, "icon": "fas fa-life-ring"},
+    ],
+
+    "icons": {
+        "auth": "fas fa-users-cog",
+        "auth.user": "fas fa-user",
+        "books": "fas fa-book",
+        "massage": "fas fa-spa",
+        "kindergarten": "fas fa-school",
+        "school": "fas fa-chalkboard-teacher",
+        "restaurant": "fas fa-utensils",
+        "sports": "fas fa-dumbbell",
+    },
+
+    "show_sidebar": True,
+    "navigation_expanded": True,
+    "hide_apps": [],
+    "hide_models": [],
+    "order_with_respect_to": ["books", "school", "kindergarten", "massage", "sports", "restaurant"],
+
+    "custom_css": "css/admin_custom.css",
+    "custom_js": None,
+    "related_modal_active": True,
+
+    "default_icon_parents": "fas fa-chevron-circle-right",
+    "default_icon_children": "fas fa-circle",
+}
+JAZZMIN_UI_TWEAKS = {
+    "show_ui_builder": False,
+    "navbar_fixed": True,
+    "footer_fixed": False,
+}
+
+JAZZMIN_SETTINGS["custom_links"] = {
+    "users": [{
+        "name": "💬 Обратная связь",
+        "url": "https://t.me/damuway_admin",
+        "icon": "fas fa-paper-plane",
+        "permissions": ["auth.view_user"]
+    }]
+}
+JAZZMIN_SETTINGS["custom_js"] = "js/admin_message.js"
+JAZZMIN_SETTINGS["show_ui_builder"] = False
+JAZZMIN_SETTINGS["copyright"] = "С любовью 💜 от команды DamuWay"

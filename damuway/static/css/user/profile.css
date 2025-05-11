@@ -7,6 +7,110 @@
     --error: #E53E3E;
 }
 
+
+.profile-page {
+  width: 100%;
+  padding: 40px 5%;
+  font-family: 'Inter', sans-serif;
+  background: #f8f9fa;
+}
+
+.profile-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.profile-sidebar {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 20px;
+  width: 30%;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0,0,0,0.05);
+}
+
+.avatar-circle-big {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: #714EFF;
+  color: #fff;
+  font-size: 50px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.profile-quote {
+  margin-top: 20px;
+  font-style: italic;
+  color: #555;
+}
+
+.profile-main {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 20px;
+  width: 70%;
+  box-shadow: 0 0 15px rgba(0,0,0,0.05);
+}
+
+.profile-main h3 {
+  margin-bottom: 15px;
+}
+
+.profile-details .detail-item {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.profile-stats ul {
+  list-style: none;
+  padding: 0;
+}
+
+.profile-stats li {
+  margin-bottom: 8px;
+}
+
+.profile-actions {
+  margin-top: 30px;
+}
+
+.action-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-right: 10px;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: all 0.2s;
+}
+
+.edit-btn {
+  background-color: #714EFF;
+  color: #fff;
+}
+
+.change-btn {
+  background-color: #ffc107;
+  color: #000;
+}
+
+.logout-btn {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.action-btn:hover {
+  opacity: 0.9;
+}
+
+
 body {
     font-family: 'Inter', -apple-system, sans-serif;
     background-color: #F8FAFC;

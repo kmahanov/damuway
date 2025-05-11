@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: damuway
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn damuway.wsgi:application"
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: core.settings
