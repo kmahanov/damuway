@@ -44,9 +44,7 @@ PREDEFINED_ANSWERS = {
     "когда начинать обучение": "С рождения — играйте, читайте, показывайте предметы. Обучение — это естественная часть игры.",
 }
 
-
 generator = None
-
 
 def generate_answer(question):
     global generator
@@ -56,26 +54,19 @@ def generate_answer(question):
         if all(word in question_lower for word in keyword.split()):
             return predefined
 
+
     if generator is None:
         try:
             print("🔁 Загружаю AI модель...")
-
             generator = pipeline("text-generation", model="sshleifer/tiny-gpt2")
         except Exception as e:
-            return "⚠️ Ошибка загрузки модели. Попробуйте позже."
-
-    prompt = f"Вопрос: {question}\nОтвет:"
+            print("⚠️ Ошибка загрузки модели:", e)
+            return "⚠️ Модель временно недоступна. Попробуйте позже."
 
     try:
-        result = generator(
-            prompt,
-            max_length=60,
-            do_sample=True,
-            top_k=50,
-            top_p=0.95,
-            temperature=0.8,
-            repetition_penalty=1.2,
-        )[0]['generated_text']
+        prompt = f"Вопрос: {question}\nОтвет:"
+        result = generator(prompt, max_length=60, do_sample=True)[0]['generated_text']
         return result.split("Ответ:")[-1].strip()
     except Exception as e:
-        return "⚠️ Ошибка генерации ответа. Попробуйте ещё раз позже."
+        print("⚠️ Ошибка генерации:", e)
+        return "⚠️ Не удалось сгенерировать ответ. Попробуйте ещё раз."
