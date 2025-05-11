@@ -45,24 +45,37 @@ PREDEFINED_ANSWERS = {
 }
 
 
-print("🔁 Загружаю AI модель...")
-generator = pipeline("text-generation", model="ai-forever/rugpt3small_based_on_gpt2")
+generator = None
+
 
 def generate_answer(question):
+    global generator
+
     question_lower = question.lower()
     for keyword, predefined in PREDEFINED_ANSWERS.items():
         if all(word in question_lower for word in keyword.split()):
             return predefined
 
+    if generator is None:
+        try:
+            print("🔁 Загружаю AI модель...")
 
-    prompt = f"Ты — заботливый помощник родителям. Отвечай чётко и по делу. Вопрос: {question} Ответ:"
-    result = generator(
-        prompt,
-        max_length=60,
-        do_sample=True,
-        top_k=50,
-        top_p=0.95,
-        temperature=0.8,
-        repetition_penalty=1.2,
-    )[0]['generated_text']
-    return result.split("Ответ:")[-1].strip()
+            generator = pipeline("text-generation", model="sshleifer/tiny-gpt2")
+        except Exception as e:
+            return "⚠️ Ошибка загрузки модели. Попробуйте позже."
+
+    prompt = f"Вопрос: {question}\nОтвет:"
+
+    try:
+        result = generator(
+            prompt,
+            max_length=60,
+            do_sample=True,
+            top_k=50,
+            top_p=0.95,
+            temperature=0.8,
+            repetition_penalty=1.2,
+        )[0]['generated_text']
+        return result.split("Ответ:")[-1].strip()
+    except Exception as e:
+        return "⚠️ Ошибка генерации ответа. Попробуйте ещё раз позже."
